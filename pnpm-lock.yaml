@@ -8,13 +8,22 @@ importers:
 
   .:
     dependencies:
-      dcqc:
-        specifier: workspace:1.0.3-beat
+      dc-hooks:
+        specifier: workspace:1.0.0-beat
+        version: link:packages/hooks
+      dc-pro-component:
+        specifier: workspace:1.0.6-beat
         version: link:packages/components
+      dcqc-utils:
+        specifier: workspace:1.0.1-beat
+        version: link:packages/utils
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^4.4.0
         version: 4.4.0(vite@4.4.11)(vue@3.3.4)
+      prettier:
+        specifier: ^3.0.3
+        version: 3.0.3
       vite:
         specifier: ^4.4.11
         version: 4.4.11
@@ -29,22 +38,21 @@ importers:
     dependencies:
       dcqc:
         specifier: workspace:^
-        version: link:../packages/components
+        version: link:..
       vue:
         specifier: ^3.3.4
         version: 3.3.4
 
   packages/components:
     dependencies:
-      '@dcqc/utils':
-        specifier: workspace:^
-        version: link:../utils
       ant-design-vue:
         specifier: 4.x
         version: 4.0.4(vue@3.3.4)
       vite-plugin-vue-setup-extend:
         specifier: ^0.4.0
         version: 0.4.0(vite@4.4.11)
+
+  packages/hooks: {}
 
   packages/utils: {}
 
@@ -859,6 +867,12 @@ packages:
 
   /preact@10.18.1:
     resolution: {integrity: sha512-mKUD7RRkQQM6s7Rkmi7IFkoEHjuFqRQUaXamO61E6Nn7vqF/bo7EZCmSyrUnp2UWHw0O7XjZ2eeXis+m7tf4lg==}
+    dev: true
+
+  /prettier@3.0.3:
+    resolution: {integrity: sha512-L/4pUDMxcNa8R/EthV08Zt42WBO4h1rarVtK0K+QJG0X187OLo7l699jWw0GKuwzkPQ//jMFA/8Xm6Fh3J/DAg==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   /regenerator-runtime@0.14.0:

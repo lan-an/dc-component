@@ -6,7 +6,7 @@ const __default__ = vue.defineComponent({
   name: "Dbutton"
 });
 const _sfc_main = /* @__PURE__ */ Object.assign(__default__, {
-  name: "DcqcButton"
+  name: "DButton"
 }, {
   setup(__props) {
     const onClick = () => {

@@ -1,8 +1,8 @@
 {
-  "name": "dcqc",
-  "version": "1.0.5-beat",
+  "name": "dc-pro-component",
+  "version": "1.0.6-beat",
   "description": "",
-  "main": "src/index.js",
+  "main":"src/index.js",
   "files": [
     "es",
     "lib"
@@ -15,12 +15,11 @@
     "docs:preview": "vitepress preview docs"
   },
   "keywords": [
-    "dcqc"
+    "dc-pro-component"
   ],
   "author": "dcqc",
   "license": "MIT",
   "dependencies": {
-    "@dcqc/utils": "workspace:^",
     "ant-design-vue": "4.x",
     "vite-plugin-vue-setup-extend": "^0.4.0"
   }
