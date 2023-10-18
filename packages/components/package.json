@@ -1,0 +1,27 @@
+{
+  "name": "dcqc",
+  "version": "1.0.5-beat",
+  "description": "",
+  "main": "src/index.js",
+  "files": [
+    "es",
+    "lib"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vite build",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "keywords": [
+    "dcqc"
+  ],
+  "author": "dcqc",
+  "license": "MIT",
+  "dependencies": {
+    "@dcqc/utils": "workspace:^",
+    "ant-design-vue": "4.x",
+    "vite-plugin-vue-setup-extend": "^0.4.0"
+  }
+}
