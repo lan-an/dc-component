@@ -1,6 +1,6 @@
 {
-  "name": "dcqc-utils",
-  "version": "1.0.1-beat",
+  "name": "dc-hooks",
+  "version": "1.0.0-beat",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,5 +8,5 @@
   },
   "keywords": [],
   "author": "",
-  "license": "MIT"
+  "license": "ISC"
 }

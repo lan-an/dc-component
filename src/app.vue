@@ -7,9 +7,10 @@
 -->
 
 <template>
-  <dcqc-button>按钮</dcqc-button>
+  <d-button>按钮</d-button>
 </template>
 
 <script setup>
+
 // import { Dbutton } from "dcqc";
 </script>

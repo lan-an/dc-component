@@ -6,7 +6,7 @@
  * @FilePath: \dcqc-component\packages\components\src\button\index.js
  */
 import button from "./button.vue";
-import { withInstall } from "@dcqc/utils";
+import { withInstall } from "dcqc-utils";
 //app.use(注册组件)
 const DButton = withInstall(button);
 export default DButton;

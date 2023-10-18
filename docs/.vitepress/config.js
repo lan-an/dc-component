@@ -28,11 +28,11 @@ export default {
               link: "/component/button",
               activeMatch: "/component/button",
             },
-            {
-              text: "space",
-              link: "/component/space",
-              activeMatch: "/component/space",
-            },
+            // {
+            //   text: "space",
+            //   link: "/component/space",
+            //   activeMatch: "/component/space",
+            // },
           ],
         },
       ],
