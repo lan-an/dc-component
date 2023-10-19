@@ -12,3 +12,7 @@ export const withInstall = (comp) => {
   };
   return comp;
 };
+
+export const demo =()=>{
+  alert('')
+}

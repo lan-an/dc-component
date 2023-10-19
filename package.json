@@ -16,11 +16,15 @@
   "license": "ISC",
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.4.0",
+    "prettier": "^3.0.3",
     "vite": "^4.4.11",
     "vitepress": "1.0.0-rc.22",
     "vue": "^3.3.4"
   },
   "dependencies": {
-    "dcqc": "workspace:1.0.5-beat"
+
+    "dc-hooks": "workspace:1.0.0-beat",
+    "dc-pro-component": "workspace:1.0.6-beat",
+    "dcqc-utils": "workspace:1.0.1-beat"
   }
 }

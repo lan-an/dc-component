@@ -7,6 +7,7 @@
  */
 import { createApp } from "vue";
 import App from "./app.vue";
-import * as dcqc from 'dcqc'
+import * as dc from "dc-pro-component";
+
 const app = createApp(App);
-app.use(dcqc).mount("#app");
+app.use(dc).mount("#app");
