@@ -6,7 +6,7 @@
  * @FilePath: \dc-component\README.md
 -->
 
-# vue-amazing-ui
+# dc-pro-component
 
 _该组件库采用 `Vue3`+ `Vite` + `antd` 实现！_<br/>
 _持续探索更新中...！_<br/>
