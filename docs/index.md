@@ -13,8 +13,9 @@ hero:
       text: Get Started
       link: /guide/method
     - theme: alt
+
       text: View on GitHub
-      link: https://github.com/vuejs/vitepress
+      link: https://github.com/lan-an/dc-component
 
 features:
   - icon: 🛠️

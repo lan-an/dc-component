@@ -14,12 +14,12 @@
 ::: code-group
 
 ```shell [pnpm]
-pnpm install dcqc
+pnpm install dc-pro-component
 
 ```
 
 ```shell [npm]
-npm install dcqc --save
+npm install dc-pro-component --save
 ```
 
 :::
@@ -29,12 +29,12 @@ npm install dcqc --save
 > App.vue
 
 ```js
-import { createApp } from "vue";
-import App from "./app.vue";
+import { createApp } from 'vue'
+import App from './app.vue'
 
-import * as dcqc from "dcqc"; // [!code  hl]
-const app = createApp(App); // [!code  focus]
-app.use(dcqc).mount("#app"); // [!code  hl]
+import * as dc from 'dc-pro-component' // [!code  hl]
+const app = createApp(App) // [!code  focus]
+app.use(dc).mount('#app') // [!code  hl]
 ```
 
 ```vue
@@ -55,6 +55,6 @@ app.use(dcqc).mount("#app"); // [!code  hl]
 </template>
 
 <script setup>
-import { Button } from "dcqc";
+import { Button } from 'dc-pro-component'
 </script>
 ```

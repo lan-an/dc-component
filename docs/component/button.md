@@ -1,3 +1,11 @@
+<!--
+ * @Date: 2023-10-18 13:01:07
+ * @Auth: 463997479@qq.com
+ * @LastEditors: 463997479@qq.com
+ * @LastEditTime: 2023-10-19 09:57:12
+ * @FilePath: \dc-component\docs\component\button.md
+-->
+
 # Button 按钮
 
 按钮用于开始一个即时操作。
@@ -50,27 +58,6 @@
 ```
 
 :::
-
-```js
-export default {
-  data () {
-    return {
-      msg: 'Removed' // [!code  --]
-      msg: 'Added' // [!code  ++]
-    }
-  }
-}
-```
-
-```js
-export default {
-  data() {
-    return {
-      msg: "Highlighted!", // [!code  hl]
-    };
-  },
-};
-```
 
 ## Attributes
 
