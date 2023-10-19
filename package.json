@@ -1,5 +1,5 @@
 {
-  "name": "dcqc",
+  "name": "dc-component",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,8 @@
     "dev": "vite dev",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "deploy":"bash deploy.sh"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +22,7 @@
     "vue": "^3.3.4"
   },
   "dependencies": {
+
     "dc-hooks": "workspace:1.0.0-beat",
     "dc-pro-component": "workspace:1.0.6-beat",
     "dcqc-utils": "workspace:1.0.1-beat"

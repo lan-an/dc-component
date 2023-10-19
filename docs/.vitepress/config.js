@@ -2,10 +2,12 @@
  * @Date: 2023-10-17 17:16:50
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-18 12:36:49
- * @FilePath: \dcqc-component\docs\.vitepress\config.js
+ * @LastEditTime: 2023-10-18 17:14:47
+ * @FilePath: \dc-component\docs\.vitepress\config.js
  */
 export default {
+  //部署自己服务器去掉/
+  base: "/dc-component",
   themeConfig: {
     siteTitle: "dcqcComponent",
     logo: "/logo.svg",
@@ -49,5 +51,17 @@ export default {
         },
       ],
     },
+    footer: {
+      message: "Released under the MIT License.",
+      copyright: "Copyright © 2023-present Evan You",
+    },
+    editLink: {
+      pattern: ({ filePath }) => {
+        return `https://github.com/lan-an/dc-component/docs/${filePath}`;
+      },
+    },
+  },
+  markdown: {
+    lineNumbers: true,
   },
 };

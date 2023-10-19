@@ -1,9 +1,9 @@
 <!--
- * @Date: 2023-10-17 17:28:06
+ * @Date: 2023-10-18 13:01:07
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-18 12:26:26
- * @FilePath: \dcqc-component\docs\component\button.md
+ * @LastEditTime: 2023-10-19 09:57:12
+ * @FilePath: \dc-component\docs\component\button.md
 -->
 
 # Button 按钮
@@ -22,6 +22,8 @@
     <d-button type="link" block>Link</d-button>
   </dcqc-space>
 
+::: details Show Code
+
 ```vue
 <template>
   <d-button>默认按钮</d-button>
@@ -33,6 +35,8 @@
 </template>
 ```
 
+:::
+
 ## 不同尺寸
 
 提供三种不同尺寸的按钮。
@@ -43,6 +47,8 @@
   <d-button size="large">成功按钮</d-button>
 </dcqc-space>
 
+::: details Show Code
+
 ```vue
 <template>
   <d-button>默认按钮</d-button>
@@ -50,6 +56,8 @@
   <d-button size="large">成功按钮</d-button>
 </template>
 ```
+
+:::
 
 ## Attributes
 
