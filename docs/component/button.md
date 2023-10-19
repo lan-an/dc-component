@@ -1,11 +1,3 @@
-<!--
- * @Date: 2023-10-17 17:28:06
- * @Auth: 463997479@qq.com
- * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-18 12:26:26
- * @FilePath: \dcqc-component\docs\component\button.md
--->
-
 # Button 按钮
 
 按钮用于开始一个即时操作。
@@ -22,6 +14,8 @@
     <d-button type="link" block>Link</d-button>
   </dcqc-space>
 
+::: details Show Code
+
 ```vue
 <template>
   <d-button>默认按钮</d-button>
@@ -33,6 +27,8 @@
 </template>
 ```
 
+:::
+
 ## 不同尺寸
 
 提供三种不同尺寸的按钮。
@@ -43,12 +39,37 @@
   <d-button size="large">成功按钮</d-button>
 </dcqc-space>
 
+::: details Show Code
+
 ```vue
 <template>
   <d-button>默认按钮</d-button>
   <d-button size="small">主要按钮</d-button>
   <d-button size="large">成功按钮</d-button>
 </template>
+```
+
+:::
+
+```js
+export default {
+  data () {
+    return {
+      msg: 'Removed' // [!code  --]
+      msg: 'Added' // [!code  ++]
+    }
+  }
+}
+```
+
+```js
+export default {
+  data() {
+    return {
+      msg: "Highlighted!", // [!code  hl]
+    };
+  },
+};
 ```
 
 ## Attributes

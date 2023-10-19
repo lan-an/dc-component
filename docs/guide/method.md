@@ -1,13 +1,28 @@
+<!--
+ * @Date: 2023-10-18 13:01:07
+ * @Auth: 463997479@qq.com
+ * @LastEditors: 463997479@qq.com
+ * @LastEditTime: 2023-10-18 15:36:29
+ * @FilePath: \dc-component\docs\guide\method.md
+-->
+
 # 快速上手
 
 ## 安装
 
 使用命令
+::: code-group
 
-```shell
+```shell [pnpm]
 pnpm install dcqc
 
 ```
+
+```shell [npm]
+npm install dcqc --save
+```
+
+:::
 
 ## 全局注册
 
@@ -16,9 +31,10 @@ pnpm install dcqc
 ```js
 import { createApp } from "vue";
 import App from "./app.vue";
-import * as dcqc from "dcqc";
-const app = createApp(App);
-app.use(dcqc).mount("#app");
+
+import * as dcqc from "dcqc"; // [!code  hl]
+const app = createApp(App); // [!code  focus]
+app.use(dcqc).mount("#app"); // [!code  hl]
 ```
 
 ```vue

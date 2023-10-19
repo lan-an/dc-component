@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       dcqc:
-        specifier: workspace:1.0.3-beat
+        specifier: workspace:1.0.5-beat
         version: link:packages/components
     devDependencies:
       '@vitejs/plugin-vue':
