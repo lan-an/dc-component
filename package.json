@@ -40,6 +40,6 @@
     "dcqc-utils": "workspace:1.0.1-beat"
   },
   "lint-staged": {
-    "*.js,ts": "eslint --fix"
+    "*.js": "eslint --fix"
   }
 }
