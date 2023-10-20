@@ -9,20 +9,24 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "deploy":"bash deploy.sh"
+    "deploy": "bash deploy.sh",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@rushstack/eslint-patch": "^1.5.1",
     "@vitejs/plugin-vue": "^4.4.0",
+    "@vue/eslint-config-typescript": "^12.0.0",
+    "eslint": "^8.51.0",
+    "eslint-plugin-vue": "^9.17.0",
     "prettier": "^3.0.3",
     "vite": "^4.4.11",
     "vitepress": "1.0.0-rc.22",
     "vue": "^3.3.4"
   },
   "dependencies": {
-
     "dc-hooks": "workspace:1.0.0-beat",
     "dc-pro-component": "workspace:1.0.6-beat",
     "dcqc-utils": "workspace:1.0.1-beat"
