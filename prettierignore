@@ -5,3 +5,5 @@
 **/*.svg
 **/*.sh
 /public/*
+/packages/components/es
+/packages/components/lib

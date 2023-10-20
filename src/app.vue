@@ -11,6 +11,5 @@
 </template>
 
 <script setup>
-
 // import { Dbutton } from "dcqc";
 </script>

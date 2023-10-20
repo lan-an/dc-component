@@ -5,9 +5,9 @@
  * @LastEditTime: 2023-10-17 11:34:40
  * @FilePath: \dcqc-component\examples\main.js
  */
-import { createApp } from "vue";
-import App from "./app.vue";
-import * as dc from "dc-pro-component";
+import { createApp } from 'vue'
+import App from './app.vue'
+import * as dc from 'dc-pro-component'
 
-const app = createApp(App);
-app.use(dc).mount("#app");
+const app = createApp(App)
+app.use(dc).mount('#app')

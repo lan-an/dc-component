@@ -1,8 +1,9 @@
 {
   "name": "dc-pro-component",
-  "version": "1.0.6-beat",
+  "version": "1.0.7-beat",
   "description": "",
-  "main":"src/index.js",
+  "main": "lib/index.js",
+  "module": "es/index.js",
   "files": [
     "es",
     "lib"
