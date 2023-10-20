@@ -10,17 +10,25 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "deploy": "bash deploy.sh",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore es lib",
+    "prepare": "husky install",
+    "lint-staged": "lint-staged",
+    "commitlint": "commitlint --config commitlint.config.cjs -e -V",
+    "preinstall": "node ./scripts/preinstall.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@commitlint/cli": "^17.8.0",
+    "@commitlint/config-conventional": "^17.8.0",
     "@rushstack/eslint-patch": "^1.5.1",
     "@vitejs/plugin-vue": "^4.4.0",
     "@vue/eslint-config-typescript": "^12.0.0",
     "eslint": "^8.51.0",
     "eslint-plugin-vue": "^9.17.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2",
     "prettier": "^3.0.3",
     "vite": "^4.4.11",
     "vitepress": "1.0.0-rc.22",
@@ -30,5 +38,8 @@
     "dc-hooks": "workspace:1.0.0-beat",
     "dc-pro-component": "workspace:1.0.6-beat",
     "dcqc-utils": "workspace:1.0.1-beat"
+  },
+  "lint-staged": {
+    "*.js": "eslint --fix"
   }
 }
