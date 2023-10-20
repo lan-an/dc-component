@@ -13,8 +13,9 @@
     "isolatedModules": true,
     "baseUrl": "./",
 
+    
     "paths": {
-      "@/*": ["./src/*,./packages/*,./examples/*"]
+      "@/*": ["./src/*","./packages/*","./examples/*"],
     }
   }
 }
