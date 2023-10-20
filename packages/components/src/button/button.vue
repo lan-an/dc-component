@@ -16,4 +16,5 @@ defineOptions({
 import { Button } from 'ant-design-vue'
 const onClick = () => {}
 let a = 1
+let ae = 1
 </script>
