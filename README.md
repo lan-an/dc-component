@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 15:20:53
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-19 10:48:58
+ * @LastEditTime: 2023-10-19 14:24:58
  * @FilePath: \dc-component\README.md
 -->
 
@@ -72,7 +72,11 @@ pnpm dev
 
 <div>
 
-"main": "lib/index.js",
-"module": "es/index.js",
+```vue
+<script setup>
+//"main": "lib/index.js",
+//"module": "es/index.js",
+</script>
+```
 
 </div>
