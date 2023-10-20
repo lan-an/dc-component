@@ -2,7 +2,7 @@
  * @Date: 2023-10-16 13:25:31
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-20 14:14:22
+ * @LastEditTime: 2023-10-20 14:16:11
  * @FilePath: \dc-component\packages\components\src\button\button.vue
 -->
 <template>
@@ -15,5 +15,4 @@ defineOptions({
 })
 import { Button } from 'ant-design-vue'
 const onClick = () => {}
-var a = 1
 </script>
