@@ -10,7 +10,7 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "deploy": "bash deploy.sh",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore es lib",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "prepare": "husky install",
     "lint-staged": "lint-staged",
     "commitlint": "commitlint --config commitlint.config.cjs -e -V",
@@ -40,6 +40,6 @@
     "dcqc-utils": "workspace:1.0.1-beat"
   },
   "lint-staged": {
-    "*.js": "eslint --fix"
+    "*.js,ts": "eslint --fix"
   }
 }
