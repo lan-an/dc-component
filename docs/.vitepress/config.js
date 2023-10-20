@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 17:16:50
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-19 15:43:36
+ * @LastEditTime: 2023-10-20 14:29:49
  * @FilePath: \dc-component\docs\.vitepress\config.js
  */
 export default {
@@ -18,6 +18,8 @@ export default {
     nav: [
       { text: '组件', link: '/component/button' },
       { text: '指南', link: '/guide/method' },
+
+      { text: 'hooks', link: '/hooks/method' },
 
       { text: 'gitHub', link: 'https://github.com/lan-an/dc-component' }
     ],

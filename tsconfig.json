@@ -1,0 +1,20 @@
+{
+  "include": [
+    "./env.d.ts",
+    "./src/**/*",
+    "./src/**/*.vue",
+    "./packages/**/*.ts",
+    "./examples/**/*.ts",
+    "./examples/**/*.vue",
+    "./packages/**/*.vue"
+  ],
+  "compilerOptions": {
+    "ignoreDeprecations": "5.0",
+    "isolatedModules": true,
+    "baseUrl": "./",
+
+    "paths": {
+      "@/*": ["./src/*,./packages/*,./examples/*"]
+    }
+  }
+}
