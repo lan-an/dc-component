@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 15:20:53
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-20 17:19:32
+ * @LastEditTime: 2023-10-23 17:58:33
  * @FilePath: \dc-component\README.md
 -->
 
@@ -77,6 +77,7 @@ pnpm dev
 //上线修改package.json
 //"main": "lib/index.js",
 //"module": "es/index.js",
+//复盘任务
 </script>
 ```
 
