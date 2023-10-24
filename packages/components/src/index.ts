@@ -2,10 +2,11 @@
  * @Date: 2023-10-17 11:15:29
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-20 15:10:08
+ * @LastEditTime: 2023-10-24 10:36:25
  * @FilePath: \dc-component\packages\components\src\index.ts
  */
 import * as components from './components'
+import 'element-plus/theme-chalk/index.css'
 import type { App } from 'vue'
 export * from './components'
 export const install = function (app: App) {
