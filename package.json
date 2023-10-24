@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "dc-hooks": "workspace:1.0.0-beat",
-    "dc-pro-component": "workspace:1.0.12-beta",
+    "dc-pro-component": "workspace:1.0.13-beta",
     "dcqc-utils": "workspace:1.0.1-beat"
   },
   "lint-staged": {
