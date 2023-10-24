@@ -1,9 +1,8 @@
 {
   "name": "dc-pro-component",
-  "version": "1.0.7-beat",
+  "version": "1.0.13-beta",
   "description": "",
-  "main": "lib/index.js",
-  "module": "es/index.js",
+  "main": "src/index.ts",
   "files": [
     "es",
     "lib"
@@ -21,7 +20,7 @@
   "author": "dcqc",
   "license": "MIT",
   "dependencies": {
-    "ant-design-vue": "4.x",
+    "element-plus": "^2.4.1",
     "vite-plugin-vue-setup-extend": "^0.4.0"
   }
 }

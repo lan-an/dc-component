@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 15:20:53
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-19 14:24:58
+ * @LastEditTime: 2023-10-23 17:58:33
  * @FilePath: \dc-component\README.md
 -->
 
@@ -74,8 +74,10 @@ pnpm dev
 
 ```vue
 <script setup>
+//上线修改package.json
 //"main": "lib/index.js",
 //"module": "es/index.js",
+//复盘任务
 </script>
 ```
 
