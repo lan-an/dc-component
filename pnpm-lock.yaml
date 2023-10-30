@@ -45,6 +45,9 @@ importers:
       lint-staged:
         specifier: ^15.0.2
         version: 15.0.2
+      postcss:
+        specifier: ^8.4.31
+        version: 8.4.31
       prettier:
         specifier: ^3.0.3
         version: 3.0.3
@@ -59,7 +62,7 @@ importers:
         version: 1.4.1(@types/node@20.5.1)(vite@4.4.11)
       vitepress:
         specifier: 1.0.0-rc.22
-        version: 1.0.0-rc.22(@algolia/client-search@4.20.0)(@types/node@20.5.1)(search-insights@2.9.0)
+        version: 1.0.0-rc.22(@algolia/client-search@4.20.0)(@types/node@20.5.1)(postcss@8.4.31)(search-insights@2.9.0)
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -72,6 +75,9 @@ importers:
 
   packages/components:
     dependencies:
+      '@element-plus/icons-vue':
+        specifier: ^2.1.0
+        version: 2.1.0(vue@3.3.4)
       element-plus:
         specifier: ^2.4.1
         version: 2.4.1(vue@3.3.4)
@@ -3423,7 +3429,7 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
 
-  /vitepress@1.0.0-rc.22(@algolia/client-search@4.20.0)(@types/node@20.5.1)(search-insights@2.9.0):
+  /vitepress@1.0.0-rc.22(@algolia/client-search@4.20.0)(@types/node@20.5.1)(postcss@8.4.31)(search-insights@2.9.0):
     resolution: {integrity: sha512-n7le5iikCFgWMuX7sKfzDGJGlrsYQ5trG3S97BghNz2alOTr4Xp+GrB6ShwogUTX9gNgeNmrACjokhW55LNeBA==}
     hasBin: true
     peerDependencies:
@@ -3444,6 +3450,7 @@ packages:
       focus-trap: 7.5.4
       mark.js: 8.11.1
       minisearch: 6.1.0
+      postcss: 8.4.31
       shiki: 0.14.5
       vite: 4.4.11(@types/node@20.5.1)
       vue: 3.3.4

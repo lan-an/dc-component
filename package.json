@@ -29,6 +29,7 @@
     "eslint-plugin-vue": "^9.17.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.0.2",
+    "postcss": "^8.4.31",
     "prettier": "^3.0.3",
     "typescript": "^5.2.2",
     "vite": "^4.4.11",
@@ -38,7 +39,6 @@
   },
   "dependencies": {
     "dc-hooks": "workspace:1.0.0-beat",
-
     "dc-pro-component": "workspace:1.0.13-beta",
     "dcqc-utils": "workspace:1.0.1-beat"
   },

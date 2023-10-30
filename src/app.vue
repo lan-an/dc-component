@@ -10,50 +10,72 @@
   <d-table-search
     :columns="columns"
     :request="handleRequest"
-    :data="tableData"
     title="Card name"
-    :pagination="{
-      background: true,
-      layout: 'prev, pager, next',
-
-      total: 1000,
-      small: 'small',
+    :header-cell-style="{
+      background:'#f5f7fa'
     }"
+    :pagination="{
+      
+      background: true,
+      layout:'total, sizes, prev, pager, next, jumper',
+      small: 'small',
+      pageSizes  :[10, 200, 300, 400]
+    }"
+    
     :hasSearch="true"
     border
   >
+
     <template #dTableRight>
       <el-button type="primary" class="button">Operation button</el-button>
       <el-button class="button">...</el-button>
     </template>
-    <template #searchData="{ searchForm }">
+    <template #searchData="{ search }">
       <el-space>
-        <el-form-item label="Activity name">
-          <el-input v-model="searchForm.name" />
+        <el-form-item prop="name" label="Activity name">
+          <el-input v-model="search.name" />
         </el-form-item>
       </el-space>
+    </template>
+
+
+    <template #name="data">
+      <div>{{ data }}</div>
+    </template>
+    <template #action="data">
+      <el-button link type="primary">operation add</el-button>
+      <el-button link  type="warning" >peration edit</el-button>
     </template>
   </d-table-search>
 </template>
 
 <script lang="ts" setup>
 import { DTableSearch } from 'dc-pro-component';
-import { ElButton, ElInput, ElSpace, ElTableColumn } from 'element-plus';
-
+import { ElButton, ElInput, ElSpace,ElFormItem } from 'element-plus';
+import {onUnmounted} from 'vue'
 const columns = [
   {
     prop: 'name',
+
     label: 'name',
-    width: '300',
+    slotName:'name'
   },
   {
     prop: 'date',
     label: 'date',
-    width: '300',
   },
   {
     prop: 'address',
     label: 'address',
+    render:()=>{
+      return ''
+    }
+  },
+  {
+    prop: '操作',
+    label: '操作',
+   slotName:'action',
+   width:300
   },
 ];
 const tableData = [
@@ -78,11 +100,17 @@ const tableData = [
     address: 'No. 189, Grove St, Los Angeles',
   },
 ];
-
+let timer=null
 const handleRequest = (params, done) => {
   console.log(params);
-
+  // done({data:[],total:1000});
+  timer=setTimeout(()=>{
+  done({data:tableData,total:1000});
+    
+  },2000)
   //请求返回数据
-  done(tableData);
 };
+onUnmounted(()=>{
+  clearTimeout(timer)
+})
 </script>

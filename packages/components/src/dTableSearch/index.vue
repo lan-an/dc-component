@@ -8,11 +8,12 @@
 <template>
   <div class="d-content-table">
     <el-card class="box-card">
+      <!-- 搜索 -->
       <template v-if="hasSearch" #header>
         <div class="card-header">
           <el-form ref="ruleFormRef" :model="searchForm">
-            <slot :searchForm="searchForm" name="searchData"></slot>
-            <el-button type="primary" @click="handleSearch">查询</el-button>
+            <slot :search="searchForm" name="searchData"></slot> 
+            <el-button :loading="loading" type="primary" @click="handleSearch">查询</el-button>
             <el-button @click="handleReset(ruleFormRef)">重置</el-button>
           </el-form>
         </div>
@@ -25,17 +26,26 @@
           </div>
           <div class="d-table-right">
             <slot name="dTableRight"></slot>
+            <el-button @click="handleSearch" :icon="Refresh"  ></el-button>
           </div>
         </div>
+        
         <el-table v-bind="{ ...$attrs }" :data="tableData" style="width: 100%">
           <el-table-column
             v-for="(item, index) in columArr"
             v-bind="{ ...item }"
-            :key="index"
-          ></el-table-column>
+            :key="index">
+          <template   v-if="item.slotName" #default="scope">
+            <slot :name="item.slotName" :data="{...scope.row,index:scope.$index}" ></slot>
+          </template>
+        </el-table-column>
         </el-table>
+        <!-- 分页 -->
         <div class="d-table-footer">
-          <el-pagination v-bind="{ ...pagination }" />
+          <d-page
+          @handleCurrentChange="handleCurrentChange"
+          @handleSizeChange="handleSizeChange"
+          :pagination="{...pagination,total:page.total?page.total:100}"/>
         </div>
       </div>
     </el-card>
@@ -45,7 +55,11 @@
 <script lang="ts" name="DTableSearch" setup>
 import type { ColumProps } from '@/components';
 import type { FormInstance } from 'element-plus';
+import DPage from './footer.vue'
 
+import {
+  Refresh
+} from '@element-plus/icons-vue'
 import {
   ElPagination,
   ElButton,
@@ -54,9 +68,10 @@ import {
   ElTableColumn,
   ElForm,
   ElFormItem,
+  ElInput
 } from 'element-plus';
 
-import { onMounted, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 
 defineOptions({
   name: 'DTableSearch',
@@ -66,12 +81,24 @@ defineOptions({
 let columArr: any[] = [];
 const tableData = ref([]);
 //查询条件
-const searchForm = ref({});
+
+let searchForm = reactive({});
+const loading=ref(false)
+const page=reactive({
+  pageNum:10,
+  pageSize:1,
+  total:6
+})
 const ruleFormRef = ref<FormInstance>();
 const { request, hasPage, columns, pagination } = withDefaults(
   defineProps<{
     columns?: ColumProps[];
-    request: (params: any, done: (data: any[]) => void) => void;
+    request: (params: any, done: (res: {
+      data:any[],
+      total?:number,
+      pageNum?:number,
+      pageSize?:number
+    }) => void) => void;
     title?: string;
     pagination?: any; //分页所有参数
     hasSearch?: boolean; //是否需要搜索
@@ -84,27 +111,58 @@ const { request, hasPage, columns, pagination } = withDefaults(
 );
 //搜索
 const handleSearch = () => {
-  handleMethod();
+  handleRequest();
+  
 };
+
 //重置
 const handleReset = (formEl: FormInstance | undefined) => {
   if (hasPage) {
-    searchForm.value = {
-      ...searchForm.value,
-      pageNum: 10,
-      pageSize: 1,
-    };
+    page.pageNum = 10
   }
-  if (!formEl) return;
+  if(!formEl)return
   formEl.resetFields();
-  console.log(searchForm.value);
-  handleMethod();
-};
-//异步函数返回
+  handleRequest();
 
-const handleMethod = (): void => {
-  request({ ...searchForm.value }, data => {
-    tableData.value = data;
+};
+//分页
+
+const handleCurrentChange = (val: number) => {
+  page.pageNum=val
+  handleRequest()
+
+}
+
+const handleSizeChange = (val: number) => {
+  page.pageSize=val
+  handleRequest()
+
+}
+
+//异步函数返回
+const handleRequest = (): void => {
+  let params = {
+    ...searchForm
+  }
+  if (hasPage) {
+    params = {
+      ...searchForm,
+    pageNum :page.pageNum,
+    pageSize :page.pageSize
+  }
+  }
+  loading.value=true;
+  request({ ...params }, res => {
+    if(res){
+      if (hasPage) {
+        tableData.value = res.data;
+        page.total = res.total
+      } else {
+        tableData.value = res.data;
+      }
+    loading.value=false
+
+    }
   });
 };
 
@@ -119,14 +177,13 @@ const handleResetColum = (): void => {
     }
     columArr.push(obj);
   }
-  console.log(columArr);
 };
 onMounted(() => {
   handleResetColum();
-  handleMethod();
+  handleRequest();
 });
 </script>
-<style>
+<style scoped>
 .d-content-table {
   width: 100%;
   height: 100%;
