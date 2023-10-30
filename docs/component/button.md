@@ -2,7 +2,7 @@
  * @Date: 2023-10-18 13:01:07
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-19 09:57:12
+ * @LastEditTime: 2023-10-24 14:04:49
  * @FilePath: \dc-component\docs\component\button.md
 -->
 
@@ -15,11 +15,11 @@
 基础的按钮用法。
 
 <dcqc-space >
-    <d-button type="primary" block>Primary</d-button>
-    <d-button block>Default</d-button>
-    <d-button type="dashed" block>Dashed</d-button>
-    <d-button danger block>Danger</d-button>
-    <d-button type="link" block>Link</d-button>
+  <d-button type="primary" block>Primary</d-button>
+  <d-button type="success">成功按钮</d-button>
+  <d-button type="info">信息按钮</d-button>
+  <d-button type="warning">警告按钮</d-button>
+  <d-button type="danger">危险按钮</d-button>
   </dcqc-space>
 
 ::: details Show Code

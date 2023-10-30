@@ -11,6 +11,7 @@
   "compilerOptions": {
     "ignoreDeprecations": "5.0",
     "isolatedModules": true,
+
     "types": ["./packages/components/components.d.ts"],
     "baseUrl": "./",
     "paths": {
