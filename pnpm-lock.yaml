@@ -12,7 +12,7 @@ importers:
         specifier: workspace:1.0.0-beat
         version: link:packages/hooks
       dc-pro-component:
-        specifier: workspace:1.0.6-beat
+        specifier: workspace:1.0.7-beat
         version: link:packages/components
       dcqc-utils:
         specifier: workspace:1.0.1-beat
