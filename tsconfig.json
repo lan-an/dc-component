@@ -11,11 +11,11 @@
   "compilerOptions": {
     "ignoreDeprecations": "5.0",
     "isolatedModules": true,
-    "baseUrl": "./",
 
-    
+    "types": ["./packages/components/components.d.ts"],
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*","./packages/*","./examples/*"],
+      "@/*": ["./src/*", "./packages/*", "./examples/*"]
     }
   }
 }
