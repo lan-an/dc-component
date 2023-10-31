@@ -2,13 +2,13 @@
  * @Date: 2023-10-18 13:01:07
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-24 14:04:49
- * @FilePath: \dc-component\docs\component\button.md
+ * @LastEditTime: 2023-10-31 17:48:37
+ * @FilePath: \dc-component\docs\component\dTableSearch.md
 -->
 
-# Button 按钮
+# dTableSearch 表格搜索组件
 
-按钮用于开始一个即时操作。
+表格搜索组件便捷式开发
 
 ## 基础用法
 
@@ -82,25 +82,25 @@ onUnmounted(()=>{
   
 </style>
 
+<DTableSearch
+:columns="columns"
+:request="handleRequest"
+:pagination="{
+background: true,
+layout:'total, sizes, prev, pager, next, jumper',
+small: 'small',
+pageSizes :[10, 200, 300, 400]
+}"  
+ :hasSearch="true"
+title="Card name"
+:header-cell-style="{
+background:'#f5f7fa'
+}"
+border
+class="vp-raw"
 
-  <DTableSearch
-    :columns="columns"
-    :request="handleRequest"
-    :pagination="{
-      background: true,
-      layout:'total, sizes, prev, pager, next, jumper',
-      small: 'small',
-      pageSizes  :[10, 200, 300, 400]
-    }"  
-    :hasSearch="true"
-    title="Card name"
-    :header-cell-style="{
-      background:'#f5f7fa'
-    }"
-    border
-    class="vp-raw"
-  >
-  <template #dTableRight>
+> <template #dTableRight>
+
       <el-button type="primary" class="button">Operation button</el-button>
       <el-button class="button">...</el-button>
     </template>
@@ -111,15 +111,16 @@ onUnmounted(()=>{
         </el-form-item>
       </el-space>
     </template>
- <template #name="data">
-      <div>{{ data.data.name }}</div>
-    </template>
-    <template #action="data">
-      <el-button link type="primary">operation add</el-button>
-      <el-button link  type="warning" >peration edit</el-button>
-    </template>
-</DTableSearch>
 
+<template #name="data">
+
+<div>{{ data.data.name }}</div>
+</template>
+<template #action="data">
+<el-button link type="primary">operation add</el-button>
+<el-button link  type="warning" >peration edit</el-button>
+</template>
+</DTableSearch>
 
 ::: details Show Code
 
@@ -130,19 +131,19 @@ onUnmounted(()=>{
     :request="handleRequest"
     :pagination="{
       background: true,
-      layout:'total, sizes, prev, pager, next, jumper',
+      layout: 'total, sizes, prev, pager, next, jumper',
       small: 'small',
-      pageSizes  :[10, 200, 300, 400]
-    }"  
+      pageSizes: [10, 200, 300, 400],
+    }"
     :hasSearch="true"
     title="Card name"
     :header-cell-style="{
-      background:'#f5f7fa'
+      background: '#f5f7fa',
     }"
     border
     class="vp-raw"
   >
-  <template #dTableRight>
+    <template #dTableRight>
       <el-button type="primary" class="button">Operation button</el-button>
       <el-button class="button">...</el-button>
     </template>
@@ -153,19 +154,18 @@ onUnmounted(()=>{
         </el-form-item>
       </el-space>
     </template>
- <template #name="data">
+    <template #name="data">
       <div>{{ data.data.name }}</div>
     </template>
     <template #action="data">
       <el-button link type="primary">operation add</el-button>
-      <el-button link  type="warning" >peration edit</el-button>
+      <el-button link type="warning">peration edit</el-button>
     </template>
-</DTableSearch>
+  </DTableSearch>
 </template>
 ```
 
 :::
-
 
 ## Attributes
 
