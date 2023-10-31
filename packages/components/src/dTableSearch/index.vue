@@ -2,7 +2,7 @@
  * @Date: 2023-10-30 10:58:31
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-30 18:16:16
+ * @LastEditTime: 2023-10-31 17:37:22
  * @FilePath: \dc-component\packages\components\src\dTableSearch\index.vue
 -->
 <template>
@@ -12,8 +12,10 @@
       <template v-if="hasSearch" #header>
         <div class="card-header">
           <el-form ref="ruleFormRef" :model="searchForm">
-            <slot :search="searchForm" name="searchData"></slot> 
-            <el-button :loading="loading" type="primary" @click="handleSearch">查询</el-button>
+            <slot :search="searchForm" name="searchData"></slot>
+            <el-button :loading="loading" type="primary" @click="handleSearch"
+              >查询</el-button
+            >
             <el-button @click="handleReset(ruleFormRef)">重置</el-button>
           </el-form>
         </div>
@@ -26,26 +28,37 @@
           </div>
           <div class="d-table-right">
             <slot name="dTableRight"></slot>
-            <el-button @click="handleSearch" :icon="Refresh"  ></el-button>
+            <el-button @click="handleSearch" :icon="Refresh"></el-button>
           </div>
         </div>
-        
+
         <el-table v-bind="{ ...$attrs }" :data="tableData" style="width: 100%">
           <el-table-column
             v-for="(item, index) in columArr"
             v-bind="{ ...item }"
-            :key="index">
-          <template   v-if="item.slotName" #default="scope">
-            <slot :name="item.slotName" :data="{...scope.row,index:scope.$index}" ></slot>
-          </template>
-        </el-table-column>
+            :key="index"
+          >
+            <template v-if="item.slotName" #default="scope">
+              <slot
+                :name="item.slotName"
+                :data="{ ...scope.row, index: scope.$index }"
+              ></slot>
+            </template>
+            <!-- <template #default="scope">
+              {{ item.render && item.render(scope) }}
+            </template> -->
+          </el-table-column>
         </el-table>
         <!-- 分页 -->
         <div class="d-table-footer">
           <d-page
-          @handleCurrentChange="handleCurrentChange"
-          @handleSizeChange="handleSizeChange"
-          :pagination="{...pagination,total:page.total?page.total:100}"/>
+            @handleCurrentChange="handleCurrentChange"
+            @handleSizeChange="handleSizeChange"
+            :pagination="{
+              ...pagination,
+              total: page.total ? page.total : 100,
+            }"
+          />
         </div>
       </div>
     </el-card>
@@ -55,20 +68,17 @@
 <script lang="ts" name="DTableSearch" setup>
 import type { ColumProps } from '@/components';
 import type { FormInstance } from 'element-plus';
-import DPage from './footer.vue'
+import DPage from './footer.vue';
 
+import { Refresh } from '@element-plus/icons-vue';
 import {
-  Refresh
-} from '@element-plus/icons-vue'
-import {
-  ElPagination,
   ElButton,
   ElCard,
   ElTable,
   ElTableColumn,
   ElForm,
   ElFormItem,
-  ElInput
+  ElInput,
 } from 'element-plus';
 
 import { onMounted, reactive, ref } from 'vue';
@@ -83,22 +93,25 @@ const tableData = ref([]);
 //查询条件
 
 let searchForm = reactive({});
-const loading=ref(false)
-const page=reactive({
-  pageNum:10,
-  pageSize:1,
-  total:6
-})
+const loading = ref(false);
+const page = reactive({
+  pageNum: 10,
+  pageSize: 1,
+  total: 6,
+});
 const ruleFormRef = ref<FormInstance>();
 const { request, hasPage, columns, pagination } = withDefaults(
   defineProps<{
     columns?: ColumProps[];
-    request: (params: any, done: (res: {
-      data:any[],
-      total?:number,
-      pageNum?:number,
-      pageSize?:number
-    }) => void) => void;
+    request: (
+      params: any,
+      done: (res: {
+        data: any[];
+        total?: number;
+        pageNum?: number;
+        pageSize?: number;
+      }) => void,
+    ) => void;
     title?: string;
     pagination?: any; //分页所有参数
     hasSearch?: boolean; //是否需要搜索
@@ -112,56 +125,51 @@ const { request, hasPage, columns, pagination } = withDefaults(
 //搜索
 const handleSearch = () => {
   handleRequest();
-  
 };
 
 //重置
 const handleReset = (formEl: FormInstance | undefined) => {
   if (hasPage) {
-    page.pageNum = 10
+    page.pageNum = 10;
   }
-  if(!formEl)return
+  if (!formEl) return;
   formEl.resetFields();
   handleRequest();
-
 };
 //分页
 
 const handleCurrentChange = (val: number) => {
-  page.pageNum=val
-  handleRequest()
-
-}
+  page.pageNum = val;
+  handleRequest();
+};
 
 const handleSizeChange = (val: number) => {
-  page.pageSize=val
-  handleRequest()
-
-}
+  page.pageSize = val;
+  handleRequest();
+};
 
 //异步函数返回
 const handleRequest = (): void => {
   let params = {
-    ...searchForm
-  }
+    ...searchForm,
+  };
   if (hasPage) {
     params = {
       ...searchForm,
-    pageNum :page.pageNum,
-    pageSize :page.pageSize
+      pageNum: page.pageNum,
+      pageSize: page.pageSize,
+    };
   }
-  }
-  loading.value=true;
+  loading.value = true;
   request({ ...params }, res => {
-    if(res){
+    if (res) {
       if (hasPage) {
         tableData.value = res.data;
-        page.total = res.total
+        page.total = res.total;
       } else {
         tableData.value = res.data;
       }
-    loading.value=false
-
+      loading.value = false;
     }
   });
 };
