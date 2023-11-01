@@ -5,7 +5,10 @@
  * @LastEditTime: 2023-10-31 17:43:24
  * @FilePath: \dc-component\src\router\index.ts
  */
-import { createRouter, createWebHashHistory } from 'vue-router';
+import {
+  createRouter,
+  createWebHistory,
+} from 'vue-router';
 
 // 2. 定义一些路由：每个路由都需要映射到一个组件。
 import DTableSearch from '../view/dTableSearch/index.vue';
@@ -36,7 +39,7 @@ export const routes: any = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory('dc-component'),
   routes, // `routes: routes` 的缩写
 });
 

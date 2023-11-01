@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import { routes } from '../router/index.ts';
+import { routes } from '../router/index';
 console.log(routes);
 import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
@@ -40,6 +40,7 @@ defineOptions({
 const routerArr = reactive([
   { name: 'DTableSearch', url: '/dashboard' },
   { name: 'Bak', url: '/Bak' },
+  { name: 'SingleSignOn', url: '/SingleSignOn' },
 ]);
 const isCollapse = ref(false);
 const handleOpen = (key: string, keyPath: string[]) => {
