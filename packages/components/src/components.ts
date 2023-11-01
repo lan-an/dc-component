@@ -9,4 +9,4 @@ export { default as Button } from './button';
 export { default as Space } from './space';
 export { default as DTableSearch } from './dTableSearch';
 export type { ColumProps } from './dTableSearch/dTableSearch';
-export { default as DSingleSignOn } from './SingleSignOn';
+export { default as DSingleSignOn } from './dSingleSignOn';

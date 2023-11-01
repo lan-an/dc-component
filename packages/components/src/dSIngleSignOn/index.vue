@@ -6,22 +6,13 @@
 import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-const props = defineProps({
-  url: {
-    type: String,
-    required: true,
-  },
-});
+import { singleSignOnProps, singleSignOnEmits } from './singleSignOn';
 
-// import useUserStore from '@/store/modules/user';
-// import { loginYkz } from '@/api/ubp/system/user.js';
-const useUserStore = () => {};
-const loginYkz = () => {};
+const props = defineProps(singleSignOnProps);
+defineEmits(singleSignOnEmits);
 
 const route = useRoute();
 const router = useRouter();
-
-const userStore = useUserStore();
 
 const message = ref('加载中……');
 
