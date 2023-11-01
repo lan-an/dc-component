@@ -69,7 +69,7 @@ const handleClick = arg => {
   height: 100%;
 }
 .content-right {
-  width: calc(100% - 200px);
+  width: calc(100% - 100px);
   padding: 20px;
   box-sizing: border-box;
 }
