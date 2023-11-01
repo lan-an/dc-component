@@ -40,6 +40,7 @@
     "vue-router": "4"
   },
   "dependencies": {
+    "axios": "0.27.2",
     "dc-hooks": "workspace:1.0.0-beat",
     "dc-pro-component": "workspace:1.0.13-beta",
     "dcqc-utils": "workspace:1.0.1-beat"
