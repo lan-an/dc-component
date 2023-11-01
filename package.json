@@ -14,7 +14,8 @@
     "prepare": "husky install",
     "lint-staged": "lint-staged",
     "commitlint": "commitlint --config commitlint.config.cjs -e -V",
-    "preinstall": "node ./scripts/preinstall.js"
+    "preinstall": "node ./scripts/preinstall.js",
+    "format": "prettier --write src/"
   },
   "keywords": [],
   "author": "",
