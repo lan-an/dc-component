@@ -14,6 +14,8 @@ import {
 import DTableSearch from '../view/dTableSearch/index.vue';
 import LayoutComponent from '../layout/index.vue';
 import Bak from '../view/bak/index.vue';
+import SingleSignOn from '../view/SingleSignOn/index.vue';
+
 export const routes: any = [
   {
     path: '/',
@@ -33,6 +35,12 @@ export const routes: any = [
         name: 'bak',
         meta: { title: '首页', affix: true },
         component: Bak,
+      },
+      {
+        path: 'SingleSignOn',
+        name: 'SingleSignOn',
+        meta: { title: '首页', affix: true },
+        component: SingleSignOn,
       },
     ],
   },
