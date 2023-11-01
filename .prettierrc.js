@@ -6,20 +6,31 @@
  * @FilePath: \dc-component\.prettierrc.js
  */
 module.exports = {
-  singleQuote: true,
   printWidth: 80,
-  pluginSearchDirs: false,
-  trailingComma: 'all',
-  arrowParens: 'avoid',
-  proseWrap: 'never',
+  tabWidth: 2,
+  useTabs: false,
+  semi: true,
   singleQuote: true,
+  quoteProps: 'as-needed',
+  jsxSingleQuote: false,
   trailingComma: 'all',
+  bracketSpacing: true,
+  bracketSameLine: false,
+  arrowParens: 'always',
+  requirePragma: false,
+  insertPragma: false,
+  proseWrap: 'preserve',
+  htmlWhitespaceSensitivity: 'css',
+  vueIndentScriptAndStyle: false,
+  endOfLine: 'lf',
+  embeddedLanguageFormatting: 'auto',
+  singleAttributePerLine: false,
   overrides: [
     {
       files: '*.md',
       options: {
-        proseWrap: 'preserve'
-      }
-    }
-  ]
-}
+        proseWrap: 'preserve',
+      },
+    },
+  ],
+};
