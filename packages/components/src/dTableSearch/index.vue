@@ -2,7 +2,7 @@
  * @Date: 2023-10-30 10:58:31
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-31 17:37:22
+ * @LastEditTime: 2023-11-01 09:13:23
  * @FilePath: \dc-component\packages\components\src\dTableSearch\index.vue
 -->
 <template>
@@ -71,15 +71,7 @@ import type { FormInstance } from 'element-plus';
 import DPage from './footer.vue';
 
 import { Refresh } from '@element-plus/icons-vue';
-import {
-  ElButton,
-  ElCard,
-  ElTable,
-  ElTableColumn,
-  ElForm,
-  ElFormItem,
-  ElInput,
-} from 'element-plus';
+import { ElButton, ElCard, ElTable, ElTableColumn, ElForm } from 'element-plus';
 
 import { onMounted, reactive, ref } from 'vue';
 
@@ -90,8 +82,8 @@ defineOptions({
 // const emits = defineEmits(['request'])
 let columArr: any[] = [];
 const tableData = ref([]);
-//查询条件
 
+//查询条件
 let searchForm = reactive({});
 const loading = ref(false);
 const page = reactive({

@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 17:35:40
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-31 16:51:40
+ * @LastEditTime: 2023-10-31 18:13:58
  * @FilePath: \dc-component\src\view\dTableSearch\index.vue
 -->
 
@@ -36,7 +36,7 @@
     </template>
 
     <template #name="data">
-      <div>{{ data }}</div>
+      <div>{{ data.data.name }}</div>
     </template>
     <template #action="data">
       <el-button link type="primary">operation add</el-button>
@@ -100,12 +100,11 @@ const tableData = [
 ];
 let timer = null;
 const handleRequest = (params, done) => {
+  //请求返回数据
   console.log(params);
-  // done({data:[],total:1000});
   timer = setTimeout(() => {
     done({ data: tableData, total: 1000 });
   }, 2000);
-  //请求返回数据
 };
 onUnmounted(() => {
   clearTimeout(timer);

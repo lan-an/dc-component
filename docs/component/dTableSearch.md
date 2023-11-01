@@ -2,7 +2,7 @@
  * @Date: 2023-10-18 13:01:07
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-31 17:48:37
+ * @LastEditTime: 2023-10-31 17:55:32
  * @FilePath: \dc-component\docs\component\dTableSearch.md
 -->
 
@@ -97,20 +97,18 @@ title="Card name"
 background:'#f5f7fa'
 }"
 border
-class="vp-raw"
-
-> <template #dTableRight>
-
-      <el-button type="primary" class="button">Operation button</el-button>
-      <el-button class="button">...</el-button>
-    </template>
-    <template #searchData="{ search }">
-      <el-space>
-        <el-form-item prop="name" label="Activity name">
-          <el-input v-model="search.name" />
-        </el-form-item>
-      </el-space>
-    </template>
+class="vp-raw">
+<template #dTableRight>
+<el-button type="primary" class="button">Operation button</el-button>
+<el-button class="button">...</el-button>
+</template>
+<template #searchData="{ search }">
+<el-space>
+<el-form-item prop="name" label="Activity name">
+<el-input v-model="search.name" />
+</el-form-item>
+</el-space>
+</template>
 
 <template #name="data">
 
