@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 17:35:40
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-31 18:13:58
+ * @LastEditTime: 2023-11-01 17:31:50
  * @FilePath: \dc-component\src\view\dTableSearch\index.vue
 -->
 
@@ -18,7 +18,8 @@
       background: true,
       layout: 'total, sizes, prev, pager, next, jumper',
       small: 'small',
-      pageSizes: [10, 200, 300, 400],
+      pageSizes: [10, 20, 200, 300, 400],
+      pageSize: 20,
     }"
     :hasSearch="true"
     border
@@ -28,13 +29,22 @@
       <el-button class="button">...</el-button>
     </template>
     <template #searchData="{ search }">
-      <el-space>
-        <el-form-item prop="name" label="Activity name">
-          <el-input v-model="search.name" />
-        </el-form-item>
-      </el-space>
+      <el-form-item prop="name" label="名称">
+        <el-input v-model="search.name" />
+      </el-form-item>
+      <el-form-item prop="name" label="状态">
+        <el-input v-model="search.name" />
+      </el-form-item>
     </template>
 
+    <template #fold="{ search }">
+      <el-form-item prop="name" label="Activity name">
+        <el-input v-model="search.name" />
+      </el-form-item>
+      <el-form-item prop="name" label="Activity name">
+        <el-input v-model="search.name" />
+      </el-form-item>
+    </template>
     <template #name="data">
       <div>{{ data.data.name }}</div>
     </template>
