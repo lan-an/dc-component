@@ -29,12 +29,14 @@
     "eslint-plugin-vue": "^9.17.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.0.2",
+    "postcss": "^8.4.31",
     "prettier": "^3.0.3",
     "typescript": "^5.2.2",
     "vite": "^4.4.11",
     "vite-plugin-dts": "1.4.1",
     "vitepress": "1.0.0-rc.22",
-    "vue": "^3.3.4"
+    "vue": "^3.3.4",
+    "vue-router": "4"
   },
   "dependencies": {
     "dc-hooks": "workspace:1.0.0-beat",
