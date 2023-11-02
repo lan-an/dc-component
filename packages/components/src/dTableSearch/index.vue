@@ -90,6 +90,7 @@
                   :props="{
                     label: 'label',
                   }"
+                  @check-change="handleCheckChange"
                 />
               </div>
             </el-popover>
@@ -296,6 +297,12 @@ const handleResetColum = (): void => {
   }
 };
 
+const handleCheckChange=(node ,checked,flag)=>{
+console.log(node)
+console.log(checked)
+console.log(flag)
+
+}
 /**
  * 搜索展开折叠
  */
