@@ -1,5 +1,17 @@
 <template>
-  <div>{{ message }}</div>
+  <div>
+    <div v-show="!props.hideMessage">
+      <slot v-if="status === 'pending'" name="pending">
+        <span>加载中……</span>
+      </slot>
+      <slot v-if="status === 'success'" name="success">
+        <span>登录成功，已返回标识符</span>
+      </slot>
+      <slot v-if="status === 'failed'" name="failed">
+        <span>加载失败，错误信息：{{ message }}</span>
+      </slot>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts" name="DSingleSignOn">
@@ -20,10 +32,12 @@ const props = withDefaults(
 const emit = defineEmits<singleSignOnEmitsType>();
 
 const route = useRoute();
-
-const message = ref('加载中……');
-
 const query = route.query;
+
+const message = ref('');
+
+type statusType = 'pending' | 'success' | 'failed';
+const status = ref<statusType>('pending');
 
 defineExpose({ message });
 
@@ -31,7 +45,8 @@ onMounted(() => {
   if (query[props.query]) {
     handleSingleSignOn();
   } else {
-    message.value = '加载失败，错误信息：缺少请求标识符';
+    status.value = 'failed';
+    message.value = '缺少请求标识符';
   }
 });
 
@@ -52,6 +67,7 @@ function handleSingleSignOn() {
     request = axios.request(requestConfig);
   }
   emit('response-promise', request);
+  status.value = 'pending';
   request
     .then((res: any) => {
       if (res.data[props.responseToken]) {
@@ -61,10 +77,11 @@ function handleSingleSignOn() {
       } else {
         return Promise.reject('未返回标识符');
       }
-      message.value = '登录成功，已返回标识符';
+      status.value = 'success';
     })
     .catch((error) => {
-      message.value = '加载失败，错误信息：' + error;
+      status.value = 'failed';
+      message.value = error;
     })
     .finally(() => {});
 }

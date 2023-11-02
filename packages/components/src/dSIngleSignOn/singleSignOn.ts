@@ -15,9 +15,12 @@ export interface singleSignOnPropsInterface {
   requestPayload?: payloadType;
   /** @description 单点登录成功后返回标识符名称 */
   responseToken?: string;
+  /** @description 是否隐藏消息 */
+  hideMessage: boolean;
   /** @description 外部Axios实例 */
   axiosInstance?: AxiosInstance;
 }
+
 export const singleSignOnPropsDefaults = {
   /** @description 字符串参数名称 */
   query: 'auth_code',
@@ -29,6 +32,8 @@ export const singleSignOnPropsDefaults = {
   requestPayload: 'data' as payloadType,
   /** @description 单点登录返回标识符名称 */
   responseToken: 'token',
+  /** @description 是否隐藏消息 */
+  hideMessage: false,
 };
 
 export type singleSignOnEmitsType = {
