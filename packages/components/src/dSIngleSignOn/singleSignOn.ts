@@ -1,26 +1,39 @@
 import { type AxiosInstance } from 'axios';
 
+export type payloadType = 'data' | 'params';
+
 export interface singleSignOnPropsInterface {
-  /** @description 单点登录api地址 */
+  /** @description 单点登录请求api地址 */
   api: string;
-  /** @description 字符串参数名称 */
+  /** @description 地址栏字符串参数名称 */
   query?: string;
   /** @description 单点登录请求标识符名称 */
-  token?: string;
-  /** @description 单点登录成功后跳转地址 */
-  target?: string;
-  /** @description Axios实例 */
+  requestToken?: string;
+  /** @description 单点登录请求类型 */
+  requestMethod?: string;
+  /** @description 单点登录负载类型 */
+  requestPayload?: payloadType;
+  /** @description 单点登录成功后返回标识符名称 */
+  responseToken?: string;
+  /** @description 外部Axios实例 */
   axiosInstance?: AxiosInstance;
 }
 export const singleSignOnPropsDefaults = {
-  /** @description 单点登录api地址 */
-  api: '/single-sign-on',
   /** @description 字符串参数名称 */
   query: 'auth_code',
   /** @description 单点登录请求标识符名称 */
-  token: 'token',
-  /** @description 单点登录成功后跳转地址 */
-  target: '/',
+  requestToken: 'token',
+  /** @description 单点登录请求类型 */
+  requestMethod: 'POST',
+  /** @description 单点登录负载类型 */
+  requestPayload: 'data' as payloadType,
+  /** @description 单点登录返回标识符名称 */
+  responseToken: 'token',
 };
 
-export const singleSignOnEmits = ['response'];
+export const singleSignOnEmits = [
+  /** @description 单点登录返回Promise */
+  'response-promise',
+  /** @description 单点登录返回标识符内容 */
+  'response-data-token'
+];
