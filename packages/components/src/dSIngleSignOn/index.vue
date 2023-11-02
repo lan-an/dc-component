@@ -34,9 +34,11 @@ const emit = defineEmits<singleSignOnEmitsType>();
 const route = useRoute();
 const query = route.query;
 
+/** @description 消息 */
 const message = ref('');
 
 export type statusType = 'pending' | 'success' | 'failed';
+/** @description 请求状态 */
 const status = ref<statusType>('pending');
 
 defineExpose({ message, status });
@@ -60,12 +62,9 @@ function handleSingleSignOn() {
   };
   requestConfig[props.requestPayload] = requestToken;
 
-  let request: Promise<AxiosResponse<any, any>>;
-  if (props.axiosInstance) {
-    request = props.axiosInstance.request(requestConfig);
-  } else {
-    request = axios.request({ ...requestConfig, ...{ timeout: 10000 } });
-  }
+  const request = props.axiosInstance
+    ? props.axiosInstance.request(requestConfig)
+    : axios.request({ ...requestConfig, ...{ timeout: 10000 } });
   emit('response-promise', request);
   status.value = 'pending';
 
