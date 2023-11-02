@@ -8,5 +8,7 @@
 export { default as Button } from './button';
 export { default as Space } from './space';
 export { default as DTableSearch } from './dTableSearch';
+export {default as DModal} from './dModal'
+export type { IProps } from './dModal/dModal'
 export type { ColumProps } from './dTableSearch/dTableSearch';
 export { default as DSingleSignOn } from './dSingleSignOn';
