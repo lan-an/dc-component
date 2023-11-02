@@ -36,10 +36,10 @@ const query = route.query;
 
 const message = ref('');
 
-type statusType = 'pending' | 'success' | 'failed';
+export type statusType = 'pending' | 'success' | 'failed';
 const status = ref<statusType>('pending');
 
-defineExpose({ message });
+defineExpose({ message, status });
 
 onMounted(() => {
   if (query[props.query]) {
@@ -71,16 +71,22 @@ function handleSingleSignOn() {
 
   if (!props.axiosManualHandling) {
     request
-      .then((res: any) => {
-        if (res.data[props.responseToken]) {
-          emit('response-data-token', res.data[props.responseToken]);
-        } else if (res[props.responseToken]) {
-          emit('response-data-token', res[props.responseToken]);
-        } else {
-          return Promise.reject('未返回标识符');
-        }
-        status.value = 'success';
-      })
+      .then(
+        (
+          res:
+            | AxiosResponse<Record<string, string>, Record<string, string>>
+            | Record<string, string>,
+        ) => {
+          if (res?.data?.[props.responseToken]) {
+            emit('response-data-token', res.data[props.responseToken]);
+          } else if (res?.[props.responseToken]) {
+            emit('response-data-token', res[props.responseToken] as string);
+          } else {
+            return Promise.reject('未返回标识符');
+          }
+          status.value = 'success';
+        },
+      )
       .catch((error) => {
         status.value = 'failed';
         message.value = error;
