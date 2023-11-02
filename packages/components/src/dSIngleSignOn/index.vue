@@ -8,7 +8,7 @@
         <span>登录成功，已返回标识符</span>
       </slot>
       <slot v-if="status === 'failed'" name="failed">
-        <span>加载失败，错误信息：{{ message }}</span>
+        <span>登录失败，错误信息：{{ message }}</span>
       </slot>
     </div>
   </div>
@@ -64,7 +64,7 @@ function handleSingleSignOn() {
   if (props.axiosInstance) {
     request = props.axiosInstance.request(requestConfig);
   } else {
-    request = axios.request(requestConfig);
+    request = axios.request({ ...requestConfig, ...{ timeout: 10000 } });
   }
   emit('response-promise', request);
   status.value = 'pending';

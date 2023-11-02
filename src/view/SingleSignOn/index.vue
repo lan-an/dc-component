@@ -3,6 +3,25 @@
     api="http://dcqc-ubp-web-test.dcqc.com/api/ykzAuthCodeLogin"
     request-token="auth_code"
     request-payload="params"
+    response-token="code"
+    @response-data-token="handleResponseToken"
+  ></d-single-sign-on>
+  <d-single-sign-on
+    api="https://yesno.wtf/api"
+    request-method="get"
+    request-query="auth_code"
+    request-token="question"
+    request-payload="params"
+    response-token="answer"
+    @response-data-token="handleResponseToken"
+  ></d-single-sign-on>
+  <d-single-sign-on
+    api="https://yesno.wtf/api"
+    request-method="post"
+    request-query="auth_code"
+    request-token="question"
+    request-payload="params"
+    response-token="answer"
     @response-data-token="handleResponseToken"
   ></d-single-sign-on>
   {{ token }}

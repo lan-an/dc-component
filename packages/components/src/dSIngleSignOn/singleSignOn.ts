@@ -16,7 +16,7 @@ export interface singleSignOnPropsInterface {
   /** @description 单点登录成功后返回标识符名称 */
   responseToken?: string;
   /** @description 是否隐藏消息 */
-  hideMessage: boolean;
+  hideMessage?: boolean;
   /** @description 外部Axios实例 */
   axiosInstance?: AxiosInstance;
   /** @description 是否手动处理axios响应 */
