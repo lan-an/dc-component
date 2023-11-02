@@ -9,7 +9,7 @@ import { useRoute } from 'vue-router';
 import {
   singleSignOnPropsInterface,
   singleSignOnPropsDefaults,
-  singleSignOnEmits,
+  singleSignOnEmitsInterface,
 } from './singleSignOn';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
@@ -17,7 +17,7 @@ const props = withDefaults(
   defineProps<singleSignOnPropsInterface>(),
   singleSignOnPropsDefaults,
 );
-const emit = defineEmits(singleSignOnEmits);
+const emit = defineEmits<singleSignOnEmitsInterface>();
 
 const route = useRoute();
 

@@ -1,4 +1,4 @@
-import { type AxiosInstance } from 'axios';
+import { AxiosPromise, type AxiosInstance } from 'axios';
 
 export type payloadType = 'data' | 'params';
 
@@ -31,9 +31,9 @@ export const singleSignOnPropsDefaults = {
   responseToken: 'token',
 };
 
-export const singleSignOnEmits = [
+export type singleSignOnEmitsInterface = {
   /** @description 单点登录返回Promise */
-  'response-promise',
+  'response-promise': [promise: Promise<any> | AxiosPromise<any>];
   /** @description 单点登录返回标识符内容 */
-  'response-data-token'
-];
+  'response-data-token': [token: string];
+};
