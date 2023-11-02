@@ -31,7 +31,7 @@ export const singleSignOnPropsDefaults = {
   responseToken: 'token',
 };
 
-export type singleSignOnEmitsInterface = {
+export type singleSignOnEmitsType = {
   /** @description 单点登录返回Promise */
   'response-promise': [promise: Promise<any> | AxiosPromise<any>];
   /** @description 单点登录返回标识符内容 */

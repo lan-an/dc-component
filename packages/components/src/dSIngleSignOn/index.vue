@@ -9,7 +9,7 @@ import { useRoute } from 'vue-router';
 import {
   singleSignOnPropsInterface,
   singleSignOnPropsDefaults,
-  singleSignOnEmitsInterface,
+  singleSignOnEmitsType,
 } from './singleSignOn';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
@@ -17,7 +17,7 @@ const props = withDefaults(
   defineProps<singleSignOnPropsInterface>(),
   singleSignOnPropsDefaults,
 );
-const emit = defineEmits<singleSignOnEmitsInterface>();
+const emit = defineEmits<singleSignOnEmitsType>();
 
 const route = useRoute();
 
@@ -51,7 +51,6 @@ function handleSingleSignOn() {
   } else {
     request = axios.request(requestConfig);
   }
-
   emit('response-promise', request);
   request
     .then((res: any) => {
@@ -62,7 +61,7 @@ function handleSingleSignOn() {
       } else {
         return Promise.reject('未返回标识符');
       }
-      message.value = '登录成功，正在跳转……';
+      message.value = '登录成功，已返回标识符';
     })
     .catch((error) => {
       message.value = '加载失败，错误信息：' + error;
