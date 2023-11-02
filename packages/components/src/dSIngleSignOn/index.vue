@@ -68,22 +68,25 @@ function handleSingleSignOn() {
   }
   emit('response-promise', request);
   status.value = 'pending';
-  request
-    .then((res: any) => {
-      if (res.data[props.responseToken]) {
-        emit('response-data-token', res.data[props.responseToken]);
-      } else if (res[props.responseToken]) {
-        emit('response-data-token', res[props.responseToken]);
-      } else {
-        return Promise.reject('未返回标识符');
-      }
-      status.value = 'success';
-    })
-    .catch((error) => {
-      status.value = 'failed';
-      message.value = error;
-    })
-    .finally(() => {});
+
+  if (!props.axiosManualHandling) {
+    request
+      .then((res: any) => {
+        if (res.data[props.responseToken]) {
+          emit('response-data-token', res.data[props.responseToken]);
+        } else if (res[props.responseToken]) {
+          emit('response-data-token', res[props.responseToken]);
+        } else {
+          return Promise.reject('未返回标识符');
+        }
+        status.value = 'success';
+      })
+      .catch((error) => {
+        status.value = 'failed';
+        message.value = error;
+      })
+      .finally(() => {});
+  }
 }
 </script>
 

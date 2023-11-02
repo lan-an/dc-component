@@ -19,6 +19,8 @@ export interface singleSignOnPropsInterface {
   hideMessage: boolean;
   /** @description 外部Axios实例 */
   axiosInstance?: AxiosInstance;
+  /** @description 是否手动处理axios响应 */
+  axiosManualHandling?: boolean;
 }
 
 export const singleSignOnPropsDefaults = {
@@ -34,6 +36,8 @@ export const singleSignOnPropsDefaults = {
   responseToken: 'token',
   /** @description 是否隐藏消息 */
   hideMessage: false,
+  /** @description 是否手动处理axios响应 */
+  axiosManualHandling: false,
 };
 
 export type singleSignOnEmitsType = {
