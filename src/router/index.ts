@@ -1,3 +1,4 @@
+
 /*
  * @Date: 2023-10-31 16:46:45
  * @Auth: 463997479@qq.com
@@ -16,10 +17,12 @@ import Modal from '../view/Modal/index.vue';
 import dRelationGraph from '../view/dRelationGraph/index.vue';
 
 export const routes: any = [
+
   {
     path: '/',
     component: LayoutComponent,
     redirect: '/dTableSearch',
+
 
     children: [
       {
@@ -54,9 +57,9 @@ export const routes: any = [
         component: dRelationGraph,
       },
     ],
+
   },
 ];
-
 const router = createRouter({
   history: createWebHistory('dc-component'),
   routes, // `routes: routes` 的缩写
