@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 17:35:40
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-01 18:06:43
+ * @LastEditTime: 2023-11-03 18:24:34
  * @FilePath: \dc-component\src\view\dTableSearch\index.vue
 -->
 
@@ -21,7 +21,7 @@
       pageSizes: [10, 20, 200, 300, 400],
       pageSize: 20,
     }"
-    :hasSearch="true"
+    empty-text="暂无数据"
     border
   >
     <template #dTableRight>
@@ -48,6 +48,9 @@
     <template #name="data">
       <div>{{ data.data.name }}</div>
     </template>
+    <template #empty>
+      <el-empty :image-size="100" />
+    </template>
     <template #action="data">
       <el-button link type="primary">operation add</el-button>
       <el-button link type="warning">peration edit</el-button>
@@ -57,9 +60,13 @@
 
 <script lang="ts" setup>
 import { DTableSearch } from 'dc-pro-component';
-import { ElButton, ElInput, ElSpace, ElFormItem } from 'element-plus';
+import { ElButton, ElInput, ElSpace, ElFormItem, ElEmpty } from 'element-plus';
 import { onUnmounted } from 'vue';
 import { h } from 'vue';
+const filterHandler = (value, row, column) => {
+  const property = column['property'];
+  return row[property] === value;
+};
 const columns = [
   {
     prop: 'name',
@@ -70,6 +77,16 @@ const columns = [
   {
     prop: 'date',
     label: 'date',
+    columnKey: 'date',
+    filters: [
+      { text: '2016-05-01', value: '2016-05-01' },
+      { text: '2016-05-02', value: '2016-05-02' },
+      { text: '2016-05-03', value: '2016-05-03' },
+      { text: '2016-05-04', value: '2016-05-04' },
+    ],
+    sortable: true,
+
+    filterMethod: filterHandler,
   },
   {
     prop: 'address',
@@ -116,6 +133,7 @@ const handleRequest = (params, done) => {
     done({ data: tableData, total: 1000 });
   }, 2000);
 };
+
 onUnmounted(() => {
   clearTimeout(timer);
 });

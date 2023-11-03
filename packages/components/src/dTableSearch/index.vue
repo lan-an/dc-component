@@ -2,12 +2,12 @@
  * @Date: 2023-10-30 10:58:31
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-01 18:04:22
+ * @LastEditTime: 2023-11-03 18:09:13
  * @FilePath: \dc-component\packages\components\src\dTableSearch\index.vue
 -->
 <template>
   <div class="d-content-table">
-    <el-card class="box-card">
+    <el-card v-bind="{ ...(cardProp as any) }" class="box-card">
       <!-- 搜索 -->
       <template v-if="hasSearch" #header>
         <div class="card-header">
@@ -25,42 +25,41 @@
               <template v-if="!showFalg">
                 <slot name="fold" :search="searchForm"></slot>
               </template>
-              <el-form-item prop="name" label="Activity name">
-                <div
-                  :class="[
-                    'card-header-content',
-                    showFalg ? 'search-absolute' : 'search-relative',
-                  ]"
+              <div
+                :class="[
+                  'card-header-content',
+                  showFalg ? 'search-absolute' : 'search-relative',
+                ]"
+              >
+                <el-button
+                  :loading="loading"
+                  type="primary"
+                  @click="handleSearch"
+                  >查询</el-button
                 >
-                  <el-button
-                    :loading="loading"
-                    type="primary"
-                    @click="handleSearch"
-                    >查询</el-button
-                  >
-                  <el-button @click="handleReset(ruleFormRef)">重置</el-button>
-                  <el-button
-                    color="#468fff"
-                    v-if="more"
-                    @click="handleMore"
-                    plain
-                    text
-                  >
-                    {{ showFalg ? '展开' : '收起' }}
+                <el-button @click="handleReset(ruleFormRef)">重置</el-button>
+                <el-button
+                  color="#468fff"
+                  v-if="more"
+                  @click="handleMore"
+                  plain
+                  text
+                >
+                  {{ showFalg ? '展开' : '收起' }}
 
-                    <el-icon class="el-icon--right">
-                      <ArrowUp v-if="!showFalg" />
-                      <ArrowDown v-else />
-                    </el-icon>
-                  </el-button>
-                </div>
-              </el-form-item>
+                  <el-icon class="el-icon--right">
+                    <ArrowUp v-if="!showFalg" />
+                    <ArrowDown v-else />
+                  </el-icon>
+                </el-button>
+              </div>
             </el-space>
           </el-form>
         </div>
       </template>
-
+      <!--table-->
       <div class="d-content-table-body">
+        <!--顶部ActionBar-->
         <div class="d-content-table-action">
           <div class="d-table-left">
             <span v-if="title">{{ title }}</span>
@@ -68,9 +67,9 @@
           <div class="d-table-right">
             <slot name="dTableRight"></slot>
             <el-button @click="handleSearch" :icon="Refresh"></el-button>
-            <el-button ref="buttonRef" v-click-outside="onClickOutside"
-              >Click me</el-button
-            >
+            <el-button circle ref="buttonRef" v-click-outside="onClickOutside">
+              <el-icon><Grid /></el-icon>
+            </el-button>
             <el-popover
               ref="popoverRef"
               :virtual-ref="buttonRef"
@@ -82,7 +81,6 @@
               <div>
                 <el-tree
                   :data="treeObjColum.treeColum"
-                  draggable
                   show-checkbox
                   default-expand-all
                   node-key="label"
@@ -98,23 +96,31 @@
         </div>
 
         <el-table
-          v-loading="loading"
           v-bind="{ ...$attrs }"
           :data="tableData"
           style="width: 100%"
+          class="d-prop--table"
         >
-          <el-table-column
-            v-for="(item, index) in columArr"
-            v-bind="{ ...item }"
-            :key="index"
-          >
-            <template v-if="item.slotName" #default="scope">
-              <slot
-                :name="item.slotName"
-                :data="{ ...scope.row, index: scope.$index }"
-              ></slot>
-            </template>
-          </el-table-column>
+          <template v-for="(item, index) in treeObjColum.columArr">
+            <el-table-column
+              v-bind="{ ...item }"
+              :key="item.prop"
+              v-if="item.checked"
+            >
+              <template v-if="item.slotName" #default="scope">
+                <slot
+                  :name="item.slotName"
+                  :data="{ ...scope.row, index: scope.$index }"
+                ></slot>
+              </template>
+            </el-table-column>
+          </template>
+          <template #empty>
+            <slot name="empty"></slot>
+          </template>
+          <template #append>
+            <slot name="append"></slot>
+          </template>
         </el-table>
         <!-- 分页 -->
         <div class="d-table-footer">
@@ -125,7 +131,7 @@
               ...pagination,
               total: page.total,
             }"
-          />
+          ></d-page>
         </div>
       </div>
     </el-card>
@@ -133,11 +139,15 @@
 </template>
 
 <script lang="ts" name="DTableSearch" setup>
-import type { ColumProps } from '@/components';
+//定义组件name
+defineOptions({
+  name: 'DTableSearch',
+});
+import type { ColumProps } from './dTableSearch';
 import type { FormInstance } from 'element-plus';
 import DPage from './footer.vue';
-
-import { Refresh, ArrowDown, ArrowUp } from '@element-plus/icons-vue';
+import { onMounted, reactive, ref, unref, nextTick } from 'vue';
+import { Refresh, ArrowDown, ArrowUp, Grid } from '@element-plus/icons-vue';
 import {
   ElSpace,
   ElButton,
@@ -148,35 +158,48 @@ import {
   ElIcon,
   ElPopover,
   ElTree,
+  ElLoading,
 } from 'element-plus';
 import { ClickOutside as vClickOutside } from 'element-plus';
-import { onMounted, reactive, ref, unref } from 'vue';
-
-const buttonRef = ref();
+import { CardProp } from './dTableSearch';
+const buttonRef = ref<HTMLDivElement>();
 const popoverRef = ref();
 const onClickOutside = () => {
   unref(popoverRef).popperRef?.delayHide?.();
 };
 
-defineOptions({
-  name: 'DTableSearch',
-});
-
-let columArr: any[] = [];
-const tableData = ref([]);
+const tableData = ref<any[]>([]);
 
 //查询条件
-let searchForm = reactive({});
-const loading = ref(false);
+let searchForm = reactive<Record<string, any>>({});
+const loading = ref<boolean>(false);
 
+//控制显示搜索条件展示
 const showFalg = ref(false);
 const ruleFormRef = ref<FormInstance>();
-let treeObjColum = reactive({
+let treeObjColum = reactive<{
+  columArr: any[];
+  defaultChecked: string[];
+  treeColum: ColumProps[];
+}>({
   defaultChecked: [],
   treeColum: [],
+  columArr: [],
 });
 //外部数据参数
-const { request, hasPage, columns, pagination } = withDefaults(
+const {
+  request,
+  hasPage,
+  columns,
+  pagination,
+  loadingParams,
+  searchFormProps,
+  title,
+  more,
+  hasSearch,
+  isloading,
+  cardProp,
+} = withDefaults(
   defineProps<{
     columns?: ColumProps[];
     request: (
@@ -195,18 +218,31 @@ const { request, hasPage, columns, pagination } = withDefaults(
     hasPage?: boolean;
     more?: boolean;
     searchFormProps?: any;
+    loadingParams?: {
+      body?: boolean;
+      fullscreen?: boolean;
+      text?: string;
+      background?: string;
+    };
+    isloading?: boolean;
+    cardProp?: CardProp;
   }>(),
   {
-    hasSearch: false,
+    hasSearch: true,
     hasPage: true,
     more: false,
     pagination: {
       pageSize: 10,
     },
+    isloading: true,
   },
 );
 
-const page = reactive({
+const page = reactive<{
+  pageNum?: number;
+  pageSize?: number;
+  total?: number;
+}>({
   pageNum: 1,
   pageSize: pagination.pageSize,
   total: 100,
@@ -216,14 +252,14 @@ const page = reactive({
  *
  * 查询
  */
-const handleSearch = () => {
+const handleSearch = (): void => {
   handleRequest();
 };
 /**
  *
  * @param formEl 重置表格参数
  */
-const handleReset = (formEl: FormInstance | undefined) => {
+const handleReset = (formEl: FormInstance | undefined): void => {
   if (hasPage) {
     page.pageNum = pagination?.pageNum;
   }
@@ -236,7 +272,7 @@ const handleReset = (formEl: FormInstance | undefined) => {
  * @param val 分页change
  */
 
-const handleCurrentChange = (val: number) => {
+const handleCurrentChange = (val: number): void => {
   page.pageNum = val;
   handleRequest();
 };
@@ -244,7 +280,7 @@ const handleCurrentChange = (val: number) => {
  *
  * @param val 分页change
  */
-const handleSizeChange = (val: number) => {
+const handleSizeChange = (val: number): void => {
   page.pageSize = val;
   handleRequest();
 };
@@ -265,6 +301,15 @@ const handleRequest = (): void => {
     };
   }
   loading.value = true;
+  let loadingEl = null;
+  if (isloading) {
+    loadingEl = ElLoading.service({
+      target: '.d-prop--table',
+      background: 'rgba(255, 255, 255, 0.5)',
+      ...loadingParams,
+    });
+  }
+
   request({ ...params }, res => {
     if (res) {
       if (hasPage) {
@@ -274,6 +319,10 @@ const handleRequest = (): void => {
         tableData.value = res.data;
       }
       loading.value = false;
+      isloading &&
+        nextTick(() => {
+          loadingEl.close();
+        });
     }
   });
 };
@@ -282,18 +331,18 @@ const handleRequest = (): void => {
  * 循环处理colum中数据格式
  */
 const handleResetColum = (): void => {
-  columArr = [];
+  treeObjColum.columArr = [];
   treeObjColum.treeColum = [];
   treeObjColum.defaultChecked = [];
   for (let key of columns) {
     let obj = {};
 
-    for (let k in key as any) {
+    for (let k in key) {
       obj[k] = key[k];
-      treeObjColum.defaultChecked.push(key[k]);
+      treeObjColum.defaultChecked.push(key[k] as string);
     }
-    columArr.push(obj);
-    treeObjColum.treeColum.push(obj);
+    treeObjColum.columArr.push({ ...obj, checked: true } as ColumProps);
+    treeObjColum.treeColum.push(obj as ColumProps);
   }
 };
 
@@ -306,8 +355,28 @@ console.log(flag)
 /**
  * 搜索展开折叠
  */
-const handleMore = () => {
+const handleMore = (): void => {
   showFalg.value = !showFalg.value;
+};
+
+/**
+ * 点击节点切换colum显示
+ */
+const handleCheckChange = (
+  node: ColumProps,
+  check: boolean,
+  flag: boolean,
+): void => {
+  if (!check) {
+    treeObjColum.defaultChecked = treeObjColum.defaultChecked.filter(
+      item => item !== node.prop,
+    );
+  } else {
+    treeObjColum.defaultChecked.push(node.prop);
+  }
+  treeObjColum.columArr = treeObjColum.columArr.map(item =>
+    item.prop === node.prop ? { ...item, checked: !item.checked } : item,
+  );
 };
 onMounted(() => {
   handleResetColum();

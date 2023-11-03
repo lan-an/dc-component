@@ -7,7 +7,6 @@
     :draggable="draggable"
     :center="center"
     :destroy-on-close="destroyOnClose"
-    :custom-class="customClass"
     :open-delay="opendelay"
     :close-delay="closedelay"
     :close-on-click-modal="closeonclickmodal"
@@ -45,16 +44,15 @@ const props = withDefaults(defineProps<IProps>(), {
   top: '15vh',
   draggable: false,
   center: false,
-  customClass: 'dcqc_modal',
   alignCenter: false,
   destroyOnClose: true,
   opendelay:0,
   closedelay:0,
   closeonclickmodal:false,
   closeonpressescape:false,
-  close: undefined,
-  open:undefined,
   beforeClose: undefined,
+  open:undefined,
+  close: undefined,
 });
 
 const emits = defineEmits(['close', 'open']);
