@@ -6,6 +6,7 @@
  * @FilePath: \dc-component\packages\components\src\components.ts
  */
 export { default as Button } from './button'
+export { default as Dstar } from './dStar'
 export { default as Space } from './space'
 export { default as DTableSearch } from './dTableSearch'
 export type { ColumProps } from './dTableSearch/dTableSearch'

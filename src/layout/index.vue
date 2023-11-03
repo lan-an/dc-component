@@ -11,7 +11,7 @@
       >
         <el-menu-item
           v-for="(item, index) in routerArr"
-          @click="handleClick(item.url)"
+          @click="handleClick(item.name)"
           :index="++index"
           :key="index"
         >
@@ -27,8 +27,6 @@
 </template>
 
 <script lang="ts" setup>
-import { routes } from '../router/index.ts';
-console.log(routes);
 import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { Menu as IconMenu } from '@element-plus/icons-vue';
@@ -37,10 +35,10 @@ const route = useRouter();
 defineOptions({
   name: 'LayoutComponent',
 });
-const routerArr = reactive([
-  { name: 'DTableSearch', url: '/dashboard' },
-  { name: 'Bak', url: '/Bak' },
-]);
+import { children } from '../common.ts'
+console.log('children', children)
+let routerArr = reactive([]);
+routerArr = children
 const isCollapse = ref(false);
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath);
