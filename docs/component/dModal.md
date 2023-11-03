@@ -2,7 +2,7 @@
  * @Date: 2023-11-03 09:44:04
  * @Author: liu-hongrui
  * @LastEditors: liu-hongrui
- * @LastEditTime: 2023-11-03 11:28:29
+ * @LastEditTime: 2023-11-03 11:30:19
  * @FilePath: \dc-component\docs\component\dModal.md
 -->
 
@@ -73,7 +73,7 @@ Modal 弹出一个对话框，适合需要定制性更大的场景。
 
 | 参数 | 说明 | 类型   | 可选值  | 默认值  |
 | ---- | ---- | ------ | ------ | ------- |
-| visible | 是否显示 | boolean | true / false | - |
+| visible | 是否显示 | boolean | true / false | false |
 | title | 标题 | string | - | '提示' |
 | fullscreen | 是否全屏 | boolean | true / false | false |
 | width | 宽度,默认值为 50% | string / number | - | 30% |
