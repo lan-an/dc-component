@@ -2,7 +2,7 @@
  * @Date: 2023-10-30 10:58:31
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-03 17:37:49
+ * @LastEditTime: 2023-11-03 18:09:13
  * @FilePath: \dc-component\packages\components\src\dTableSearch\index.vue
 -->
 <template>
@@ -159,7 +159,6 @@ import {
   ElPopover,
   ElTree,
   ElLoading,
-  ElEmpty,
 } from 'element-plus';
 import { ClickOutside as vClickOutside } from 'element-plus';
 import { CardProp } from './dTableSearch';

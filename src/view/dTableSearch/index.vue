@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 17:35:40
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-03 17:06:39
+ * @LastEditTime: 2023-11-03 18:24:34
  * @FilePath: \dc-component\src\view\dTableSearch\index.vue
 -->
 
@@ -63,6 +63,10 @@ import { DTableSearch } from 'dc-pro-component';
 import { ElButton, ElInput, ElSpace, ElFormItem, ElEmpty } from 'element-plus';
 import { onUnmounted } from 'vue';
 import { h } from 'vue';
+const filterHandler = (value, row, column) => {
+  const property = column['property'];
+  return row[property] === value;
+};
 const columns = [
   {
     prop: 'name',
@@ -73,6 +77,16 @@ const columns = [
   {
     prop: 'date',
     label: 'date',
+    columnKey: 'date',
+    filters: [
+      { text: '2016-05-01', value: '2016-05-01' },
+      { text: '2016-05-02', value: '2016-05-02' },
+      { text: '2016-05-03', value: '2016-05-03' },
+      { text: '2016-05-04', value: '2016-05-04' },
+    ],
+    sortable: true,
+
+    filterMethod: filterHandler,
   },
   {
     prop: 'address',
@@ -119,6 +133,7 @@ const handleRequest = (params, done) => {
     done({ data: tableData, total: 1000 });
   }, 2000);
 };
+
 onUnmounted(() => {
   clearTimeout(timer);
 });
