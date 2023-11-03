@@ -39,9 +39,15 @@ export default {
               activeMatch: '/component/dTableSearch'
             },
             {
+<<<<<<< HEAD
               text: 'dRelationGraph',
               link: '/component/dRelationGraph',
               activeMatch: '/component/dRelationGraph'
+=======
+              text: 'dModal',
+              link: '/component/dModal',
+              activeMatch: '/component/dModal'
+>>>>>>> 345f435eb1459c5071327b2f4a71d826378342c3
             }
           ]
         }
