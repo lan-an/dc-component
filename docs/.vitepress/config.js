@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 17:16:50
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-03 15:35:50
+ * @LastEditTime: 2023-11-03 16:06:38
  * @FilePath: \dc-component\docs\.vitepress\config.js
  */
 import {component} from './utils/component';
@@ -19,6 +19,7 @@ export default {
     nav: [
       { text: '组件', link: '/component/button' },
       { text: '指南', link: '/guide/method' },
+      { text:'技术分享', link: '/shareSkill/index' },
 
       { text: 'hooks', link: '/hooks/method' },
 

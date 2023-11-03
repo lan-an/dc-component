@@ -11,7 +11,6 @@ export type IProps = {
     fullscreen?: boolean; //是否为全屏
     width: string | number;
     top?: string; //margin-top
-    customClass?: string; //自定义类名
     draggable?: boolean; // 是否拖拽
     center?: boolean; // 是否居中
     alignCenter?: boolean; // 是否水平垂直对齐对话框

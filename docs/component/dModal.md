@@ -2,7 +2,7 @@
  * @Date: 2023-11-03 09:44:04
  * @Author: liu-hongrui
  * @LastEditors: liu-hongrui
- * @LastEditTime: 2023-11-03 11:30:19
+ * @LastEditTime: 2023-11-03 15:17:30
  * @FilePath: \dc-component\docs\component\dModal.md
 -->
 
@@ -24,7 +24,6 @@ Modal 弹出一个对话框，适合需要定制性更大的场景。
     :visible="visibleModal"
     :title="'标题'"
     width="30%"
-    :custom-class="'upload_dialog'"
     @close="visibleModal = false"
   >
 		<span>这是一条信息</span>
@@ -46,7 +45,6 @@ Modal 弹出一个对话框，适合需要定制性更大的场景。
     :visible="visibleModal"
     :title="'标题'"
     width="30%"
-    :custom-class="'upload_dialog'"
     @close="visibleModal = false"
   >
     <span>这是一条信息</span>
@@ -80,7 +78,6 @@ Modal 弹出一个对话框，适合需要定制性更大的场景。
 | top |  margin-top | string | - | 15vh |
 | draggable |  是否可拖拽 | boolean | true / false | false |
 | center |  居中排列 | boolean | true / false | false |
-| customClass |  自定义类名 | boolean | - | 'dcqc_modal' |
 | alignCenter |  水平垂直对齐 | boolean | true / false | false |
 | destroyOnClose |  关闭时销毁 | boolean | true / false | true |
 | opendelay |  打开延时，单位毫秒 | number | - | 0 |
