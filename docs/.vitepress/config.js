@@ -37,6 +37,11 @@ export default {
               text: 'dTableSearch',
               link: '/component/dTableSearch',
               activeMatch: '/component/dTableSearch'
+            },
+            {
+              text: 'dRelationGraph',
+              link: '/component/dRelationGraph',
+              activeMatch: '/component/dRelationGraph'
             }
           ]
         }

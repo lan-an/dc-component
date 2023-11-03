@@ -5,7 +5,7 @@ import {
   openBlock
 } from "./chunk-XKSR56VD.js";
 
-// node_modules/.pnpm/@element-plus+icons-vue@2.1.0_vue@3.3.4/node_modules/@element-plus/icons-vue/dist/index.js
+// node_modules/.pnpm/@element-plus+icons-vue@2.1.0/node_modules/@element-plus/icons-vue/dist/index.js
 var add_location_vue_vue_type_script_lang_default = {
   name: "AddLocation"
 };
@@ -8588,4 +8588,4 @@ export {
 @element-plus/icons-vue/dist/index.js:
   (*! Element Plus Icons Vue v2.1.0 *)
 */
-//# sourceMappingURL=chunk-LVTCVBNO.js.map
+//# sourceMappingURL=chunk-JCJ6TQJ5.js.map
