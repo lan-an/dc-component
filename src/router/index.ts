@@ -15,6 +15,7 @@ import DTableSearch from '../view/dTableSearch/index.vue';
 import LayoutComponent from '../layout/index.vue';
 import Bak from '../view/bak/index.vue';
 import SingleSignOn from '../view/SingleSignOn/index.vue';
+import Modal from '../view/Modal/index.vue'
 
 export const routes: any = [
   {
@@ -41,6 +42,12 @@ export const routes: any = [
         name: 'SingleSignOn',
         meta: { title: '首页', affix: true },
         component: SingleSignOn,
+      },
+      {
+        path: 'Modal',
+        name: 'Modal',
+        meta: { title: '首页', affix: true },
+        component: Modal,
       },
     ],
   },

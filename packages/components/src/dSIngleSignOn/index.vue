@@ -1,54 +1,97 @@
 <template>
-  <div>{{ message }}</div>
+  <div>
+    <div v-show="!props.hideMessage">
+      <slot v-if="status === 'pending'" name="pending">
+        <span>加载中……</span>
+      </slot>
+      <slot v-if="status === 'success'" name="success">
+        <span>登录成功，已返回标识符</span>
+      </slot>
+      <slot v-if="status === 'failed'" name="failed">
+        <span>登录失败，错误信息：{{ message }}</span>
+      </slot>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts" name="DSingleSignOn">
-import { ref, withDefaults } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { onMounted, ref, withDefaults } from 'vue';
+import { useRoute } from 'vue-router';
 
 import {
   singleSignOnPropsInterface,
   singleSignOnPropsDefaults,
-  singleSignOnEmits,
+  singleSignOnEmitsType,
 } from './singleSignOn';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const props = withDefaults(
   defineProps<singleSignOnPropsInterface>(),
   singleSignOnPropsDefaults,
 );
-defineEmits(singleSignOnEmits);
+const emit = defineEmits<singleSignOnEmitsType>();
 
 const route = useRoute();
-const router = useRouter();
-
-const message = ref('加载中……');
-
 const query = route.query;
 
-if (query[props.query]) {
-  const token = {};
-  token[props.token] = query[props.query];
-  handleSingleSignOn(token, props.target);
-} else {
-  message.value = '加载失败，错误信息：缺少请求标识符';
-}
+/** @description 消息 */
+const message = ref('');
 
-function handleSingleSignOn(token, target) {
-  // loginYkz(token)
-  //   .then((res) => {
-  //     if (res.token) {
-  //       userStore.loginDirectSetToken(res.token);
-  //     } else {
-  //       return Promise.reject('未返回标识符');
-  //     }
-  //     message.value = '登录成功，正在跳转……';
-  //     router.replace({
-  //       path: target ? target : '/index',
-  //     });
-  //   })
-  //   .catch((error) => {
-  //     message.value = '加载失败，错误信息：' + error;
-  //   });
+export type statusType = 'pending' | 'success' | 'failed';
+/** @description 请求状态 */
+const status = ref<statusType>('pending');
+
+defineExpose({ message, status });
+
+onMounted(() => {
+  if (query[props.query]) {
+    handleSingleSignOn();
+  } else {
+    status.value = 'failed';
+    message.value = '缺少请求标识符';
+  }
+});
+
+function handleSingleSignOn() {
+  const requestToken: Record<string, string> = {};
+  requestToken[props.requestToken] = String(query[props.query]);
+
+  const requestConfig: AxiosRequestConfig = {
+    url: props.api,
+    method: props.requestMethod,
+  };
+  requestConfig[props.requestPayload] = requestToken;
+
+  const request = props.axiosInstance
+    ? props.axiosInstance.request(requestConfig)
+    : axios.request({ ...requestConfig, ...{ timeout: 10000 } });
+  emit('response-promise', request);
+  status.value = 'pending';
+
+  if (!props.axiosManualHandling) {
+    request
+      .then(
+        (
+          res:
+            | AxiosResponse<Record<string, string>, Record<string, string>>
+            | Record<string, string>,
+        ) => {
+          if (res?.data?.[props.responseToken]) {
+            emit('response-data-token', res.data[props.responseToken]);
+          } else if (res?.[props.responseToken]) {
+            emit('response-data-token', res[props.responseToken] as string);
+          } else {
+            return Promise.reject('未返回标识符');
+          }
+          status.value = 'success';
+        },
+      )
+      .catch((error) => {
+        status.value = 'failed';
+        message.value = error;
+      })
+      .finally(() => {});
+  }
 }
 </script>
 
