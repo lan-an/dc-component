@@ -2,7 +2,7 @@
  * @Date: 2023-10-30 10:58:31
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-03 14:35:46
+ * @LastEditTime: 2023-11-03 15:04:10
  * @FilePath: \dc-component\packages\components\src\dTableSearch\index.vue
 -->
 <template>
@@ -57,7 +57,7 @@
           </el-form>
         </div>
       </template>
-
+      <!--table-->
       <div class="d-content-table-body">
         <!--顶部ActionBar-->
         <div class="d-content-table-action">
@@ -133,7 +133,11 @@
 </template>
 
 <script lang="ts" name="DTableSearch" setup>
-import type { ColumProps } from '@/components';
+//定义组件name
+defineOptions({
+  name: 'DTableSearch',
+});
+import type { ColumProps } from './dTableSearch';
 import type { FormInstance } from 'element-plus';
 import DPage from './footer.vue';
 import { onMounted, reactive, ref, unref, nextTick } from 'vue';
@@ -152,29 +156,26 @@ import {
   ElFormItem,
 } from 'element-plus';
 import { ClickOutside as vClickOutside } from 'element-plus';
-//定义组件name
-defineOptions({
-  name: 'DTableSearch',
-});
-const buttonRef = ref();
+
+const buttonRef = ref<HTMLDivElement>();
 const popoverRef = ref();
 const onClickOutside = () => {
   unref(popoverRef).popperRef?.delayHide?.();
 };
 
-const tableData = ref([]);
+const tableData = ref<any[]>([]);
 
 //查询条件
-let searchForm = reactive({});
-const loading = ref(false);
+let searchForm = reactive<Record<string, any>>({});
+const loading = ref<boolean>(false);
 
 //控制显示搜索条件展示
 const showFalg = ref(false);
 const ruleFormRef = ref<FormInstance>();
 let treeObjColum = reactive<{
   columArr: any[];
-  defaultChecked: any[];
-  treeColum: any[];
+  defaultChecked: string[];
+  treeColum: ColumProps[];
 }>({
   defaultChecked: [],
   treeColum: [],
@@ -230,7 +231,11 @@ const {
   },
 );
 
-const page = reactive({
+const page = reactive<{
+  pageNum?: number;
+  pageSize?: number;
+  total?: number;
+}>({
   pageNum: 1,
   pageSize: pagination.pageSize,
   total: 100,
@@ -240,14 +245,14 @@ const page = reactive({
  *
  * 查询
  */
-const handleSearch = () => {
+const handleSearch = (): void => {
   handleRequest();
 };
 /**
  *
  * @param formEl 重置表格参数
  */
-const handleReset = (formEl: FormInstance | undefined) => {
+const handleReset = (formEl: FormInstance | undefined): void => {
   if (hasPage) {
     page.pageNum = pagination?.pageNum;
   }
@@ -260,7 +265,7 @@ const handleReset = (formEl: FormInstance | undefined) => {
  * @param val 分页change
  */
 
-const handleCurrentChange = (val: number) => {
+const handleCurrentChange = (val: number): void => {
   page.pageNum = val;
   handleRequest();
 };
@@ -268,7 +273,7 @@ const handleCurrentChange = (val: number) => {
  *
  * @param val 分页change
  */
-const handleSizeChange = (val: number) => {
+const handleSizeChange = (val: number): void => {
   page.pageSize = val;
   handleRequest();
 };
@@ -325,26 +330,30 @@ const handleResetColum = (): void => {
   for (let key of columns) {
     let obj = {};
 
-    for (let k in key as any) {
+    for (let k in key) {
       obj[k] = key[k];
-      treeObjColum.defaultChecked.push(key[k]);
+      treeObjColum.defaultChecked.push(key[k] as string);
     }
-    treeObjColum.columArr.push({ ...obj, checked: true });
-    treeObjColum.treeColum.push(obj);
+    treeObjColum.columArr.push({ ...obj, checked: true } as ColumProps);
+    treeObjColum.treeColum.push(obj as ColumProps);
   }
 };
 
 /**
  * 搜索展开折叠
  */
-const handleMore = () => {
+const handleMore = (): void => {
   showFalg.value = !showFalg.value;
 };
 
 /**
  * 点击节点切换colum显示
  */
-const handleCheckChange = (node: ColumProps, check: boolean, flag: boolean) => {
+const handleCheckChange = (
+  node: ColumProps,
+  check: boolean,
+  flag: boolean,
+): void => {
   if (!check) {
     treeObjColum.defaultChecked = treeObjColum.defaultChecked.filter(
       item => item !== node.prop,

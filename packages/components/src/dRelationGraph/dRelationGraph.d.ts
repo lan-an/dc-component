@@ -1,11 +1,11 @@
-import { RGOptions,RGJsonData } from 'relation-graph/vue3'
+import { RGOptions, RGJsonData } from 'relation-graph/vue3';
 export * from 'relation-graph/types/types';
 
-type DRGDataType = 'json'
+type DRGDataType = 'json';
 export interface DRGOptions {
-  option?: RGOptions
+  option?: RGOptions;
 }
 export interface DRGData {
-  type: DRGDataType,
-  data: RGJsonData
+  type: DRGDataType;
+  data: RGJsonData;
 }

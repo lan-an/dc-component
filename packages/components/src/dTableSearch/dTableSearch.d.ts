@@ -19,4 +19,5 @@ export type ColumProps = {
   sortable?: boolean | string;
   sortMethod?: (a: number, b: number) => number;
   checked?: boolean;
+  slotName?: string;
 };
