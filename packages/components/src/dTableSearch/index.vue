@@ -359,7 +359,6 @@ const handleMore = (): void => {
 const handleCheckChange = (
   node: ColumProps,
   check: boolean,
-  flag: boolean,
 ): void => {
   if (!check) {
     treeObjColum.defaultChecked = treeObjColum.defaultChecked.filter(
