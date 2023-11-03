@@ -18,4 +18,5 @@ export type ColumProps = {
   renderHeader?: (column: any, index: number) => void;
   sortable?: boolean | string;
   sortMethod?: (a: number, b: number) => number;
+  checked?: boolean;
 };

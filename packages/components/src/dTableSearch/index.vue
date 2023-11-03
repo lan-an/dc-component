@@ -2,7 +2,7 @@
  * @Date: 2023-10-30 10:58:31
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-01 18:04:22
+ * @LastEditTime: 2023-11-03 11:05:17
  * @FilePath: \dc-component\packages\components\src\dTableSearch\index.vue
 -->
 <template>
@@ -68,9 +68,9 @@
           <div class="d-table-right">
             <slot name="dTableRight"></slot>
             <el-button @click="handleSearch" :icon="Refresh"></el-button>
-            <el-button ref="buttonRef" v-click-outside="onClickOutside"
-              >Click me</el-button
-            >
+            <el-button circle ref="buttonRef" v-click-outside="onClickOutside">
+              <el-icon><Grid /></el-icon>
+            </el-button>
             <el-popover
               ref="popoverRef"
               :virtual-ref="buttonRef"
@@ -82,7 +82,6 @@
               <div>
                 <el-tree
                   :data="treeObjColum.treeColum"
-                  draggable
                   show-checkbox
                   default-expand-all
                   node-key="label"
@@ -90,6 +89,7 @@
                   :props="{
                     label: 'label',
                   }"
+                  @check-change="handleCheckChange"
                 />
               </div>
             </el-popover>
@@ -102,18 +102,20 @@
           :data="tableData"
           style="width: 100%"
         >
-          <el-table-column
-            v-for="(item, index) in columArr"
-            v-bind="{ ...item }"
-            :key="index"
-          >
-            <template v-if="item.slotName" #default="scope">
-              <slot
-                :name="item.slotName"
-                :data="{ ...scope.row, index: scope.$index }"
-              ></slot>
-            </template>
-          </el-table-column>
+          <template v-for="(item, index) in treeObjColum.columArr">
+            <el-table-column
+              v-bind="{ ...item }"
+              :key="item.prop"
+              v-if="item.checked"
+            >
+              <template v-if="item.slotName" #default="scope">
+                <slot
+                  :name="item.slotName"
+                  :data="{ ...scope.row, index: scope.$index }"
+                ></slot>
+              </template>
+            </el-table-column>
+          </template>
         </el-table>
         <!-- 分页 -->
         <div class="d-table-footer">
@@ -137,6 +139,7 @@ import type { FormInstance } from 'element-plus';
 import DPage from './footer.vue';
 
 import { Refresh, ArrowDown, ArrowUp } from '@element-plus/icons-vue';
+import { Grid } from '@element-plus/icons-vue';
 import {
   ElSpace,
   ElButton,
@@ -161,7 +164,6 @@ defineOptions({
   name: 'DTableSearch',
 });
 
-let columArr: any[] = [];
 const tableData = ref([]);
 
 //查询条件
@@ -170,9 +172,14 @@ const loading = ref(false);
 
 const showFalg = ref(false);
 const ruleFormRef = ref<FormInstance>();
-let treeObjColum = reactive({
+let treeObjColum = reactive<{
+  columArr: any[];
+  defaultChecked: any[];
+  treeColum: any[];
+}>({
   defaultChecked: [],
   treeColum: [],
+  columArr: [],
 });
 //外部数据参数
 const { request, hasPage, columns, pagination } = withDefaults(
@@ -281,7 +288,7 @@ const handleRequest = (): void => {
  * 循环处理colum中数据格式
  */
 const handleResetColum = (): void => {
-  columArr = [];
+  treeObjColum.columArr = [];
   treeObjColum.treeColum = [];
   treeObjColum.defaultChecked = [];
   for (let key of columns) {
@@ -291,7 +298,7 @@ const handleResetColum = (): void => {
       obj[k] = key[k];
       treeObjColum.defaultChecked.push(key[k]);
     }
-    columArr.push(obj);
+    treeObjColum.columArr.push({ ...obj, checked: true });
     treeObjColum.treeColum.push(obj);
   }
 };
@@ -301,6 +308,22 @@ const handleResetColum = (): void => {
  */
 const handleMore = () => {
   showFalg.value = !showFalg.value;
+};
+
+/**
+ * 点击节点切换colum显示
+ */
+const handleCheckChange = (node: ColumProps, check: boolean, flag: boolean) => {
+  if (!check) {
+    treeObjColum.defaultChecked = treeObjColum.defaultChecked.filter(
+      item => item !== node.prop,
+    );
+  } else {
+    treeObjColum.defaultChecked.push(node.prop);
+  }
+  treeObjColum.columArr = treeObjColum.columArr.map(item =>
+    item.prop === node.prop ? { ...item, checked: !item.checked } : item,
+  );
 };
 onMounted(() => {
   handleResetColum();

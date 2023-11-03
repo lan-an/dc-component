@@ -65,7 +65,8 @@ const handleClose = (key: string, keyPath: string[]) => {
   height: 100%;
 }
 .content-right {
-  width: calc(100% - 100px);
+  width: calc(100% - 300px);
+
   padding: 20px;
   box-sizing: border-box;
 }
