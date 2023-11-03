@@ -2,7 +2,7 @@
  * @Date: 2023-11-03 09:44:04
  * @Author: liu-hongrui
  * @LastEditors: liu-hongrui
- * @LastEditTime: 2023-11-03 10:48:49
+ * @LastEditTime: 2023-11-03 11:06:50
  * @FilePath: \dc-component\docs\component\dModal.md
 -->
 
@@ -101,5 +101,5 @@ Modal 弹出一个对话框，适合需要定制性更大的场景。
 ## Events
 | 事件名 | 说明 | Type   |
 | ---- | ---- | ------ |
-| open | Modal 打开的回调 | Type   |
-| close | 说明 | Modal 关闭的回调   |
+| open | Modal 打开的回调 | Function   |
+| close | Modal 关闭的回调 | Function   |
