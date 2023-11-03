@@ -2,7 +2,7 @@
  * @Date: 2023-11-03 09:44:04
  * @Author: liu-hongrui
  * @LastEditors: liu-hongrui
- * @LastEditTime: 2023-11-03 11:06:50
+ * @LastEditTime: 2023-11-03 11:11:13
  * @FilePath: \dc-component\docs\component\dModal.md
 -->
 
@@ -30,12 +30,12 @@ Modal 弹出一个对话框，适合需要定制性更大的场景。
 		<span>这是一条信息</span>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="visibleModal = false">Cancel</el-button>
-        <el-button type="primary" @click="visibleModal = false">Confirm</el-button>
+        <el-button @click="visibleModal = false">取消</el-button>
+        <el-button type="primary" @click="visibleModal = false">确认</el-button>
       </span>
     </template>
   </DModal>
-  <d-button type="primary" @click="visibleModal = true">open Modal</d-button>
+  <el-button type="primary" @click="visibleModal = true">打开对话框</el-button>
 </dcqc-space>
 
 ::: details Show Code
@@ -52,12 +52,12 @@ Modal 弹出一个对话框，适合需要定制性更大的场景。
     <span>这是一条信息</span>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="visibleModal = false">Cancel</el-button>
-        <el-button type="primary" @click="visibleModal = false">Confirm</el-button>
+        <el-button @click="visibleModal = false">取消</el-button>
+        <el-button type="primary" @click="visibleModal = false">确认</el-button>
       </span>
     </template>
   </DModal>
-  <d-button type="primary" @click="visibleModal = true">open Modal</d-button>
+  <el-button type="primary" @click="visibleModal = true">打开对话框</el-button>
 </template>
 <script setup lang="ts" name="1">
 	import {DModal} from 'dc-pro-component';
