@@ -52,9 +52,9 @@ const props = withDefaults(defineProps<IProps>(), {
   closedelay:0,
   closeonclickmodal:false,
   closeonpressescape:false,
-  close: undefined,
-  open:undefined,
   beforeClose: undefined,
+  open:undefined,
+  close: undefined,
 });
 
 const emits = defineEmits(['close', 'open']);

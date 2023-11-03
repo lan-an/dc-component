@@ -37,6 +37,11 @@ export default {
               text: 'dTableSearch',
               link: '/component/dTableSearch',
               activeMatch: '/component/dTableSearch'
+            },
+            {
+              text: 'dModal',
+              link: '/component/dModal',
+              activeMatch: '/component/dModal'
             }
           ]
         }
