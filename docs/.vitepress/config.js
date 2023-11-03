@@ -2,9 +2,10 @@
  * @Date: 2023-10-17 17:16:50
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-20 14:29:49
+ * @LastEditTime: 2023-11-03 16:06:38
  * @FilePath: \dc-component\docs\.vitepress\config.js
  */
+import {component} from './utils/component';
 export default {
   //部署自己服务器去掉/
   base: '/dc-component',
@@ -18,6 +19,7 @@ export default {
     nav: [
       { text: '组件', link: '/component/button' },
       { text: '指南', link: '/guide/method' },
+      { text:'技术分享', link: '/shareSkill/index' },
 
       { text: 'hooks', link: '/hooks/method' },
 
@@ -27,18 +29,7 @@ export default {
       '/component/': [
         {
           text: '组件',
-          items: [
-            {
-              text: 'button',
-              link: '/component/button',
-              activeMatch: '/component/button'
-            },
-            {
-              text: 'dTableSearch',
-              link: '/component/dTableSearch',
-              activeMatch: '/component/dTableSearch'
-            }
-          ]
+          items: component
         }
       ],
       '/guide/': [

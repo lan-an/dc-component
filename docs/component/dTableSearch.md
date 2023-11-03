@@ -2,7 +2,7 @@
  * @Date: 2023-10-18 13:01:07
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-31 17:48:37
+ * @LastEditTime: 2023-11-03 16:01:38
  * @FilePath: \dc-component\docs\component\dTableSearch.md
 -->
 
@@ -97,20 +97,18 @@ title="Card name"
 background:'#f5f7fa'
 }"
 border
-class="vp-raw"
-
-> <template #dTableRight>
-
-      <el-button type="primary" class="button">Operation button</el-button>
-      <el-button class="button">...</el-button>
-    </template>
-    <template #searchData="{ search }">
-      <el-space>
-        <el-form-item prop="name" label="Activity name">
-          <el-input v-model="search.name" />
-        </el-form-item>
-      </el-space>
-    </template>
+class="vp-raw">
+<template #dTableRight>
+<el-button type="primary" class="button">Operation button</el-button>
+<el-button class="button">...</el-button>
+</template>
+<template #searchData="{ search }">
+<el-space>
+<el-form-item prop="name" label="Activity name">
+<el-input v-model="search.name" />
+</el-form-item>
+</el-space>
+</template>
 
 <template #name="data">
 
@@ -169,7 +167,13 @@ class="vp-raw"
 
 ## Attributes
 
-| 参数 | 说明 | 类型   | 可选值                                           | 默认值  |
+| 参数          | 说明 | 类型   | 可选值                                           | 默认值  |
 | ---- | ---- | ------ | ------------------------------------------------ | ------- |
-| size | 尺寸 | string | large / small / mini                             | default |
-| type | 类型 | string | primary / ghost / dashed / link / text / default | primary |
+| pagination | 分页配置 | object | pageSize:1/pageNum:1                           | - |
+| hasSearch | 是否有搜索 | boolean | true                                          | true |
+| hasPage |是否需要分页 | boolean |true                                            | true |
+| more | 更多搜索 | boolean | true                                                 | true |
+| searchFormProps | 搜索其余配置 | object | {}                                      |    -|
+| loadingParams | loading | object | {} | {} |
+| isloading | 是否需要加载 | boolean | true| true |
+
