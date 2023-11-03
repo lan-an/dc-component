@@ -21,3 +21,10 @@ export type ColumProps = {
   checked?: boolean;
   slotName?: string;
 };
+
+export type CardProp = {
+  shadow?: 'always' | 'never' | 'hover';
+  header?: string;
+  bodyStyle?: object;
+  bodyClass?: string;
+};

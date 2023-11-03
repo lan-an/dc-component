@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 17:35:40
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-03 14:11:43
+ * @LastEditTime: 2023-11-03 17:06:39
  * @FilePath: \dc-component\src\view\dTableSearch\index.vue
 -->
 
@@ -21,6 +21,7 @@
       pageSizes: [10, 20, 200, 300, 400],
       pageSize: 20,
     }"
+    empty-text="暂无数据"
     border
   >
     <template #dTableRight>
@@ -47,6 +48,9 @@
     <template #name="data">
       <div>{{ data.data.name }}</div>
     </template>
+    <template #empty>
+      <el-empty :image-size="100" />
+    </template>
     <template #action="data">
       <el-button link type="primary">operation add</el-button>
       <el-button link type="warning">peration edit</el-button>
@@ -56,7 +60,7 @@
 
 <script lang="ts" setup>
 import { DTableSearch } from 'dc-pro-component';
-import { ElButton, ElInput, ElSpace, ElFormItem } from 'element-plus';
+import { ElButton, ElInput, ElSpace, ElFormItem, ElEmpty } from 'element-plus';
 import { onUnmounted } from 'vue';
 import { h } from 'vue';
 const columns = [

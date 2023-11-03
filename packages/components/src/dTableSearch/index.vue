@@ -2,12 +2,12 @@
  * @Date: 2023-10-30 10:58:31
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-03 15:04:10
+ * @LastEditTime: 2023-11-03 17:37:49
  * @FilePath: \dc-component\packages\components\src\dTableSearch\index.vue
 -->
 <template>
   <div class="d-content-table">
-    <el-card class="box-card">
+    <el-card v-bind="{ ...(cardProp as any) }" class="box-card">
       <!-- 搜索 -->
       <template v-if="hasSearch" #header>
         <div class="card-header">
@@ -115,6 +115,12 @@
               </template>
             </el-table-column>
           </template>
+          <template #empty>
+            <slot name="empty"></slot>
+          </template>
+          <template #append>
+            <slot name="append"></slot>
+          </template>
         </el-table>
         <!-- 分页 -->
         <div class="d-table-footer">
@@ -153,10 +159,10 @@ import {
   ElPopover,
   ElTree,
   ElLoading,
-  ElFormItem,
+  ElEmpty,
 } from 'element-plus';
 import { ClickOutside as vClickOutside } from 'element-plus';
-
+import { CardProp } from './dTableSearch';
 const buttonRef = ref<HTMLDivElement>();
 const popoverRef = ref();
 const onClickOutside = () => {
@@ -193,6 +199,7 @@ const {
   more,
   hasSearch,
   isloading,
+  cardProp,
 } = withDefaults(
   defineProps<{
     columns?: ColumProps[];
@@ -219,6 +226,7 @@ const {
       background?: string;
     };
     isloading?: boolean;
+    cardProp?: CardProp;
   }>(),
   {
     hasSearch: true,
