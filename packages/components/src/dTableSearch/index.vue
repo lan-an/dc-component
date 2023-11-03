@@ -2,7 +2,7 @@
  * @Date: 2023-10-30 10:58:31
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-03 11:05:17
+ * @LastEditTime: 2023-11-03 14:35:46
  * @FilePath: \dc-component\packages\components\src\dTableSearch\index.vue
 -->
 <template>
@@ -25,42 +25,41 @@
               <template v-if="!showFalg">
                 <slot name="fold" :search="searchForm"></slot>
               </template>
-              <el-form-item prop="name" label="Activity name">
-                <div
-                  :class="[
-                    'card-header-content',
-                    showFalg ? 'search-absolute' : 'search-relative',
-                  ]"
+              <div
+                :class="[
+                  'card-header-content',
+                  showFalg ? 'search-absolute' : 'search-relative',
+                ]"
+              >
+                <el-button
+                  :loading="loading"
+                  type="primary"
+                  @click="handleSearch"
+                  >查询</el-button
                 >
-                  <el-button
-                    :loading="loading"
-                    type="primary"
-                    @click="handleSearch"
-                    >查询</el-button
-                  >
-                  <el-button @click="handleReset(ruleFormRef)">重置</el-button>
-                  <el-button
-                    color="#468fff"
-                    v-if="more"
-                    @click="handleMore"
-                    plain
-                    text
-                  >
-                    {{ showFalg ? '展开' : '收起' }}
+                <el-button @click="handleReset(ruleFormRef)">重置</el-button>
+                <el-button
+                  color="#468fff"
+                  v-if="more"
+                  @click="handleMore"
+                  plain
+                  text
+                >
+                  {{ showFalg ? '展开' : '收起' }}
 
-                    <el-icon class="el-icon--right">
-                      <ArrowUp v-if="!showFalg" />
-                      <ArrowDown v-else />
-                    </el-icon>
-                  </el-button>
-                </div>
-              </el-form-item>
+                  <el-icon class="el-icon--right">
+                    <ArrowUp v-if="!showFalg" />
+                    <ArrowDown v-else />
+                  </el-icon>
+                </el-button>
+              </div>
             </el-space>
           </el-form>
         </div>
       </template>
 
       <div class="d-content-table-body">
+        <!--顶部ActionBar-->
         <div class="d-content-table-action">
           <div class="d-table-left">
             <span v-if="title">{{ title }}</span>
@@ -97,10 +96,10 @@
         </div>
 
         <el-table
-          v-loading="loading"
           v-bind="{ ...$attrs }"
           :data="tableData"
           style="width: 100%"
+          class="d-prop--table"
         >
           <template v-for="(item, index) in treeObjColum.columArr">
             <el-table-column
@@ -126,7 +125,7 @@
               ...pagination,
               total: page.total,
             }"
-          />
+          ></d-page>
         </div>
       </div>
     </el-card>
@@ -137,9 +136,8 @@
 import type { ColumProps } from '@/components';
 import type { FormInstance } from 'element-plus';
 import DPage from './footer.vue';
-
-import { Refresh, ArrowDown, ArrowUp } from '@element-plus/icons-vue';
-import { Grid } from '@element-plus/icons-vue';
+import { onMounted, reactive, ref, unref, nextTick } from 'vue';
+import { Refresh, ArrowDown, ArrowUp, Grid } from '@element-plus/icons-vue';
 import {
   ElSpace,
   ElButton,
@@ -150,19 +148,19 @@ import {
   ElIcon,
   ElPopover,
   ElTree,
+  ElLoading,
+  ElFormItem,
 } from 'element-plus';
 import { ClickOutside as vClickOutside } from 'element-plus';
-import { onMounted, reactive, ref, unref } from 'vue';
-
+//定义组件name
+defineOptions({
+  name: 'DTableSearch',
+});
 const buttonRef = ref();
 const popoverRef = ref();
 const onClickOutside = () => {
   unref(popoverRef).popperRef?.delayHide?.();
 };
-
-defineOptions({
-  name: 'DTableSearch',
-});
 
 const tableData = ref([]);
 
@@ -170,6 +168,7 @@ const tableData = ref([]);
 let searchForm = reactive({});
 const loading = ref(false);
 
+//控制显示搜索条件展示
 const showFalg = ref(false);
 const ruleFormRef = ref<FormInstance>();
 let treeObjColum = reactive<{
@@ -182,7 +181,18 @@ let treeObjColum = reactive<{
   columArr: [],
 });
 //外部数据参数
-const { request, hasPage, columns, pagination } = withDefaults(
+const {
+  request,
+  hasPage,
+  columns,
+  pagination,
+  loadingParams,
+  searchFormProps,
+  title,
+  more,
+  hasSearch,
+  isloading,
+} = withDefaults(
   defineProps<{
     columns?: ColumProps[];
     request: (
@@ -201,14 +211,22 @@ const { request, hasPage, columns, pagination } = withDefaults(
     hasPage?: boolean;
     more?: boolean;
     searchFormProps?: any;
+    loadingParams?: {
+      body?: boolean;
+      fullscreen?: boolean;
+      text?: string;
+      background?: string;
+    };
+    isloading?: boolean;
   }>(),
   {
-    hasSearch: false,
+    hasSearch: true,
     hasPage: true,
     more: false,
     pagination: {
       pageSize: 10,
     },
+    isloading: true,
   },
 );
 
@@ -271,6 +289,15 @@ const handleRequest = (): void => {
     };
   }
   loading.value = true;
+  let loadingEl = null;
+  if (isloading) {
+    loadingEl = ElLoading.service({
+      target: '.d-prop--table',
+      background: 'rgba(255, 255, 255, 0.5)',
+      ...loadingParams,
+    });
+  }
+
   request({ ...params }, res => {
     if (res) {
       if (hasPage) {
@@ -280,6 +307,10 @@ const handleRequest = (): void => {
         tableData.value = res.data;
       }
       loading.value = false;
+      isloading &&
+        nextTick(() => {
+          loadingEl.close();
+        });
     }
   });
 };

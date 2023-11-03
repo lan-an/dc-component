@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 17:35:40
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-01 18:06:43
+ * @LastEditTime: 2023-11-03 14:11:43
  * @FilePath: \dc-component\src\view\dTableSearch\index.vue
 -->
 
@@ -21,7 +21,6 @@
       pageSizes: [10, 20, 200, 300, 400],
       pageSize: 20,
     }"
-    :hasSearch="true"
     border
   >
     <template #dTableRight>
