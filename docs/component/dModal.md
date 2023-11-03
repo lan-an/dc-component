@@ -2,7 +2,7 @@
  * @Date: 2023-11-03 09:44:04
  * @Author: liu-hongrui
  * @LastEditors: liu-hongrui
- * @LastEditTime: 2023-11-03 11:11:13
+ * @LastEditTime: 2023-11-03 11:30:19
  * @FilePath: \dc-component\docs\component\dModal.md
 -->
 
@@ -71,30 +71,29 @@ Modal 弹出一个对话框，适合需要定制性更大的场景。
 
 ## Attributes
 
-| 参数 | 说明 | 类型   | 可选值                                           | 默认值  |
+| 参数 | 说明 | 类型   | 可选值  | 默认值  |
 | ---- | ---- | ------ | ------ | ------- |
-| visible | 是否显示 | boolean | - | - |
-| title | 标题 | string | - | - |
-| fullscreen | 是否全屏 | boolean | - | false |
+| visible | 是否显示 | boolean | true / false | false |
+| title | 标题 | string | - | '提示' |
+| fullscreen | 是否全屏 | boolean | true / false | false |
 | width | 宽度,默认值为 50% | string / number | - | 30% |
 | top |  margin-top | string | - | 15vh |
-| draggable |  是否可拖拽 | boolean | - | false |
-| center |  居中排列 | boolean | - | false |
-| customClass |  自定义类名 | boolean | - | "" |
-| alignCenter |  水平垂直对齐 | boolean | - | false |
-| destroyOnClose |  关闭时销毁 | boolean | - | true |
+| draggable |  是否可拖拽 | boolean | true / false | false |
+| center |  居中排列 | boolean | true / false | false |
+| customClass |  自定义类名 | boolean | - | 'dcqc_modal' |
+| alignCenter |  水平垂直对齐 | boolean | true / false | false |
+| destroyOnClose |  关闭时销毁 | boolean | true / false | true |
 | opendelay |  打开延时，单位毫秒 | number | - | 0 |
 | closedelay |  关闭延时，单位毫秒 | number | - | 0 |
-| closeonclickmodal |  点击 modal 关闭 | boolean | - | false |
-| closeonpressescape |  按下 ESC 关闭 | boolean | - | false |
+| closeonclickmodal |  点击 modal 关闭 | boolean | true / false | false |
+| closeonpressescape |  按下 ESC 关闭 | boolean | true / false | false |
 | beforeClose |  关闭前的回调 | Function | - | - |
 
 ## Slots
 | 插槽名 | 说明 |
 | ---- | ----- |
-| - | Modal 的内容 |
+| - | Modal 自定义的内容 |
 | header | 对话框标题的内容 会替换标题部分，但不会移除关闭按钮 |
-| title  | 与 header 作用相同 请使用 header |
 | footer | Modal 按钮操作区的内容 |
 
 
