@@ -17,5 +17,9 @@ export const component=[
     text: 'dModal',
     link: '/component/dModal',
     activeMatch: '/component/dModal'
+  }, {
+    text: 'dFileUpload',
+    link: '/component/dFileUpload',
+    activeMatch: '/component/dFileUpload'
   }
 ]

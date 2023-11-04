@@ -13,6 +13,7 @@ import DTableSearch from '../view/dTableSearch/index.vue';
 import LayoutComponent from '../layout/index.vue';
 import Bak from '../view/bak/index.vue';
 import SingleSignOn from '../view/SingleSignOn/index.vue';
+import FileUpload from "../view/dFileUpload/index.vue";
 import Modal from '../view/Modal/index.vue';
 import dRelationGraph from '../view/dRelationGraph/index.vue';
 
@@ -55,6 +56,12 @@ export const routes: any = [
         name: 'dRelationGraph',
         meta: { title: '首页' },
         component: dRelationGraph,
+      },
+      {
+        path: 'FileUpload',
+        name: 'FileUpload',
+        meta: { title: '上传文件', affix: true },
+        component: FileUpload,
       },
     ],
 
