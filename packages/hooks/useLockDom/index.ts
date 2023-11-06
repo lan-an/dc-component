@@ -8,9 +8,7 @@ export const useLockDom = flag => {
 
   dom.id = `${UNCODE_ID}`;
   dom.innerHTML = `html body{ overflow-y:hidden;width: calc(100% - 17px); }`;
-  // onMounted(() => {
-  //   console.log('mounted');
-  // });
+
   const dombak = document.getElementById(`${UNCODE_ID}`);
   const value =
     document.documentElement.scrollHeight >
