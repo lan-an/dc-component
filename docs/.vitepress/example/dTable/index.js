@@ -5,6 +5,5 @@
  * @LastEditTime: 2023-11-06 16:31:11
  * @FilePath: \dc-component\docs\.vitepress\example\index.ts
  */
-import dTable from './dTable';
-import dSingleSignOn from './dSingleSignOn';
-export default [dTable, dSingleSignOn];
+import dTable from './dTable.vue';
+export default [dTable];
