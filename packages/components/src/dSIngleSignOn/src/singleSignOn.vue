@@ -17,13 +17,13 @@
 <script setup lang="ts" name="DSingleSignOn">
 import { onMounted, ref, withDefaults } from 'vue';
 import { useRoute } from 'vue-router';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import {
   singleSignOnPropsInterface,
   singleSignOnPropsDefaults,
-  singleSignOnEmitsType,
 } from './singleSignOn';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import type { singleSignOnEmitsType, statusType } from './singleSignOn';
 
 const props = withDefaults(
   defineProps<singleSignOnPropsInterface>(),
@@ -37,7 +37,6 @@ const query = route.query;
 /** @description 消息 */
 const message = ref('');
 
-export type statusType = 'pending' | 'success' | 'failed';
 /** @description 请求状态 */
 const status = ref<statusType>('pending');
 
@@ -68,7 +67,7 @@ function handleSingleSignOn() {
   emit('response-promise', request);
   status.value = 'pending';
 
-  if (!props.axiosManualHandling) {
+  if (!props.manualHandling) {
     request
       .then(
         (

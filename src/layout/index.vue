@@ -11,7 +11,9 @@
         @open="handleOpen"
       >
         <el-menu-item
+
           v-for="(item, index) in componentRoutesList"
+
           :key="index"
           :index="item.path"
         >
@@ -27,7 +29,9 @@
 </template>
 
 <script lang="ts" setup>
+
 import { routes } from '../router/index';
+
 import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { Menu as IconMenu } from '@element-plus/icons-vue';
@@ -39,6 +43,7 @@ defineOptions({
 });
 
 const componentRoutesList = routes[0].children;
+
 
 const isCollapse = ref(false);
 const handleOpen = (key: string, keyPath: string[]) => {

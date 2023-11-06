@@ -20,7 +20,7 @@ export interface singleSignOnPropsInterface {
   /** @description 外部Axios实例 */
   axiosInstance?: AxiosInstance;
   /** @description 是否手动处理axios响应 */
-  axiosManualHandling?: boolean;
+  manualHandling?: boolean;
 }
 
 export const singleSignOnPropsDefaults = {
@@ -37,7 +37,7 @@ export const singleSignOnPropsDefaults = {
   /** @description 是否隐藏消息 */
   hideMessage: false,
   /** @description 是否手动处理axios响应 */
-  axiosManualHandling: false,
+  manualHandling: false,
 };
 
 export type singleSignOnEmitsType = {
@@ -46,3 +46,5 @@ export type singleSignOnEmitsType = {
   /** @description 单点登录返回标识符内容 */
   'response-data-token': [token: string];
 };
+
+export type statusType = 'pending' | 'success' | 'failed';
