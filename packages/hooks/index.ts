@@ -1,0 +1,1 @@
+export { useLockDom } from './useLockDom';
