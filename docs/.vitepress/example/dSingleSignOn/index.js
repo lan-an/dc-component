@@ -1,3 +1,3 @@
-import dSingleSignOnBasic from './dSingleSignOnBasic.vue';
+import dSingleSignOnDemoBasic from './dSingleSignOnDemoBasic.vue';
 
-export default [dSingleSignOnBasic];
+export default [dSingleSignOnDemoBasic];

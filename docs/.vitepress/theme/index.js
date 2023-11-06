@@ -2,6 +2,8 @@ import DefaultTheme from 'vitepress/theme';
 import * as dc from 'dc-pro-component';
 import * as examples from '../example';
 
+import { createWebHistory, createRouter } from 'vue-router';
+
 //全局注册组件
 export default {
   ...DefaultTheme,
@@ -12,5 +14,12 @@ export default {
         app.component(`${each.__name}`, each);
       });
     });
+
+    app.use(
+      createRouter({
+        history: createWebHistory(),
+        routes: [],
+      }),
+    );
   },
 };

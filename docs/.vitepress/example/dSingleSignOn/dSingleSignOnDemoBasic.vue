@@ -9,34 +9,15 @@
     response-token="answer"
     @response-data-token="handleResponseToken"
   ></d-single-sign-on>
-  <!-- 登录失败 -->
-  <d-single-sign-on
-    api="https://yesno.wtf/api"
-    request-method="post"
-    request-query="auth_code"
-    request-token="force"
-    request-payload="data"
-    response-token="answer"
-    @response-data-token="handleResponseToken"
-  ></d-single-sign-on>
-  <!-- 使用自定义AxiosInstance -->
-  <d-single-sign-on
-    api="https://localhost"
-    request-method="post"
-    request-query="auth_code"
-    request-token="force"
-    request-payload="data"
-    response-token="answer"
-    :axios-instance="service"
-    @response-data-token="handleResponseToken"
-  ></d-single-sign-on>
   {{ token }}
 </template>
 
 <script setup lang="ts" name="SingleSignOn">
 import axios from 'axios';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { DSingleSignOn } from 'dc-pro-component';
+
+import { useRoute } from 'vue-router';
 const token = ref('token');
 
 const service = axios.create({
@@ -46,6 +27,10 @@ const service = axios.create({
 function handleResponseToken(res: string) {
   token.value = res;
 }
+
+onMounted(() => {
+  console.log(useRoute());
+})
 </script>
 
 <style lang="scss" scoped></style>

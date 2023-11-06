@@ -6,6 +6,8 @@
 
 指定API地址，读取地址栏字符串参数后进行请求，获取返回的标识符。
 
+<d-single-sign-on-demo-basic></d-single-sign-on-demo-basic>
+
 [点击此处在地址栏上添加字符串请求，以查看效果](dSingleSignOn.html?auth_code=123456)
 
 ## 自定义请求方式
