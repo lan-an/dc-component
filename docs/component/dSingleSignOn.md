@@ -6,9 +6,42 @@
 
 指定API地址，读取地址栏字符串参数后进行请求，获取返回的标识符。
 
-<d-single-sign-on-demo-basic></d-single-sign-on-demo-basic>
+[点击此处在地址栏上添加字符串请求，刷新后查看效果](dSingleSignOn.html?auth_code=123456)
 
-[点击此处在地址栏上添加字符串请求，以查看效果](dSingleSignOn.html?auth_code=123456)
+<d-single-sign-on-demo-basic></d-single-sign-on-demo-basic>
+<br/>
+
+::: details Show Code
+```vue
+<template>
+  <!-- 登录成功 -->
+  <div style="border: 1px solid black; padding: 5px">
+    <d-single-sign-on
+      api="https://yesno.wtf/api"
+      request-method="get"
+      request-query="auth_code"
+      request-token="force"
+      request-payload="params"
+      response-token="answer"
+      @response-data-token="handleResponseToken"
+    ></d-single-sign-on>
+    <span v-if="token">获取的token是：{{ token }}</span>
+  </div>
+</template>
+
+<script setup lang="ts" name="SingleSignOn">
+import { ref } from 'vue';
+import { DSingleSignOn } from 'dc-pro-component';
+const token = ref('');
+
+function handleResponseToken(res: string) {
+  token.value = res;
+}
+</script>
+
+<style lang="scss" scoped></style>
+```
+:::
 
 ## 自定义请求方式
 
