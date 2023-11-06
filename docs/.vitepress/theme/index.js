@@ -1,13 +1,16 @@
-import DefaultTheme from "vitepress/theme";
-import * as dc from "dc-pro-component";
-import * as arr from '../example'
+import DefaultTheme from 'vitepress/theme';
+import * as dc from 'dc-pro-component';
+import * as examples from '../example';
+
 //全局注册组件
 export default {
   ...DefaultTheme,
   enhanceApp: async ({ app }) => {
-    app.use(dc),
-    arr.default.map(item=>{
-    app.component(`${item.__name}`,item)
-  })
+    app.use(dc);
+    examples.default.map((item) => {
+      item.forEach((each) => {
+        app.component(`${each.__name}`, each);
+      });
+    });
   },
 };
