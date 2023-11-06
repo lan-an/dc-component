@@ -46,3 +46,5 @@ export type singleSignOnEmitsType = {
   /** @description 单点登录返回标识符内容 */
   'response-data-token': [token: string];
 };
+
+export type statusType = 'pending' | 'success' | 'failed';

@@ -22,6 +22,7 @@ import {
   singleSignOnPropsInterface,
   singleSignOnPropsDefaults,
   singleSignOnEmitsType,
+  statusType,
 } from './singleSignOn';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
@@ -37,7 +38,6 @@ const query = route.query;
 /** @description 消息 */
 const message = ref('');
 
-export type statusType = 'pending' | 'success' | 'failed';
 /** @description 请求状态 */
 const status = ref<statusType>('pending');
 
