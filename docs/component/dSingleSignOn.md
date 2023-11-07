@@ -3,7 +3,7 @@
 用于单点登录操作。
 
 :::warning
-目前本组件仅支持应用已引入`vue-router`后使用。
+目前本组件使用了`vue-router`以读取路由参数，仅支持应用挂载了`VueRouter.createRouter`的根实例后使用。
 :::
 
 ## 基础用法
