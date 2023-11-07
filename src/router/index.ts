@@ -2,8 +2,8 @@
 /*
  * @Date: 2023-10-31 16:46:45
  * @Auth: 463997479@qq.com
- * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-03 16:09:20
+ * @LastEditors: liu-hongrui
+ * @LastEditTime: 2023-11-06 14:42:16
  * @FilePath: \dc-component\src\router\index.ts
  */
 import { createRouter, createWebHistory } from 'vue-router';
@@ -14,7 +14,7 @@ import LayoutComponent from '../layout/index.vue';
 import Bak from '../view/bak/index.vue';
 import SingleSignOn from '../view/SingleSignOn/index.vue';
 import FileUpload from "../view/dFileUpload/index.vue";
-import Modal from '../view/Modal/index.vue';
+import DCropper from '../view/dCropper/index.vue';
 import dRelationGraph from '../view/dRelationGraph/index.vue';
 
 export const routes: any = [
@@ -46,10 +46,10 @@ export const routes: any = [
         component: SingleSignOn,
       },
       {
-        path: 'Modal',
-        name: 'Modal',
+        path: 'DCropper',
+        name: 'DCropper',
         meta: { title: '首页' },
-        component: Modal,
+        component: DCropper,
       },
       {
         path: 'dRelationGraph',
