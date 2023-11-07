@@ -15,21 +15,12 @@
   <d-single-sign-on
     api="https://yesno.wtf/api"
     request-method="post"
-    request-query="auth_code"
-    request-token="force"
-    request-payload="data"
-    response-token="answer"
     @response-data-token="handleResponseToken"
   ></d-single-sign-on>
   <hr />
   <!-- 使用自定义AxiosInstance -->
   <d-single-sign-on
     api="https://localhost"
-    request-method="post"
-    request-query="auth_code"
-    request-token="force"
-    request-payload="data"
-    response-token="answer"
     :axios-instance="service"
     @response-data-token="handleResponseToken"
   ></d-single-sign-on>
@@ -48,10 +39,16 @@
   <el-button @click="handleSingleSignOnStart">手动开始和手动处理请求</el-button>
   <span>响应：{{ promiseString }}</span>
   <hr />
+  <!-- 手动创建axios配置 -->
+  <d-single-sign-on
+    :request-axios-config="customAxiosRequestConfig"
+    response-token="answer"
+  ></d-single-sign-on>
+  <hr />
 </template>
 
 <script setup lang="ts" name="SingleSignOn">
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { ElButton } from 'element-plus';
 import { ref } from 'vue';
 import { DSingleSignOn } from 'dc-pro-component';
@@ -59,6 +56,14 @@ const token = ref('');
 
 const singleSignOnRef = ref<InstanceType<typeof DSingleSignOn> | null>();
 const promiseString = ref('');
+const customAxiosRequestConfig: AxiosRequestConfig = {
+  url: 'https://yesno.wtf/api',
+  method: 'get',
+  params: {
+    force: 'maybe',
+  },
+  timeout: 30000,
+};
 
 const service = axios.create({
   timeout: 1,
@@ -74,9 +79,13 @@ function handleSingleSignOnStart() {
 }
 
 function handleResponsePromise(response) {
-  response.then((res) => {
-    promiseString.value = String(JSON.stringify(res));
-  });
+  response
+    .then((res) => {
+      promiseString.value = String(JSON.stringify(res));
+    })
+    .catch((error) => {
+      promiseString.value = String(JSON.stringify(error));
+    });
 }
 </script>
 

@@ -58,7 +58,7 @@ function handleSingleSignOn() {
   status.value = 'pending';
 
   const query = route.query;
-  if (query[props.query]) {
+  if (query[props.query] || props.requestAxiosConfig) {
     return handleSingleSignOnProcess(query);
   } else {
     status.value = 'failed';
@@ -70,18 +70,20 @@ function handleSingleSignOn() {
 function handleSingleSignOnProcess(query) {
   status.value = 'pending';
 
-  const requestToken: Record<string, string> = {};
-  requestToken[props.requestToken] = String(query[props.query]);
-
-  const requestConfig: AxiosRequestConfig = {
+  const requestConfig: AxiosRequestConfig = props.requestAxiosConfig ?? {
     url: props.api,
     method: props.requestMethod,
   };
-  requestConfig[props.requestPayload] = requestToken;
+
+  if (!props.requestAxiosConfig) {
+    const requestToken: Record<string, string> = {};
+    requestToken[props.requestToken] = String(query[props.query]);
+    requestConfig[props.requestPayload] = requestToken;
+  }
 
   const request = props.axiosInstance
     ? props.axiosInstance.request(requestConfig)
-    : axios.request({ ...requestConfig, ...{ timeout: 10000 } });
+    : axios.request({ ...{ timeout: 10000 }, ...requestConfig });
 
   if (!props.manualHandling) {
     return request
@@ -106,7 +108,6 @@ function handleSingleSignOnProcess(query) {
         message.value = error;
         emit('response-data-token', undefined);
       })
-      .finally(() => {});
   } else {
     emit('response-promise', request);
     return request;

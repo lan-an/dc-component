@@ -1,10 +1,10 @@
-import { AxiosPromise, type AxiosInstance } from 'axios';
+import { AxiosPromise, type AxiosInstance, AxiosRequestConfig } from 'axios';
 
 export type payloadType = 'data' | 'params';
 
 export interface singleSignOnPropsInterface {
   /** @description 单点登录请求api地址 */
-  api: string;
+  api?: string;
   /** @description 地址栏字符串参数名称 */
   query?: string;
   /** @description 单点登录请求标识符名称 */
@@ -13,6 +13,8 @@ export interface singleSignOnPropsInterface {
   requestMethod?: string;
   /** @description 单点登录负载类型 */
   requestPayload?: payloadType;
+  /** @description 单点登录Axios请求配置项，此项生效时其他请求配置项不生效 */
+  requestAxiosConfig?: AxiosRequestConfig;
   /** @description 单点登录成功后返回标识符名称 */
   responseToken?: string;
   /** @description 是否隐藏消息（手动处理请求时强制隐藏） */
