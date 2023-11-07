@@ -15,10 +15,12 @@ export interface singleSignOnPropsInterface {
   requestPayload?: payloadType;
   /** @description 单点登录成功后返回标识符名称 */
   responseToken?: string;
-  /** @description 是否隐藏消息 */
+  /** @description 是否隐藏消息（手动处理请求时强制隐藏） */
   hideMessage?: boolean;
   /** @description 外部Axios实例 */
   axiosInstance?: AxiosInstance;
+  /** @description 是否手动开始请求 */
+  manualStart?: boolean;
   /** @description 是否手动处理axios响应 */
   manualHandling?: boolean;
 }
@@ -34,8 +36,10 @@ export const singleSignOnPropsDefaults = {
   requestPayload: 'data' as payloadType,
   /** @description 单点登录返回标识符名称 */
   responseToken: 'token',
-  /** @description 是否隐藏消息 */
+  /** @description 是否隐藏消息（手动处理请求时强制隐藏） */
   hideMessage: false,
+  /** @description 是否手动开始请求 */
+  manualStart: false,
   /** @description 是否手动处理axios响应 */
   manualHandling: false,
 };
@@ -47,4 +51,5 @@ export type singleSignOnEmitsType = {
   'response-data-token': [token: string];
 };
 
-export type statusType = 'pending' | 'success' | 'failed';
+/** @description 请求状态 */
+export type statusType = 'not-start' | 'pending' | 'success' | 'failed';

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div v-show="!props.hideMessage">
+    <div v-show="!props.hideMessage && !props.manualHandling">
+      <slot v-if="status === 'not-start'" name="not-start">
+        <span>等待加载</span>
+      </slot>
       <slot v-if="status === 'pending'" name="pending">
         <span>加载中……</span>
       </slot>
@@ -38,19 +41,11 @@ const query = route.query;
 const message = ref('');
 
 /** @description 请求状态 */
-const status = ref<statusType>('pending');
-
-defineExpose({
-  /** @description 消息 */
-  message,
-  /** @description 请求状态 */
-  status,
-  /** @description 开始单点登录请求 */
-  start,
-});
+const status = ref<statusType>('not-start');
 
 onMounted(() => {
-  if (!props.manualHandling) {
+  status.value = 'not-start';
+  if (!props.manualStart) {
     handleSingleSignOn();
   }
 });
@@ -116,6 +111,15 @@ function handleSingleSignOnProcess() {
     return request;
   }
 }
+
+defineExpose({
+  /** @description 消息 */
+  message,
+  /** @description 请求状态 */
+  status,
+  /** @description 开始单点登录请求 */
+  start,
+});
 </script>
 
 <style lang="scss" scoped></style>
