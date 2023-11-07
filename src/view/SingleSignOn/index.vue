@@ -44,7 +44,9 @@ const service = axios.create({
 });
 
 function handleResponseToken(res: string) {
-  token.value = res;
+  if (res) {
+    token.value = res;
+  }
 }
 </script>
 

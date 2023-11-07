@@ -2,8 +2,8 @@
  * @Date: 2023-10-17 17:35:40
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-06 17:58:32
- * @FilePath: \dc-component\src\view\dTableSearch\index.vue
+ * @LastEditTime: 2023-11-06 16:28:10
+ * @FilePath: \dc-component\docs\.vitepress\example\dTable.vue
 -->
 
 <template>
@@ -32,15 +32,9 @@
       <el-form-item prop="name" label="名称">
         <el-input v-model="search.name" />
       </el-form-item>
-      <el-form-item prop="name" label="状态">
-        <el-input v-model="search.name" />
-      </el-form-item>
     </template>
 
     <template #fold="{ search }">
-      <el-form-item prop="name" label="Activity name">
-        <el-input v-model="search.name" />
-      </el-form-item>
       <el-form-item prop="name" label="Activity name">
         <el-input v-model="search.name" />
       </el-form-item>
@@ -52,9 +46,7 @@
       <el-empty :image-size="100" />
     </template>
     <template #action="data">
-      <el-button @click="handleClickDom" link type="primary"
-        >operation add</el-button
-      >
+      <el-button link type="primary">operation add</el-button>
       <el-button link type="warning">peration edit</el-button>
     </template>
   </d-table-search>
@@ -63,8 +55,7 @@
 <script lang="ts" setup>
 import { DTableSearch } from 'dc-pro-component';
 import { ElButton, ElInput, ElSpace, ElFormItem, ElEmpty } from 'element-plus';
-import { onUnmounted, ref } from 'vue';
-import { useLockDom } from 'dc-hooks';
+import { onUnmounted } from 'vue';
 import { h } from 'vue';
 const filterHandler = (value, row, column) => {
   const property = column['property'];
@@ -137,11 +128,6 @@ const handleRequest = (params, done) => {
   }, 2000);
 };
 
-const flag = ref<boolean>(false);
-const handleClickDom = () => {
-  flag.value = !flag.value;
-  useLockDom(flag.value);
-};
 onUnmounted(() => {
   clearTimeout(timer);
 });
