@@ -40,18 +40,40 @@ const message = ref('');
 /** @description 请求状态 */
 const status = ref<statusType>('pending');
 
-defineExpose({ message, status });
+defineExpose({
+  /** @description 消息 */
+  message,
+  /** @description 请求状态 */
+  status,
+  /** @description 开始单点登录请求 */
+  start,
+});
 
 onMounted(() => {
-  if (query[props.query]) {
+  if (!props.manualHandling) {
     handleSingleSignOn();
-  } else {
-    status.value = 'failed';
-    message.value = '缺少请求标识符';
   }
 });
 
+/** @description 开始单点登录请求 */
+function start() {
+  return handleSingleSignOn();
+}
+
 function handleSingleSignOn() {
+  status.value = 'pending';
+  if (query[props.query]) {
+    return handleSingleSignOnProcess();
+  } else {
+    status.value = 'failed';
+    message.value = '缺少请求标识符';
+    return Promise.reject('token-not-found');
+  }
+}
+
+function handleSingleSignOnProcess() {
+  status.value = 'pending';
+
   const requestToken: Record<string, string> = {};
   requestToken[props.requestToken] = String(query[props.query]);
 
@@ -64,11 +86,9 @@ function handleSingleSignOn() {
   const request = props.axiosInstance
     ? props.axiosInstance.request(requestConfig)
     : axios.request({ ...requestConfig, ...{ timeout: 10000 } });
-  emit('response-promise', request);
-  status.value = 'pending';
 
   if (!props.manualHandling) {
-    request
+    return request
       .then(
         (
           res:
@@ -90,6 +110,9 @@ function handleSingleSignOn() {
         message.value = error;
       })
       .finally(() => {});
+  } else {
+    emit('response-promise', request);
+    return request;
   }
 }
 </script>
