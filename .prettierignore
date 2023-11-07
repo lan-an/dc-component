@@ -6,7 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-docs
+
 node_modules
 dist
 dist-ssr
@@ -27,3 +27,6 @@ lib
 
 # UI
 sketch
+
+# Others
+docs/**/*.md

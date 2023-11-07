@@ -5,7 +5,7 @@
  * @LastEditTime: 2023-10-31 13:51:15
  * @FilePath: \dc-component\packages\components\src\dRelationGraph\index.ts
  */
-import dRelationGraph from './index.vue'
+import dRelationGraphSSR from './indexSSR.vue'
 import { withInstall } from 'dcqc-utils'
-const DRelationGraph = withInstall(dRelationGraph)
+const DRelationGraph = withInstall(dRelationGraphSSR)
 export default DRelationGraph
