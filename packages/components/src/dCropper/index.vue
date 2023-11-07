@@ -115,7 +115,6 @@ const props = withDefaults(defineProps<IProps>(), {
   amplify: true,
   reduce: true,
   canScale: true,
-  fixed: true,
 });
 
 // 裁剪组件需要使用到的参数
@@ -129,7 +128,7 @@ const options = reactive<Options>({
   outputSize: 1, // 裁剪生成图片的质量 [1至0.1]
   outputType: 'png', // 裁剪生成图片的格式
   canScale: props.canScale, // 图片是否允许滚轮缩放
-  fixed: props.fixed, // 是否开启截图框宽高固定比例
+  fixed: true, // 是否开启截图框宽高固定比例
   fixedNumber: props.fixedNumber, // 截图框的宽高比例 需要配合centerBox一起使用才能生效 1比1
   full: true, // 是否输出原图比例的截图
   canMoveBox: true, // 截图框能否拖动
@@ -277,7 +276,7 @@ watch(
     /* 预览样式 */
     getStyle.value = {
       width: props.previewWidth + 'px', // 预览宽度
-      height: Number(props.previewWidth) / props.fixedNumber[0] + 'px', // 预览高度
+      height: Number(props.previewWidth) / props.fixedNumber[1] + 'px', // 预览高度
     };
     // 上传格式tips信息
     acceptType.value = [];

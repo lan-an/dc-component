@@ -2,7 +2,7 @@
  * @Date: 2023-10-18 13:01:07
  * @Auth: 463997479@qq.com
  * @LastEditors: liu-hongrui
- * @LastEditTime: 2023-11-07 14:02:05
+ * @LastEditTime: 2023-11-07 16:33:30
  * @FilePath: \dc-component\docs\component\dCropper.md
 -->
 
@@ -61,8 +61,8 @@ const onConfirm = (ImageMsg: any): void => {
 
 ## Attributes
 
-| 参数 | 说明 | 类型   | 可选值                                           | 默认值  |
-| ---- | ---- | ------ | ------------------------------------------------ | ------- |
+| 参数 | 说明 | 类型   | 可选值 | 默认值  |
+|--------|------|------|--------|--------|
 | `title` | 标题 | string | -  | - |
 | `type` | 返回的数据类型 | string | default / Base64 / Blob | default |
 | `allow-type-list` | 允许上传的图片类型 | string[] | - | ['jpg', 'png', 'jpeg', 'gif', 'webp'] |
@@ -73,3 +73,9 @@ const onConfirm = (ImageMsg: any): void => {
 | `canScale` | 是否允许滚轮缩放 | boolean | true / false | true |
 | `amplify` | 是否显示放大按钮 | boolean | true / false | true |
 | `reduce` | 是否显示缩小按钮 | boolean | true / false | true |
+
+## 事件
+
+| 事件名 | 说明 | 类型 | 可选值 | 默认值  |
+|--------|-------|----------| -- | -- |
+| `getCropData` | 返回裁剪后图片信息 | Function(ImageMsg: any) | -- | -- |
