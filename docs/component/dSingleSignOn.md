@@ -64,9 +64,29 @@ function handleResponseToken(res: string) {
 ## 自定义处理响应
 
 内部对响应进行的解析可能不能满足需求，
-可以使用`manual-handling`属性设置手动处理返回的响应。
+可以使用`manual-start`属性设置不自动动开始请求，`manual-handling`属性设置手动处理返回的响应。
 
-使用`start`方法手动开始请求与`response-promise`事件获取响应。
+使用`start`方法手动开始请求、`response-promise`事件获取响应。
+
+::: tip
+`start`方法自身也返回了异步操作响应。可以使用以下的方式处理响应：
+
+```js
+singleSignOnRef.value.start().then((response) => {
+  // 处理响应
+});
+```
+
+:::
+
+## 自定义请求配置
+
+内部生成的请求配置可能不能满足需求，
+可以使用`request-axios-config`属性设置Axios请求配置。
+
+::: info
+`request-axios-config`属性生效时，其他请求配置项均不生效。
+:::
 
 ## API
 
@@ -79,15 +99,18 @@ function handleResponseToken(res: string) {
 | `request-token` | 单点登录请求标识符名称 | string | - | token
 | `request-method` | 单点登录请求类型 | string | - | POST
 | `request-payload` | 单点登录负载类型 | string | data / params | params
+| `request-axios-config` | 单点登录Axios请求配置项，此项生效时其他请求配置项均不生效 | AxiosRequestConfig | - | -
 | `response-token` | 单点登录成功后返回标识符名称 | string | - | token
 | `hide-message` | 是否隐藏消息 | boolean | true / false | false
 | `axios-instance` | 外部Axios实例 | AxiosInstance | - | -
-| `manual-handling` | 是否手动处理axios响应 | boolean | true / false | false
+| `manual-start` | 是否手动开始请求 | boolean | true / false | false
+| `manual-handling` | 是否手动处理Axios响应 | boolean | true / false | false
 
 ## 插槽
 
 | 插槽名 | 说明 |
 |--------|------|
+| `not-start` | 请求未开始加载时显示消息的内容 |
 | `pending` | 请求加载中显示消息的内容 |
 | `success` | 请求成功显示消息的内容 |
 | `failed` | 请求失败显示消息的内容 |
@@ -96,8 +119,8 @@ function handleResponseToken(res: string) {
 
 | 事件名 | 说明 | 回调参数 |
 |--------|-------|----------|
-| `response-promise` | 单点登录返回Promise | `Promise<any> \| AxiosPromise<any>`
 | `response-data-token` | 单点登录返回标识符内容 | string
+| `response-promise` | 单点登录返回异步操作Promise | `Promise<any> \| AxiosPromise<any>`
 
 ## 外部方法
 
@@ -109,5 +132,5 @@ function handleResponseToken(res: string) {
 
 | 属性名 | 说明 | 类型 | 可选值 |
 |--------|------|------|--------|
-| `status` | 请求状态 | string | pending / success / failed |
+| `status` | 请求状态 | string | not-start / pending / success / failed |
 | `message` | 消息 | string | - |

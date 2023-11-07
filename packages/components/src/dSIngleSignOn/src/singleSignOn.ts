@@ -13,7 +13,7 @@ export interface singleSignOnPropsInterface {
   requestMethod?: string;
   /** @description 单点登录负载类型 */
   requestPayload?: payloadType;
-  /** @description 单点登录Axios请求配置项，此项生效时其他请求配置项不生效 */
+  /** @description 单点登录Axios请求配置项，此项生效时其他请求配置项均不生效 */
   requestAxiosConfig?: AxiosRequestConfig;
   /** @description 单点登录成功后返回标识符名称 */
   responseToken?: string;
@@ -42,12 +42,12 @@ export const singleSignOnPropsDefaults = {
   hideMessage: false,
   /** @description 是否手动开始请求 */
   manualStart: false,
-  /** @description 是否手动处理axios响应 */
+  /** @description 是否手动处理Axios响应 */
   manualHandling: false,
 };
 
 export type singleSignOnEmitsType = {
-  /** @description 单点登录返回Promise */
+  /** @description 单点登录返回异步操作Promise */
   'response-promise': [promise: Promise<any> | AxiosPromise<any>];
   /** @description 单点登录返回标识符内容 */
   'response-data-token': [token: string];

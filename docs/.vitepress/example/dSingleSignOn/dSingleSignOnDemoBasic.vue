@@ -20,7 +20,9 @@ import { DSingleSignOn } from 'dc-pro-component';
 const token = ref('');
 
 function handleResponseToken(res: string) {
-  token.value = res;
+  if (res) {
+    token.value = res;
+  }
 }
 </script>
 
