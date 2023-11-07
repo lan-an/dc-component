@@ -11,7 +11,7 @@
         <span>登录成功，已返回标识符</span>
       </slot>
       <slot v-if="status === 'failed'" name="failed">
-        <span>登录失败，错误信息：{{ message }}</span>
+        <span>登录失败，错误信息：<br />{{ message }}</span>
       </slot>
     </div>
   </div>
@@ -35,7 +35,6 @@ const props = withDefaults(
 const emit = defineEmits<singleSignOnEmitsType>();
 
 const route = useRoute();
-const query = route.query;
 
 /** @description 消息 */
 const message = ref('');
@@ -57,8 +56,10 @@ function start() {
 
 function handleSingleSignOn() {
   status.value = 'pending';
+
+  const query = route.query;
   if (query[props.query]) {
-    return handleSingleSignOnProcess();
+    return handleSingleSignOnProcess(query);
   } else {
     status.value = 'failed';
     message.value = '缺少请求标识符';
@@ -66,7 +67,7 @@ function handleSingleSignOn() {
   }
 }
 
-function handleSingleSignOnProcess() {
+function handleSingleSignOnProcess(query) {
   status.value = 'pending';
 
   const requestToken: Record<string, string> = {};
