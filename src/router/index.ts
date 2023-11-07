@@ -12,7 +12,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import DTableSearch from '../view/dTableSearch/index.vue';
 import LayoutComponent from '../layout/index.vue';
 import Bak from '../view/bak/index.vue';
-import SingleSignOn from '../view/SingleSignOn/index.vue';
+import dSingleSignOn from '../view/dSingleSignOn/index.vue';
 import FileUpload from "../view/dFileUpload/index.vue";
 import DCropper from '../view/dCropper/index.vue';
 import dRelationGraph from '../view/dRelationGraph/index.vue';
@@ -40,10 +40,10 @@ export const routes: any = [
         component: Bak,
       },
       {
-        path: 'SingleSignOn',
-        name: 'SingleSignOn',
+        path: 'dSingleSignOn',
+        name: 'dSingleSignOn',
         meta: { title: '首页' },
-        component: SingleSignOn,
+        component: dSingleSignOn,
       },
       {
         path: 'DCropper',

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div v-show="!props.hideMessage">
+    <div v-show="!props.hideMessage && !props.manualHandling">
+      <slot v-if="status === 'not-start'" name="not-start">
+        <span>等待加载</span>
+      </slot>
       <slot v-if="status === 'pending'" name="pending">
         <span>加载中……</span>
       </slot>
@@ -8,7 +11,7 @@
         <span>登录成功，已返回标识符</span>
       </slot>
       <slot v-if="status === 'failed'" name="failed">
-        <span>登录失败，错误信息：{{ message }}</span>
+        <span>登录失败，错误信息：<br />{{ message }}</span>
       </slot>
     </div>
   </div>
@@ -32,25 +35,16 @@ const props = withDefaults(
 const emit = defineEmits<singleSignOnEmitsType>();
 
 const route = useRoute();
-const query = route.query;
 
 /** @description 消息 */
 const message = ref('');
 
 /** @description 请求状态 */
-const status = ref<statusType>('pending');
-
-defineExpose({
-  /** @description 消息 */
-  message,
-  /** @description 请求状态 */
-  status,
-  /** @description 开始单点登录请求 */
-  start,
-});
+const status = ref<statusType>('not-start');
 
 onMounted(() => {
-  if (!props.manualHandling) {
+  status.value = 'not-start';
+  if (!props.manualStart) {
     handleSingleSignOn();
   }
 });
@@ -62,8 +56,10 @@ function start() {
 
 function handleSingleSignOn() {
   status.value = 'pending';
+
+  const query = route.query;
   if (query[props.query]) {
-    return handleSingleSignOnProcess();
+    return handleSingleSignOnProcess(query);
   } else {
     status.value = 'failed';
     message.value = '缺少请求标识符';
@@ -71,7 +67,7 @@ function handleSingleSignOn() {
   }
 }
 
-function handleSingleSignOnProcess() {
+function handleSingleSignOnProcess(query) {
   status.value = 'pending';
 
   const requestToken: Record<string, string> = {};
@@ -116,6 +112,15 @@ function handleSingleSignOnProcess() {
     return request;
   }
 }
+
+defineExpose({
+  /** @description 消息 */
+  message,
+  /** @description 请求状态 */
+  status,
+  /** @description 开始单点登录请求 */
+  start,
+});
 </script>
 
 <style lang="scss" scoped></style>
