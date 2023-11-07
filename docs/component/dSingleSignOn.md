@@ -63,8 +63,10 @@ function handleResponseToken(res: string) {
 
 ## 自定义处理响应
 
-内部对相应进行的解析可能不能满足需求，
-可以使用`manual-handling`属性与`response-promise`事件手动处理返回的响应。
+内部对响应进行的解析可能不能满足需求，
+可以使用`manual-handling`属性设置手动处理返回的响应。
+
+使用`start`方法手动开始请求与`response-promise`事件获取响应。
 
 ## API
 
@@ -97,9 +99,15 @@ function handleResponseToken(res: string) {
 | `response-promise` | 单点登录返回Promise | `Promise<any> \| AxiosPromise<any>`
 | `response-data-token` | 单点登录返回标识符内容 | string
 
-## 暴露属性
+## 外部方法
+
+| 方法名 | 说明 | 类型 |
+|--------|------|------|
+| `start` | 手动开始单点登录请求 | Function: `() => Promise<any>` |  
+
+## 外部属性
 
 | 属性名 | 说明 | 类型 | 可选值 |
 |--------|------|------|--------|
-| `status` | 消息 | string | pending / success / failed |
+| `status` | 请求状态 | string | pending / success / failed |
 | `message` | 消息 | string | - |
