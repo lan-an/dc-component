@@ -2,6 +2,10 @@
 
 用于单点登录操作。
 
+:::warning
+目前本组件仅支持应用已引入`vue-router`后使用。
+:::
+
 ## 基础用法
 
 指定API地址，读取地址栏字符串参数后进行请求，获取返回的标识符。
@@ -9,10 +13,10 @@
 [点击此处在地址栏上添加字符串请求，刷新后查看效果](dSingleSignOn.html?auth_code=123456)
 
 <d-single-sign-on-demo-basic></d-single-sign-on-demo-basic>
-<br/>
 
 ::: details Show Code
-```vue
+
+```vue{5,7,9,11}
 <template>
   <!-- 登录成功 -->
   <div style="border: 1px solid black; padding: 5px">
@@ -25,7 +29,7 @@
       response-token="answer"
       @response-data-token="handleResponseToken"
     ></d-single-sign-on>
-    <span v-if="token">获取的token是：{{ token }}</span>
+    <span v-if="token">获取的标识符是：{{ token }}</span>
   </div>
 </template>
 
@@ -41,6 +45,7 @@ function handleResponseToken(res: string) {
 
 <style lang="scss" scoped></style>
 ```
+
 :::
 
 ## 自定义请求方式

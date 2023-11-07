@@ -10,7 +10,7 @@
       response-token="answer"
       @response-data-token="handleResponseToken"
     ></d-single-sign-on>
-    <span v-if="token">获取的token是：{{ token }}</span>
+    <span v-if="token">获取的标识符是：{{ token }}</span>
   </div>
 </template>
 
