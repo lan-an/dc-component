@@ -2,7 +2,7 @@
  * @Date: 2023-11-06 14:20:54
  * @Author: liu-hongrui
  * @LastEditors: liu-hongrui
- * @LastEditTime: 2023-11-07 10:28:27
+ * @LastEditTime: 2023-11-07 11:24:14
  * @FilePath: \dc-component\packages\components\src\dCropper\dCropper.d.ts
  */
 
@@ -31,14 +31,10 @@ export type IProps = {
   fixedNumber?: number[] // 截图框的宽高比例
   previewWidth?: '100' | '150' | '200' | '250' | '300' // 预览宽度
   title?: string // 裁剪标题
-  type?:'' | string
+  type?: string // 返回的文件类型 Base64  Blob  file对象
 }
 // 预览样式
 export type IStyle = {
   width: number | string,
   height: number | string
-}
-
-export interface DCropperType {
-  uploadFile:()=>any
 }

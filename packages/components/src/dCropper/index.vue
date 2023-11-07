@@ -224,8 +224,8 @@ const onConfirm = () => {
     });
   } else if (props.type === 'Blob') {
     cropperRef.value.getCropBlob(async (data: string) => {
-      emits('confirm', data);
-      return data;
+      emits('confirm', URL.createObjectURL(new Blob([data], { type: 'image/png' })));
+      return URL.createObjectURL(new Blob([data], { type: 'image/png' }));
     });
   } else {
     cropperRef.value.getCropData(async (data: string) => {
@@ -234,7 +234,6 @@ const onConfirm = () => {
       return dataFile;
     });
   }
-
   dialogVisible.value = false;
 };
 
