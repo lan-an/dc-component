@@ -108,6 +108,7 @@ function handleSingleSignOnProcess() {
       .catch((error) => {
         status.value = 'failed';
         message.value = error;
+        emit('response-data-token', undefined);
       })
       .finally(() => {});
   } else {
