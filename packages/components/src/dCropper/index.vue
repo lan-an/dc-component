@@ -40,13 +40,25 @@
                 重新上传
               </div>
               <div>
-                <el-icon class="rotate_right" @click="changeScale(1)">
+                <el-icon
+                  v-if="amplify"
+                  class="rotate_right"
+                  @click="changeScale(1)"
+                >
                   <CirclePlus />
                 </el-icon>
-                <el-icon class="rotate_right" @click="changeScale(-1)">
+                <el-icon
+                  v-if="reduce"
+                  class="rotate_right"
+                  @click="changeScale(-1)"
+                >
                   <Remove />
                 </el-icon>
-                <el-icon class="rotate_right" @click="rotateRight">
+                <el-icon
+                  v-if="rotate"
+                  class="rotate_right"
+                  @click="rotateRight"
+                >
                   <RefreshRight />
                 </el-icon>
               </div>
@@ -57,7 +69,12 @@
             <div class="preview_text">预览</div>
             <div :style="getStyle" class="previewImg">
               <div :style="previewFileStyle">
-                <img :style="previews.img" :src="previews.url" alt="" />
+                <img
+                  class="previewImg"
+                  :style="previews.img"
+                  :src="previews.url"
+                  alt=""
+                />
               </div>
             </div>
           </div>
@@ -86,34 +103,39 @@ defineOptions({
   name: 'DCropper',
 });
 const dialogVisible = ref<boolean>(false); // dialog的显示与隐藏
-const emits = defineEmits(['confirm']); // 自定义事件
+const emits = defineEmits(['getCropData']); // 自定义事件
 const props = withDefaults(defineProps<IProps>(), {
   allowTypeList: () => ['jpg', 'png', 'jpeg', 'gif', 'webp'],
   limitSize: 10,
   fixedNumber: () => [1, 1],
   previewWidth: '200',
   title: '图片裁剪',
+  type: 'default',
+  rotate: true,
+  amplify: true,
+  reduce: true,
+  canScale: true,
+  fixed: true,
 });
-
 
 // 裁剪组件需要使用到的参数
 const options = reactive<Options>({
   img: '', // 需要剪裁的图片
   autoCrop: true, // 是否默认生成截图框
-  autoCropWidth: 150, // 默认生成截图框的宽度
-  autoCropHeight: 150, // 默认生成截图框的长度
+  autoCropWidth: 200, // 默认生成截图框的宽度
+  autoCropHeight: 200, // 默认生成截图框的长度
   fixedBox: false, // 是否固定截图框的大小 不允许改变
   info: true, // 裁剪框的大小信息
   outputSize: 1, // 裁剪生成图片的质量 [1至0.1]
   outputType: 'png', // 裁剪生成图片的格式
-  canScale: true, // 图片是否允许滚轮缩放
-  fixed: true, // 是否开启截图框宽高固定比例
-  fixedNumber: [1, 1], // 截图框的宽高比例 需要配合centerBox一起使用才能生效 1比1
+  canScale: props.canScale, // 图片是否允许滚轮缩放
+  fixed: props.fixed, // 是否开启截图框宽高固定比例
+  fixedNumber: props.fixedNumber, // 截图框的宽高比例 需要配合centerBox一起使用才能生效 1比1
   full: true, // 是否输出原图比例的截图
   canMoveBox: true, // 截图框能否拖动
   original: true, // 上传图片按照原始比例渲染
   centerBox: true, // 截图框是否被限制在图片里面
-  infoTrue: false, // true 为展示真实输出图片宽高 false 展示看到的截图框宽高
+  infoTrue: true, // true 为展示真实输出图片宽高 false 展示看到的截图框宽高
   accept: 'image/jpeg,image/jpg,image/png,image/gif,image/x-icon',
 });
 
@@ -126,7 +148,7 @@ const getStyle = ref<IStyle>({
 const acceptType = ref<string[]>([]);
 
 // 裁剪后的预览样式信息
-const previews:any = ref({});
+const previews: any = ref({});
 const previewFileStyle = ref({});
 
 // 裁剪组件Ref
@@ -146,7 +168,6 @@ const onChange = (e: any) => {
 };
 //上传图片前置拦截函数
 const beforeUploadEvent = (file: File) => {
-  console.log(props, 'props');
   const size = file.size / 1024 / 1024; // 大小M
   const type = file.name.substring(file.name.lastIndexOf('.') + 1); // 获得图片上传后缀
   // 判断是否符合上传类型
@@ -200,38 +221,35 @@ const uploadFile = (type: string): void => {
 };
 
 // 图片转file文件
-const dataURLtoFile = (dataurl: string,filename:string) => {
-  let arr = dataurl.split(',')
-    let mime = arr[0].match(/:(.*?);/)[1]
-    let suffix = mime.split('/')[1]
-    let bstr = atob(arr[1])
-    let n = bstr.length
-    let u8arr = new Uint8Array(n)
-    while (n--) {
-        u8arr[n] = bstr.charCodeAt(n)
-    }
-    return new File([u8arr], `${filename}.${suffix}`, {
-        type: mime
-    })
-}
+const dataURLtoFile = (dataurl: string, filename: string) => {
+  let arr = dataurl.split(',');
+  let mime = arr[0].match(/:(.*?);/)[1];
+  let suffix = mime.split('/')[1];
+  let bstr = atob(arr[1]);
+  let n = bstr.length;
+  let u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], `${filename}.${suffix}`, {
+    type: mime,
+  });
+};
 
 // 上传图片（点击保存按钮）
 const onConfirm = () => {
   if (props.type === 'Base64') {
     cropperRef.value.getCropData(async (data: string) => {
-      emits('confirm', data);
-      return data;
+      emits('getCropData', data);
     });
   } else if (props.type === 'Blob') {
     cropperRef.value.getCropBlob(async (data: string) => {
-      emits('confirm', URL.createObjectURL(new Blob([data], { type: 'image/png' })));
-      return URL.createObjectURL(new Blob([data], { type: 'image/png' }));
+      emits('getCropData', URL.createObjectURL(new Blob([data], { type: 'image/png' })));
     });
   } else {
     cropperRef.value.getCropData(async (data: string) => {
       const dataFile: File = dataURLtoFile(data,'image');
-      emits('confirm', dataFile);
-      return dataFile;
+      emits('getCropData', dataFile);
     });
   }
   dialogVisible.value = false;
@@ -308,6 +326,9 @@ defineExpose({
 }
 .preview_text {
   margin-bottom: 12px;
+}
+.previewImg {
+  max-width: none;
 }
 </style>
 
