@@ -32,7 +32,7 @@
     request-method="get"
     request-payload="params"
     manual-start
-    manual-handling
+    manual-handle
     @response-promise="handleResponsePromise"
   ></d-single-sign-on>
 

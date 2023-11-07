@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-show="!props.hideMessage && !props.manualHandling">
+    <div v-show="!props.hideMessage && !props.manualHandle">
       <slot v-if="status === 'not-start'" name="not-start">
         <span>等待加载</span>
       </slot>
@@ -85,7 +85,7 @@ function handleSingleSignOnProcess(query) {
     ? props.axiosInstance.request(requestConfig)
     : axios.request({ ...{ timeout: 10000 }, ...requestConfig });
 
-  if (!props.manualHandling) {
+  if (!props.manualHandle) {
     return request
       .then(
         (

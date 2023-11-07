@@ -24,7 +24,7 @@ export interface singleSignOnPropsInterface {
   /** @description 是否手动开始请求 */
   manualStart?: boolean;
   /** @description 是否手动处理axios响应 */
-  manualHandling?: boolean;
+  manualHandle?: boolean;
 }
 
 export const singleSignOnPropsDefaults = {
@@ -43,7 +43,7 @@ export const singleSignOnPropsDefaults = {
   /** @description 是否手动开始请求 */
   manualStart: false,
   /** @description 是否手动处理Axios响应 */
-  manualHandling: false,
+  manualHandle: false,
 };
 
 export type singleSignOnEmitsType = {

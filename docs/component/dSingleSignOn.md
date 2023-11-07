@@ -64,7 +64,7 @@ function handleResponseToken(res: string) {
 ## 自定义处理响应
 
 内部对响应进行的解析可能不能满足需求，
-可以使用`manual-start`属性设置不自动动开始请求，`manual-handling`属性设置手动处理返回的响应。
+可以使用`manual-start`属性设置不自动动开始请求，`manual-handle`属性设置手动处理返回的响应。
 
 使用`start`方法手动开始请求、`response-promise`事件获取响应。
 
@@ -104,7 +104,7 @@ singleSignOnRef.value.start().then((response) => {
 | `hide-message` | 是否隐藏消息 | boolean | true / false | false
 | `axios-instance` | 外部Axios实例 | AxiosInstance | - | -
 | `manual-start` | 是否手动开始请求 | boolean | true / false | false
-| `manual-handling` | 是否手动处理Axios响应 | boolean | true / false | false
+| `manual-handle` | 是否手动处理Axios响应 | boolean | true / false | false
 
 ## 插槽
 
