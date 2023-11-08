@@ -11,7 +11,7 @@
 :::info
 
 单点登录需要地址栏携带查询字符串参数。
-[点击此处在地址栏上添加字符串参数，刷新后查看效果](dSingleSignOn.html?auth_code=123456)
+[点击此处在地址栏上添加字符串参数，刷新后查看效果。](dSingleSignOn.html?auth_code=123456)
 
 :::
 
@@ -29,9 +29,19 @@
 
 :::
 
-## 自定义请求方式
+## 自定义请求与响应参数
 
-可以自定义请求与响应的参数名称。
+可以自定义请求方式，请求与响应的参数名称。
+
+使用`request-query`参数指定查询字符串参数名称，`request-method`和`request-payload`定义请求类型和负载类型。
+
+使用`response-token`定义响应的标识符名称。
+
+::: details 查看源代码
+
+<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoBasic.vue{5-6,8-9}
+
+:::
 
 ## 自定义消息
 
@@ -79,7 +89,7 @@ singleSignOnRef.value.start().then((response) => {
 | `query` | 地址栏字符串参数名称 | string | - | auth_code
 | `request-token` | 单点登录请求标识符名称 | string | - | token
 | `request-method` | 单点登录请求类型 | string | - | POST
-| `request-payload` | 单点登录负载类型 | string | data / params | params
+| `request-payload` | 单点登录请求负载类型 | string | data / params | data
 | `request-axios-config` | 单点登录Axios请求配置项，此项生效时其他请求配置项均不生效 | AxiosRequestConfig | - | -
 | `response-token` | 单点登录成功后返回标识符名称 | string | - | token
 | `hide-message` | 是否隐藏消息 | boolean | true / false | false
