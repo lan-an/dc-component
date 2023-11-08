@@ -3,48 +3,29 @@
 用于单点登录操作。
 
 :::warning
+
 目前本组件使用了`vue-router`以读取路由参数，仅支持应用挂载了`VueRouter.createRouter`的根实例后使用。
+
+:::
+
+:::info
+
+单点登录需要地址栏携带查询字符串参数。
+[点击此处在地址栏上添加字符串参数，刷新后查看效果](dSingleSignOn.html?auth_code=123456)
+
 :::
 
 ## 基础用法
 
-指定API地址，读取地址栏字符串参数后进行请求，获取返回的标识符。
+使用`api`参数指定API地址，读取`request-query`参数指定的地址栏查询字符串参数后进行请求。
 
-[点击此处在地址栏上添加字符串请求，刷新后查看效果](dSingleSignOn.html?auth_code=123456)
+使用`response-token`参数指定返回标识符的名称，`response-data-token`事件获取返回的标识符。
 
 <d-single-sign-on-demo-basic></d-single-sign-on-demo-basic>
 
-::: details Show Code
+::: details 查看源代码
 
-```vue{5,7,9,11}
-<template>
-  <!-- 登录成功 -->
-  <div style="border: 1px solid black; padding: 5px">
-    <d-single-sign-on
-      api="https://yesno.wtf/api"
-      request-method="get"
-      request-query="auth_code"
-      request-token="force"
-      request-payload="params"
-      response-token="answer"
-      @response-data-token="handleResponseToken"
-    ></d-single-sign-on>
-    <span v-if="token">获取的标识符是：{{ token }}</span>
-  </div>
-</template>
-
-<script setup lang="ts" name="SingleSignOn">
-import { ref } from 'vue';
-import { DSingleSignOn } from 'dc-pro-component';
-const token = ref('');
-
-function handleResponseToken(res: string) {
-  token.value = res;
-}
-</script>
-
-<style lang="scss" scoped></style>
-```
+<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoBasic.vue{4-7}
 
 :::
 
