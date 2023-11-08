@@ -26,6 +26,8 @@
               :auto-crop="options.autoCrop"
               :autoCropWidth="options.autoCropWidth"
               :autoCropHeight="options.autoCropHeight"
+              :outputSize="options.outputSize"
+              :outputType="options.outputType"
               :fixed-box="options.fixedBox"
               :can-move="options.canMoveBox"
               :can-scale="options.canScale"
@@ -221,6 +223,8 @@ const uploadFile = (type: string): void => {
 
 // 图片转file文件
 const dataURLtoFile = (dataurl: string, filename: string) => {
+  console.log(dataurl);
+  
   let arr = dataurl.split(',');
   let mime = arr[0].match(/:(.*?);/)[1];
   let suffix = mime.split('/')[1];
@@ -230,8 +234,8 @@ const dataURLtoFile = (dataurl: string, filename: string) => {
   while (n--) {
     u8arr[n] = bstr.charCodeAt(n);
   }
-  return new File([u8arr], `${filename}.${suffix}`, {
-    type: mime,
+  return new File([u8arr], `${filename}`, {
+    type: suffix,
   });
 };
 
@@ -243,7 +247,7 @@ const onConfirm = () => {
     });
   } else if (props.type === 'Blob') {
     cropperRef.value.getCropBlob(async (data: string) => {
-      emits('getCropData', URL.createObjectURL(new Blob([data], { type: 'image/png' })));
+      emits('getCropData', URL.createObjectURL(new Blob([data], { type: 'image' })));
     });
   } else {
     cropperRef.value.getCropData(async (data: string) => {
