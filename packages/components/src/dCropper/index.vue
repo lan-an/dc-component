@@ -223,8 +223,6 @@ const uploadFile = (type: string): void => {
 
 // 图片转file文件
 const dataURLtoFile = (dataurl: string, filename: string) => {
-  console.log(dataurl);
-  
   let arr = dataurl.split(',');
   let mime = arr[0].match(/:(.*?);/)[1];
   let suffix = mime.split('/')[1];
