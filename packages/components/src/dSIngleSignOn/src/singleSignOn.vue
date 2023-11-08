@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-show="!props.hideMessage && !props.manualHandling">
+    <div v-show="!props.hideMessage && !props.manualHandle">
       <slot v-if="status === 'not-start'" name="not-start">
         <span>等待加载</span>
       </slot>
@@ -11,7 +11,7 @@
         <span>登录成功，已返回标识符</span>
       </slot>
       <slot v-if="status === 'failed'" name="failed">
-        <span>登录失败，错误信息：{{ message }}</span>
+        <span>登录失败，错误信息：<br />{{ message }}</span>
       </slot>
     </div>
   </div>
@@ -35,7 +35,6 @@ const props = withDefaults(
 const emit = defineEmits<singleSignOnEmitsType>();
 
 const route = useRoute();
-const query = route.query;
 
 /** @description 消息 */
 const message = ref('');
@@ -57,8 +56,10 @@ function start() {
 
 function handleSingleSignOn() {
   status.value = 'pending';
-  if (query[props.query]) {
-    return handleSingleSignOnProcess();
+
+  const query = route.query;
+  if (query[props.query] || props.requestAxiosConfig) {
+    return handleSingleSignOnProcess(query);
   } else {
     status.value = 'failed';
     message.value = '缺少请求标识符';
@@ -66,23 +67,25 @@ function handleSingleSignOn() {
   }
 }
 
-function handleSingleSignOnProcess() {
+function handleSingleSignOnProcess(query) {
   status.value = 'pending';
 
-  const requestToken: Record<string, string> = {};
-  requestToken[props.requestToken] = String(query[props.query]);
-
-  const requestConfig: AxiosRequestConfig = {
+  const requestConfig: AxiosRequestConfig = props.requestAxiosConfig ?? {
     url: props.api,
     method: props.requestMethod,
   };
-  requestConfig[props.requestPayload] = requestToken;
+
+  if (!props.requestAxiosConfig) {
+    const requestToken: Record<string, string> = {};
+    requestToken[props.requestToken] = String(query[props.query]);
+    requestConfig[props.requestPayload] = requestToken;
+  }
 
   const request = props.axiosInstance
     ? props.axiosInstance.request(requestConfig)
-    : axios.request({ ...requestConfig, ...{ timeout: 10000 } });
+    : axios.request({ ...{ timeout: 10000 }, ...requestConfig });
 
-  if (!props.manualHandling) {
+  if (!props.manualHandle) {
     return request
       .then(
         (
@@ -105,7 +108,6 @@ function handleSingleSignOnProcess() {
         message.value = error;
         emit('response-data-token', undefined);
       })
-      .finally(() => {});
   } else {
     emit('response-promise', request);
     return request;

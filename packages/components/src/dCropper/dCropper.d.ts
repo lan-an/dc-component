@@ -2,7 +2,7 @@
  * @Date: 2023-11-06 14:20:54
  * @Author: liu-hongrui
  * @LastEditors: liu-hongrui
- * @LastEditTime: 2023-11-07 11:24:14
+ * @LastEditTime: 2023-11-07 14:24:45
  * @FilePath: \dc-component\packages\components\src\dCropper\dCropper.d.ts
  */
 
@@ -32,6 +32,10 @@ export type IProps = {
   previewWidth?: '100' | '150' | '200' | '250' | '300' // 预览宽度
   title?: string // 裁剪标题
   type?: string // 返回的文件类型 Base64  Blob  file对象
+  rotate?:boolean // 是否显示旋转按钮
+  canScale?:boolean //图片是否允许滚轮缩放
+  amplify?:boolean// 是否显示放大按钮
+  reduce?:boolean// 是否显示缩小按钮
 }
 // 预览样式
 export type IStyle = {

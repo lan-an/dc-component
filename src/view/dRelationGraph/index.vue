@@ -5,8 +5,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref,nextTick } from 'vue' 
-import { DRGData, RelationGraphInstance } from '@/components'
+import { ref,nextTick } from 'vue'
+import { DRGData } from 'dc-pro-component';
 const graphData = ref<DRGData>()
 const rgDom = ref<HTMLElement>()
 

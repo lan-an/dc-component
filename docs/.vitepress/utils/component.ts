@@ -15,9 +15,9 @@ export const component = [
     activeMatch: '/component/dRelationGraph',
   },
   {
-    text: 'dModal',
-    link: '/component/dModal',
-    activeMatch: '/component/dModal',
+    text: ' DCropper',
+    link: '/component/dCropper',
+    activeMatch: '/component/dCropper',
   },
   {
     text: 'dFileUpload',
