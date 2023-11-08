@@ -12,6 +12,7 @@ export { default as DTableSearch } from './dTableSearch';
 export { default as DRelationGraph } from './dRelationGraph'
 export {default as DModal} from './dModal'
 export {default as DFileUpload} from './DFileUpload'
+export { default as DInputCron } from './dInputCron'
 export type { IProps } from './dModal/dModal'
 export type { ColumProps } from './dTableSearch/dTableSearch';
 export { default as DSingleSignOn } from './dSingleSignOn';

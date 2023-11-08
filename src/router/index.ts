@@ -16,6 +16,7 @@ import SingleSignOn from '../view/SingleSignOn/index.vue';
 import FileUpload from "../view/dFileUpload/index.vue";
 import Modal from '../view/Modal/index.vue';
 import dRelationGraph from '../view/dRelationGraph/index.vue';
+import DInputCron from '../view/dInputCron/index.vue'
 
 export const routes: any = [
 
@@ -62,6 +63,12 @@ export const routes: any = [
         name: 'FileUpload',
         meta: { title: '上传文件', affix: true },
         component: FileUpload,
+      },
+      {
+        path: 'DInputCron',
+        name: 'DInputCron',
+        meta: { title: 'cron', affix: true },
+        component: DInputCron,
       },
     ],
 
