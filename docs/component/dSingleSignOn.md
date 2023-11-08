@@ -61,8 +61,16 @@
 
 使用`start`方法手动开始请求、`response-promise`事件获取响应。
 
+<d-single-sign-on-demo-manual></d-single-sign-on-demo-manual>
+
+::: details 查看源代码
+
+<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoManual.vue{8-10,29,32}
+
+:::
+
 ::: tip
-`start`方法自身也返回了异步操作响应。可以使用以下的方式处理响应：
+`start`方法自身也返回了异步操作响应。可以使用以下的方式处理响应，无需`response-promise`事件获取响应：
 
 ```js
 singleSignOnRef.value.start().then((response) => {
