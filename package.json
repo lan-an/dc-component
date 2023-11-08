@@ -6,9 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite dev",
-    "docs:dev": "vitepress dev docs",
+    "docs:dev": "vitepress dev docs --port 5174",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs",
+    "docs:preview": "vitepress preview docs --port 4174",
     "deploy": "bash deploy.sh",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "prepare": "husky install",

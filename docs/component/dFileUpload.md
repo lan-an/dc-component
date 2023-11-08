@@ -233,3 +233,4 @@ function submitForm(){
 | upload-remove | 文件列表移除文件时的钩子 | Function | -- |
 | upload-error | 文件上传失败时的钩子 | Function | -- |
 | upload-success | 文件上传成功时的钩子 | Function | -- |
+| download-file | 下载模板文件 | Function | -- |
