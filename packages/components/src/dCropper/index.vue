@@ -17,7 +17,7 @@
       <template #default>
         <div class="cropper">
           <div class="cropper_left">
-            <VueCropper
+            <AsyncComp
               :style="{ width: '400px' }"
               ref="cropperRef"
               :img="options.img"
@@ -96,11 +96,13 @@
 
 <script lang="ts" setup name="DCropper">
 import 'vue-cropper/dist/index.css';
-import { VueCropper } from 'vue-cropper/lib/index';
 import type { Options, IProps, IStyle } from './dCropper';
-import { ref, watch, reactive } from 'vue';
+import { ref, watch, reactive ,defineAsyncComponent} from 'vue';
 import { ElMessage, ElDialog, ElIcon, ElButton } from 'element-plus';
 import { CirclePlus, Remove, RefreshRight } from '@element-plus/icons-vue';
+const AsyncComp = defineAsyncComponent(() =>
+  import('vue-cropper/lib/vue-cropper.vue')
+)
 defineOptions({
   name: 'DCropper',
 });
