@@ -25,7 +25,7 @@
 
 ::: details 查看源代码
 
-<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoBasic.vue{4-7}
+<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoBasic.vue{4,5,9,10}
 
 :::
 
@@ -33,13 +33,15 @@
 
 可以自定义请求方式，请求与响应的参数名称。
 
-使用`request-query`参数指定查询字符串参数名称，`request-method`和`request-payload`定义请求类型和负载类型。
+使用`request-query`参数指定查询字符串参数名称，使用`request-token`参数指定请求时的标识符名称。
+
+使用`request-method`和`request-payload`定义请求类型和负载类型，默认为`POST`请求。
 
 使用`response-token`定义响应的标识符名称。
 
 ::: details 查看源代码
 
-<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoBasic.vue{5-6,8-9}
+<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoBasic.vue{5-9}
 
 :::
 

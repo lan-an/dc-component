@@ -3,10 +3,11 @@
     <d-single-sign-on
       api="https://yesno.wtf/api"
       request-query="auth_code"
-      response-token="answer"
-      @response-data-token="handleResponseToken"
+      request-token="force"
       request-method="get"
       request-payload="params"
+      response-token="answer"
+      @response-data-token="handleResponseToken"
     ></d-single-sign-on>
     <span v-if="token">获取的标识符是：{{ token }}</span>
   </div>
