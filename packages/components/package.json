@@ -21,6 +21,7 @@
   "license": "MIT",
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
+    "@wangeditor/editor-for-vue": "^5.1.12",
     "element-plus": "^2.4.1",
     "vite-plugin-vue-setup-extend": "^0.4.0"
   }

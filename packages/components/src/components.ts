@@ -13,6 +13,7 @@ export { default as DTableSearch } from './dTableSearch';
 export { default as DRelationGraph } from './dRelationGraph'
 export { default as DCropper} from './dCropper'
 export {default as DFileUpload} from './DFileUpload'
+export {default as DRichTextEditor} from './DRichTextEditor'
 export { default as DInputCron } from './dInputCron'
 export type { ColumProps } from './dTableSearch/dTableSearch';
 export { default as DSingleSignOn } from './dSingleSignOn';
