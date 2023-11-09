@@ -63,7 +63,8 @@ function handleSingleSignOn() {
   } else {
     status.value = 'failed';
     message.value = '缺少请求标识符';
-    return Promise.reject('token-not-found');
+    emit('response-promise', Promise.reject('query-token-not-found'));
+    return Promise.reject('query-token-not-found');
   }
 }
 
