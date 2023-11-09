@@ -2,7 +2,7 @@
  * @Date: 2023-10-30 13:26:08
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-10-30 14:21:49
+ * @LastEditTime: 2023-11-09 16:18:09
  * @FilePath: \dc-component\packages\components\src\dTableSearch\dTableSearch.d.ts
  */
 export type ColumProps = {
@@ -27,4 +27,32 @@ export type CardProp = {
   header?: string;
   bodyStyle?: object;
   bodyClass?: string;
+};
+
+export type TableProp = {
+  columns?: ColumProps[];
+  request: (
+    params: any,
+    done: (res: {
+      data: any[];
+      total?: number;
+      pageNum?: number;
+      pageSize?: number;
+    }) => void,
+  ) => void;
+  title?: string;
+
+  pagination?: any; //分页所有参数
+  hasSearch?: boolean; //是否需要搜索
+  hasPage?: boolean;
+  more?: boolean;
+  searchFormProps?: any;
+  loadingParams?: {
+    body?: boolean;
+    fullscreen?: boolean;
+    text?: string;
+    background?: string;
+  };
+  isloading?: boolean;
+  cardProp?: CardProp;
 };

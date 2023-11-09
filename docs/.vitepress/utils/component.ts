@@ -10,6 +10,11 @@ export const component = [
     activeMatch: '/component/dTableSearch',
   },
   {
+    text: 'dDialogForm',
+    link: '/component/dDialogForm',
+    activeMatch: '/component/dDialogForm',
+  },
+  {
     text: 'dRelationGraph',
     link: '/component/dRelationGraph',
     activeMatch: '/component/dRelationGraph',

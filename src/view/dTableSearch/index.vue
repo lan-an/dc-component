@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 17:35:40
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-06 17:58:32
+ * @LastEditTime: 2023-11-07 16:11:33
  * @FilePath: \dc-component\src\view\dTableSearch\index.vue
 -->
 
@@ -23,6 +23,7 @@
     }"
     empty-text="暂无数据"
     border
+    :cardProp="{ shadow: 'always' }"
   >
     <template #dTableRight>
       <el-button type="primary" class="button">Operation button</el-button>

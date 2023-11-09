@@ -1,8 +1,7 @@
 import DefaultTheme from 'vitepress/theme';
 import * as dc from 'dc-pro-component';
 import * as examples from '../example';
-
-import { createWebHistory, createRouter } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
 //全局注册组件
 export default {
@@ -14,12 +13,16 @@ export default {
         app.component(`${each.__name}`, each);
       });
     });
-
     app.use(
       createRouter({
         history: createWebHistory(),
         routes: [],
       }),
     );
+    // app.mixin({
+    //   mounted() {
+
+    //   },
+    // });
   },
 };
