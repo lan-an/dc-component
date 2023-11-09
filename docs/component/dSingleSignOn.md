@@ -49,6 +49,14 @@
 
 可以使用插槽自定义显示的消息，也可以用`hide-message`关闭消息显示。
 
+::: code-group
+
+<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoMessage.vue#message-1 [自定义显示消息]
+
+<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoMessage.vue#message-2 [关闭消息显示]
+
+:::
+
 ## 自定义Axios实例
 
 内部创建的基础Axios实例可能不能满足需求，
