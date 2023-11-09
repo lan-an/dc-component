@@ -31,8 +31,8 @@ function handleSingleSignOnStart() {
 
 function handleResponsePromise(response) {
   response
-    .then((res) => {
-      responseString.value = String(JSON.stringify(res));
+    .then((response) => {
+      responseString.value = String(JSON.stringify(response));
     })
     .catch((error) => {
       responseString.value = String(JSON.stringify(error));

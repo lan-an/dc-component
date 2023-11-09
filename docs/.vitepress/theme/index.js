@@ -13,16 +13,14 @@ export default {
         app.component(`${each.__name}`, each);
       });
     });
-    app.use(
-      createRouter({
-        history: createWebHistory(),
-        routes: [],
-      }),
-    );
-    // app.mixin({
-    //   mounted() {
 
-    //   },
-    // });
+    if (!import.meta.env.SSR) {
+      app.use(
+        createRouter({
+          history: createWebHistory(),
+          routes: [],
+        }),
+      );
+    }
   },
 };

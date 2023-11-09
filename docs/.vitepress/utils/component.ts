@@ -30,6 +30,11 @@ export const component = [
     activeMatch: '/component/dFileUpload',
   },
   {
+    text: 'dRichTextEditor',
+    link: '/component/dRichTextEditor',
+    activeMatch: '/component/dRichTextEditor',
+  },
+  {
     text: 'dSingleSignOn',
     link: '/component/dSingleSignOn',
     activeMatch: '/component/dSingleSignOn',
