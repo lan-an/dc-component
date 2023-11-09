@@ -15,11 +15,13 @@ export default {
       });
     });
 
-    app.use(
-      createRouter({
-        history: createWebHistory(),
-        routes: [],
-      }),
-    );
+    if (!import.meta.env.SSR) {
+      app.use(
+        createRouter({
+          history: createWebHistory(),
+          routes: [],
+        }),
+      );
+    }
   },
 };
