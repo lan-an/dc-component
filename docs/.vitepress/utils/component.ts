@@ -39,4 +39,9 @@ export const component = [
     link: '/component/dSingleSignOn',
     activeMatch: '/component/dSingleSignOn',
   },
+  {
+    text: 'dInputCron',
+    link: '/component/dInputCron',
+    activeMatch: '/component/dInputCron',
+  },
 ];
