@@ -1,16 +1,14 @@
-# DFileUpload 文件上传组件
+# DRichTextEditor 富文本编辑器组件
 
 ## 说明
 
-`DFileUpload` 是一个用于文件上传的便捷式开发组件，它基于Element Plus组件库开发，支持文件映射回显，文件格式，大小校验，拖拽上传，手动点击上传等功能。
+`DRichTextEditor` 是一个用于富文本的便捷式开发组件，它基于wangEditor开发，支持富文本，图片上传，视频上传等功能。
 
 ## 基础用法
 
-常用表单自动上传文件用法，自定义文件名回显。
 <script lang="ts" setup>
 import {ref,getCurrentInstance} from 'vue'
-import { DFileUpload } from 'dc-pro-component';
-import {ElButton} from "element-plus";
+import { DRichTextEditor } from 'dc-pro-component';
 const { proxy } = getCurrentInstance();
 const fileMapping = ref({
   name:"fileName",
@@ -47,8 +45,8 @@ function submitForm(){
 }
 </script>
 
-<DFileUpload
-      :file-list="fileList"
+<DRichTextEditor
+      :file-list="fileData"
       :upload-url="uploadUrl"
       :limit-num="3"
       :file-mapping="fileMapping"
@@ -61,7 +59,7 @@ function submitForm(){
 
 ```vue
 <template>
-  <DFileUpload
+  <DRichTextEditor
      :file-list="fileList"
      :limit-num="3"
      :upload-url="uploadUrl"
@@ -72,7 +70,7 @@ function submitForm(){
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue';
-import DFileUpload from '@/components/DFileUpload.vue';
+import DRichTextEditor from '@/components/DRichTextEditor.vue';
 const uploadUrl = ref('https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15');
 const fileList = ref([
   {
@@ -107,111 +105,6 @@ handleUploadSuccess(file, list){
 :::
 
 
-## 拖拽上传
-
-文件拖拽自动上传,自定义文件类型,文件大小,文件数量。
-<DFileUpload
-      :is-drag="true"
-      :limit-num="5"
-      :file-size="10"
-      file-types=".png,.jpg"
-      :upload-url="uploadUrl"
-      :file-list="fileList2"
-      @upload-error="handleUploadError"
-      @upload-success="handleUploadSuccess"
-    />
-    
- 
-::: details Show Code
-
-```vue
-<template>
-  <DFileUpload
-     :is-drag="true"
-     :limit-num="5"
-     :file-size="10"
-     file-types=".png,.jpg"
-     :file-list="fileList"
-     :upload-url="uploadUrl"
-     @upload-change="uploadChange"
-  />
-</template>
-<script lang="ts" setup>
-import { ref } from 'vue';
-import DFileUpload from '@/components/DFileUpload.vue';
-const fileList = ref([]);
-const uploadUrl = ref('https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15');
-
-const handleUploadError = (error) => {
-  // 处理文件上传失败
-};
-
-const handleUploadSuccess = (file, list) => {
-  // 处理文件上传成功
-};
-</script>
-:::
-
-
-## 手动点击上传
-
-手动提交上传,校验文件格式大小。
-<div>
-  <DFileUpload
-      ref="uploadRefs"
-      :upload-url="uploadUrl"
-      :file-list="fileList3"
-      :autoUpload="false"
-      :isTemplate="true"
-      @download-file="downloadFile"
-      @upload-change="uploadChange"/>
-  <el-button  @click="submitForm" type="primary">提交</el-button>
-</div>
-
-
-::: details Show Code
-
-```vue
-<template>
-  <DFileUpload
-      ref="uploadRefs"
-     :upload-url="uploadUrl"
-     :file-list="fileList"
-     :autoUpload="false"
-     :isTemplate="true"
-     @download-file="downloadFile"
-     @upload-change="uploadChange"
-  />
-</template>
-<script lang="ts" setup>
-import { ref } from 'vue';
-import DFileUpload from '@/components/DFileUpload.vue';
-const fileList = ref([]);
-const uploadUrl = ref('https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15');
-
-//文件上传更新
-function uploadChange(file,list){
-  fileList.value=list
-}
-
-//下载模板
-function downloadFile(){
-  console.log('下载模板')
-}
-
-//手动提交校验文件格式大小
-function submitForm(){
-  let flag=true
-  fileList.value.forEach(item=>{
-    if(!proxy.$refs.uploadRefs.uploadBefore(item)){
-      flag=false
-    }
-  })
-  if(!flag) return
-  console.log('文件校验通过')
-}
-</script>
-:::
 
 ## Attributes
 
@@ -228,7 +121,7 @@ function submitForm(){
 | fileList | 文件列表，用于数据回显 | Array | -- |
 | paramsData | 上传时附带的额外参数 | Object | -- |
 | uploadHeaders | 设置上传的请求头部 | Object | -- |
-| fileMapping | 文件属性名称映射，自定义类名方便回显 | Object | "{name:'name',url:'url'}" |
+| fileMapping | 文件名,文件Url地址自定义 | Object | "{name:'name',url:'url'}" |
 | upload-change | 文件状态改变时的钩子，添加文件、上传成功和上传失败时都会被调用 | Function | -- |
 | upload-remove | 文件列表移除文件时的钩子 | Function | -- |
 | upload-error | 文件上传失败时的钩子 | Function | -- |

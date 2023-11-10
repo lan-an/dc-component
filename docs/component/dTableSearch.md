@@ -2,22 +2,29 @@
  * @Date: 2023-10-18 13:01:07
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-06 17:01:51
+ * @LastEditTime: 2023-11-10 10:12:59
  * @FilePath: \dc-component\docs\component\dTableSearch.md
 -->
 
 # dTableSearch 表格搜索组件
 
-表格搜索组件便捷式开发
+这是一个表格搜索组件，使用它便捷式开发各个业务系统列表页面
 
 ## 基础用法
+
+列表搜索组件，通过`request`回调函数方式，用户在获取数据之后通过回调函数把数据传给组件。
+
+::: tip
+搜索条件过多可以通过`more`参数来实现展开搜索剩余参数`pagination`支持分页组件所有参数配置，`hasSearch`是否需要搜索条件,`action`顶部操作栏slot,`title`设置表单名称。
+:::
+
 
   <dTable class="vp-raw"></dTable>
 
 
 
 
-::: details Show Code
+::: details 查看源码
 
 ```vue
 <template>

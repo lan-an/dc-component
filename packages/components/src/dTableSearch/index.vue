@@ -2,7 +2,7 @@
  * @Date: 2023-10-30 10:58:31
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-06 16:03:35
+ * @LastEditTime: 2023-11-09 16:22:56
  * @FilePath: \dc-component\packages\components\src\dTableSearch\index.vue
 -->
 <template>
@@ -171,7 +171,8 @@ import {
   ElCheckbox,
 } from 'element-plus';
 import { ClickOutside as vClickOutside } from 'element-plus';
-import { CardProp } from './dTableSearch';
+import type { CardProp } from './dTableSearch';
+
 const buttonRef = ref<HTMLDivElement>();
 const popoverRef = ref();
 const onClickOutside = () => {
@@ -324,7 +325,7 @@ const handleRequest = (): void => {
     });
   }
 
-  request({ ...params }, res => {
+  request({ ...params }, (res) => {
     if (res) {
       if (hasPage) {
         tableData.value = res.data;
@@ -360,7 +361,6 @@ const handleResetColum = (): void => {
   }
 };
 
-
 /**
  * 搜索展开折叠
  */
@@ -376,7 +376,7 @@ const handleCheckChange = (
   check: boolean,
   flag: boolean,
 ): void => {
-  treeObjColum.columArr = treeObjColum.columArr.map(item =>
+  treeObjColum.columArr = treeObjColum.columArr.map((item) =>
     item.prop === node.prop ? { ...item, checked: !item.checked } : item,
   );
   const checkedCount: any = treeRef.value!.getCheckedNodes(true).length;
@@ -396,7 +396,7 @@ const handleCheckAllChange = (val: boolean) => {
   } else {
     treeRef.value!.setCheckedKeys([], false);
   }
-  treeObjColum.columArr = treeObjColum.columArr.map(item => {
+  treeObjColum.columArr = treeObjColum.columArr.map((item) => {
     return { ...item, checked: !val };
   });
   isIndeterminate.value = false;

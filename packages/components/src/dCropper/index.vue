@@ -17,7 +17,7 @@
       <template #default>
         <div class="cropper">
           <div class="cropper_left">
-            <vueCropper
+            <AsyncComp
               :style="{ width: '400px' }"
               ref="cropperRef"
               :img="options.img"
@@ -26,6 +26,8 @@
               :auto-crop="options.autoCrop"
               :autoCropWidth="options.autoCropWidth"
               :autoCropHeight="options.autoCropHeight"
+              :outputSize="options.outputSize"
+              :outputType="options.outputType"
               :fixed-box="options.fixedBox"
               :can-move="options.canMoveBox"
               :can-scale="options.canScale"
@@ -94,11 +96,13 @@
 
 <script lang="ts" setup name="DCropper">
 import 'vue-cropper/dist/index.css';
-import { VueCropper } from 'vue-cropper';
 import type { Options, IProps, IStyle } from './dCropper';
-import { ref, watch, reactive } from 'vue';
+import { ref, watch, reactive ,defineAsyncComponent} from 'vue';
 import { ElMessage, ElDialog, ElIcon, ElButton } from 'element-plus';
 import { CirclePlus, Remove, RefreshRight } from '@element-plus/icons-vue';
+const AsyncComp = defineAsyncComponent(() =>
+  import('vue-cropper/lib/vue-cropper.vue')
+)
 defineOptions({
   name: 'DCropper',
 });
@@ -230,8 +234,8 @@ const dataURLtoFile = (dataurl: string, filename: string) => {
   while (n--) {
     u8arr[n] = bstr.charCodeAt(n);
   }
-  return new File([u8arr], `${filename}.${suffix}`, {
-    type: mime,
+  return new File([u8arr], `${filename}`, {
+    type: suffix,
   });
 };
 
@@ -243,7 +247,7 @@ const onConfirm = () => {
     });
   } else if (props.type === 'Blob') {
     cropperRef.value.getCropBlob(async (data: string) => {
-      emits('getCropData', URL.createObjectURL(new Blob([data], { type: 'image/png' })));
+      emits('getCropData', URL.createObjectURL(new Blob([data], { type: 'image' })));
     });
   } else {
     cropperRef.value.getCropData(async (data: string) => {

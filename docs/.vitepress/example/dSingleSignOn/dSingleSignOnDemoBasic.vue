@@ -1,11 +1,10 @@
 <template>
-  <!-- 登录成功 -->
   <div style="border: 1px solid black; padding: 5px">
     <d-single-sign-on
       api="https://yesno.wtf/api"
-      request-method="get"
       request-query="auth_code"
       request-token="force"
+      request-method="get"
       request-payload="params"
       response-token="answer"
       @response-data-token="handleResponseToken"
@@ -20,9 +19,7 @@ import { DSingleSignOn } from 'dc-pro-component';
 const token = ref('');
 
 function handleResponseToken(res: string) {
-  if (res) {
-    token.value = res;
-  }
+  token.value = res;
 }
 </script>
 

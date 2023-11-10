@@ -1,4 +1,3 @@
-
 /*
  * @Date: 2023-10-31 16:46:45
  * @Auth: 463997479@qq.com
@@ -11,20 +10,19 @@ import { createRouter, createWebHistory } from 'vue-router';
 // 2. 定义一些路由：每个路由都需要映射到一个组件。
 import DTableSearch from '../view/dTableSearch/index.vue';
 import LayoutComponent from '../layout/index.vue';
-import Bak from '../view/bak/index.vue';
+import DDialogForm from '../view/dDialogForm/index.vue';
 import dSingleSignOn from '../view/dSingleSignOn/index.vue';
-import FileUpload from "../view/dFileUpload/index.vue";
+import FileUpload from '../view/dFileUpload/index.vue';
 import DCropper from '../view/dCropper/index.vue';
 import dRelationGraph from '../view/dRelationGraph/index.vue';
 import OrganizationTree from '../view/dOrganizationTree/index.vue';
+import DInputCron from '../view/dInputCron/index.vue';
 
 export const routes: any = [
-
   {
     path: '/',
     component: LayoutComponent,
     redirect: '/dTableSearch',
-
 
     children: [
       {
@@ -35,10 +33,11 @@ export const routes: any = [
         component: DTableSearch,
       },
       {
-        path: 'bak',
-        name: 'bak',
-        meta: { title: 'bak' },
-        component: Bak,
+        path: 'dDialogForm',
+
+        name: 'dDialogForm',
+        meta: { title: 'dDialogForm' },
+        component: DDialogForm,
       },
       {
         path: 'dSingleSignOn',
@@ -70,8 +69,13 @@ export const routes: any = [
         meta:{title:'组织树'},
         component:OrganizationTree
       }
+      ,{
+        path: 'DInputCron',
+        name: 'DInputCron',
+        meta: { title: 'cron', affix: true },
+        component: DInputCron,
+      },
     ],
-
   },
 ];
 const router = createRouter({

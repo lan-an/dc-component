@@ -6,6 +6,7 @@
  * @FilePath: \dc-component\docs\.vitepress\example\index.js
  */
 import dTable from './dTable';
+import dDialogForm from './dDialogForm';
 import dSingleSignOn from './dSingleSignOn';
 import dOrganzationTree from './dOrganzationTree'
-export default [dTable, dSingleSignOn,dOrganzationTree];
+export default [dTable, dDialogForm, dSingleSignOn,dOrganzationTree];
