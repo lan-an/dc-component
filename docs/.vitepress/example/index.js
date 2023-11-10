@@ -1,10 +1,11 @@
 /*
  * @Date: 2023-11-06 16:30:31
  * @Auth: 463997479@qq.com
- * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-06 16:31:11
- * @FilePath: \dc-component\docs\.vitepress\example\index.ts
+ * @LastEditors: 873768511@qq.com
+ * @LastEditTime: 2023-11-10 09:29:47
+ * @FilePath: \dc-component\docs\.vitepress\example\index.js
  */
 import dTable from './dTable';
 import dSingleSignOn from './dSingleSignOn';
-export default [dTable, dSingleSignOn];
+import dOrganzationTree from './dOrganzationTree'
+export default [dTable, dSingleSignOn,dOrganzationTree];

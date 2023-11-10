@@ -13,7 +13,7 @@ export { default as DTableSearch } from './dTableSearch';
 export { default as DRelationGraph } from './dRelationGraph'
 export { default as DCropper} from './dCropper'
 export {default as DFileUpload} from './DFileUpload'
-export {default as OrganizationTree} from './dOrganizationTree'
+export {default as DOrganizationTree} from './dOrganizationTree'
 export type { ColumProps } from './dTableSearch/dTableSearch';
 export { default as DSingleSignOn } from './dSingleSignOn';
 export type * from './dRelationGraph/dRelationGraph';

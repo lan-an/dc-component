@@ -5,7 +5,16 @@
  * @LastEditTime: 2023-11-07 14:55:04
  * @FilePath: \dc-component\packages\components\src\OrganizationTree\OrganizationTree.d.ts
  */
-export type treeProps={
-  width?:number;
-  height?:number;
+export interface Tree {
+	id: string|number;
+	key?: string;
+	label: string;
+	children: Tree[]|null;
+	disabled?: string;
+	isLeaf?: boolean;
+	disableCheckbox?: string;
+	checkable?: string;
+	icon?: string;
+	parentId?: string;
+	class?:string
 }

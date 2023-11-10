@@ -2,8 +2,8 @@
 /*
  * @Date: 2023-10-31 16:46:45
  * @Auth: 463997479@qq.com
- * @LastEditors: liu-hongrui
- * @LastEditTime: 2023-11-06 14:42:16
+ * @LastEditors: 873768511@qq.com
+ * @LastEditTime: 2023-11-09 09:12:39
  * @FilePath: \dc-component\src\router\index.ts
  */
 import { createRouter, createWebHistory } from 'vue-router';
@@ -16,6 +16,7 @@ import dSingleSignOn from '../view/dSingleSignOn/index.vue';
 import FileUpload from "../view/dFileUpload/index.vue";
 import DCropper from '../view/dCropper/index.vue';
 import dRelationGraph from '../view/dRelationGraph/index.vue';
+import OrganizationTree from '../view/dOrganizationTree/index.vue';
 
 export const routes: any = [
 
@@ -63,6 +64,12 @@ export const routes: any = [
         meta: { title: '上传文件', affix: true },
         component: FileUpload,
       },
+      {
+        path:'OrganizationTree',
+        name:'OrganizationTree',
+        meta:{title:'组织树'},
+        component:OrganizationTree
+      }
     ],
 
   },

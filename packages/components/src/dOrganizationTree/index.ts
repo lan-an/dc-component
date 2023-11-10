@@ -5,7 +5,7 @@
  * @LastEditTime: 2023-11-06 11:06:59
  * @FilePath: \dc-component\packages\components\src\OrganizationTree\index.ts
  */
-import organizationTree from './index.vue'
+import dOrganizationTree from './index.vue'
 import { withInstall } from 'dcqc-utils'
-const OrganizationTree = withInstall(organizationTree)
-export default OrganizationTree
+const DOrganizationTree = withInstall(dOrganizationTree)
+export default DOrganizationTree
