@@ -1,9 +1,9 @@
 import { onMounted, onUnmounted, ref, watch, watchEffect } from 'vue';
-let UNCODE_ID = Date.now();
+const UNCODE_ID = Date.now();
 
-export const useLockDom = flag => {
+export const useLockDom = (flag) => {
   const style = ref<HTMLStyleElement>();
-  let dom = document.createElement('style');
+  const dom = document.createElement('style');
   dom.type = 'text/css';
 
   dom.id = `${UNCODE_ID}`;
