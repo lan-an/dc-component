@@ -1,3 +1,10 @@
+/*
+ * @Date: 2023-11-06 10:44:37
+ * @Author: liu-hongrui
+ * @LastEditors: liu-hongrui
+ * @LastEditTime: 2023-11-10 10:31:42
+ * @FilePath: \dc-component\docs\.vitepress\utils\component.ts
+ */
 export const component = [
   {
     text: 'button',
@@ -15,7 +22,7 @@ export const component = [
     activeMatch: '/component/dRelationGraph',
   },
   {
-    text: ' DCropper',
+    text: ' dCropper',
     link: '/component/dCropper',
     activeMatch: '/component/dCropper',
   },
