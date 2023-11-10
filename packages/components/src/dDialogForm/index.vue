@@ -2,7 +2,7 @@
  * @Date: 2023-11-09 10:26:28
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-09 16:09:04
+ * @LastEditTime: 2023-11-10 14:42:27
  * @FilePath: \dc-component\packages\components\src\dDialogForm\index.vue
 -->
 
@@ -38,7 +38,6 @@
 <script lang="ts" setup>
 import { ref, watch, toRefs } from 'vue';
 import { ElButton, ElForm, ElDialog } from 'element-plus';
-import type { FormProp } from './dDialogForm';
 import type { FormInstance } from 'element-plus';
 defineOptions({
   name: 'DDialogForm',
@@ -51,15 +50,28 @@ const emits = defineEmits([
   'handleConfirm',
 ]);
 
-const ruleFormRef = ref<FormInstance>();
-const props = withDefaults(defineProps<FormProp>(), {
-  cancelText: '取消',
-  confirmText: '确认',
-  modelValue: false,
-  rules: null,
-  title: '新建表单',
-  showFooter: true,
-});
+const ruleFormRef = ref<FormInstance>(null);
+const props = withDefaults(
+  defineProps<{
+    form?: object;
+    cancelText?: string;
+    confirmText?: string;
+    modelValue: boolean;
+    formProp?: object;
+    rules?: object;
+    title?: string;
+    ruleFormRef?: any;
+    showFooter?: boolean;
+  }>(),
+  {
+    cancelText: '取消',
+    confirmText: '确认',
+    modelValue: false,
+    rules: null,
+    title: '新建表单',
+    showFooter: true,
+  },
+);
 
 const { modelValue, form } = toRefs(props);
 watch(
