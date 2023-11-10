@@ -34,7 +34,7 @@ export default {
       provider: 'local',
     },
     nav: [
-      { text: '组件', link: '/component/button' },
+      { text: '组件', link: '/component/dTableSearch' },
       { text: '指南', link: '/guide/method' },
       { text: '技术分享', link: '/shareSkill/index' },
 

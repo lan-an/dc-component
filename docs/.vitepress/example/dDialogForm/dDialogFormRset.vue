@@ -2,8 +2,8 @@
  * @Date: 2023-10-17 17:35:40
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-10 09:51:54
- * @FilePath: \dc-component\docs\.vitepress\example\dDialogForm\dDialogForm.vue
+ * @LastEditTime: 2023-11-10 09:51:06
+ * @FilePath: \dc-component\docs\.vitepress\example\dDialogForm\dDialogFormRset.vue
 -->
 
 <template>
@@ -43,16 +43,12 @@
             :options="options"
           />
         </el-form-item>
-
-        <el-form-item>
-          <el-button type="primary" @click="submitForm(ruleFormRef)">
-            确认</el-button
-          >
-        </el-form-item>
+      </template>
+      <template #submitter>
+        <el-button @click="handleClick2(ruleFormRef)"> 重置 </el-button>
       </template>
     </d-dialog-form>
     <el-button @click="handleClick"> 新建表单 </el-button>
-    <el-button @click="handleClick1"> 表单回显</el-button>
   </div>
 </template>
 

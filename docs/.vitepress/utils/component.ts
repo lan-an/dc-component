@@ -1,10 +1,5 @@
 export const component = [
   {
-    text: 'button',
-    link: '/component/button',
-    activeMatch: '/component/button',
-  },
-  {
     text: 'dTableSearch',
     link: '/component/dTableSearch',
     activeMatch: '/component/dTableSearch',

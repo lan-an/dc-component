@@ -6,4 +6,5 @@
  * @FilePath: \dc-component\docs\.vitepress\example\dDialogForm\index.js
  */
 import dDialogForm from './dDialogForm.vue';
-export default [dDialogForm];
+import dDialogFormRset from './dDialogFormRset.vue';
+export default [dDialogForm, dDialogFormRset];
