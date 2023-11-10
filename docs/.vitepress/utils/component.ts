@@ -17,6 +17,11 @@ export const component = [
     activeMatch: '/component/dTableSearch',
   },
   {
+    text: 'dDialogForm',
+    link: '/component/dDialogForm',
+    activeMatch: '/component/dDialogForm',
+  },
+  {
     text: 'dRelationGraph',
     link: '/component/dRelationGraph',
     activeMatch: '/component/dRelationGraph',
@@ -32,8 +37,18 @@ export const component = [
     activeMatch: '/component/dFileUpload',
   },
   {
+    text: 'dRichTextEditor',
+    link: '/component/dRichTextEditor',
+    activeMatch: '/component/dRichTextEditor',
+  },
+  {
     text: 'dSingleSignOn',
     link: '/component/dSingleSignOn',
     activeMatch: '/component/dSingleSignOn',
+  },
+  {
+    text: 'dInputCron',
+    link: '/component/dInputCron',
+    activeMatch: '/component/dInputCron',
   },
 ];

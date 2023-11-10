@@ -49,12 +49,15 @@
 
 可以使用插槽自定义显示的消息，也可以用`hide-message`关闭消息显示。
 
-## 自定义Axios实例
+::: code-group
 
-内部创建的基础Axios实例可能不能满足需求，
-可以使用`axios-instance`自定义Axios实例。
+<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoMessage.vue#message-1 [自定义显示消息]
 
-## 自定义处理响应
+<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoMessage.vue#message-2 [关闭消息显示]
+
+:::
+
+## 自定义开始请求、处理响应
 
 内部对响应进行的解析可能不能满足需求，
 可以使用`manual-start`属性设置不自动动开始请求，`manual-handle`属性设置手动处理返回的响应。
@@ -70,7 +73,7 @@
 :::
 
 ::: tip
-`start`方法自身也返回了异步操作响应。可以使用以下的方式处理响应，无需`response-promise`事件获取响应：
+`start`方法自身也返回了异步操作响应。手动开始请求时可以使用以下的方式处理响应，无需`response-promise`事件获取响应：
 
 ```js
 singleSignOnRef.value.start().then((response) => {
@@ -78,15 +81,59 @@ singleSignOnRef.value.start().then((response) => {
 });
 ```
 
+同时参见[自定义Axios请求配置](#自定义axios请求配置)的源代码。
+
 :::
 
-## 自定义请求配置
+## 自定义Axios实例
 
-内部生成的请求配置可能不能满足需求，
-可以使用`request-axios-config`属性设置Axios请求配置。
+内部创建的基础Axios实例可能不能满足需求，
+可以使用`axios-instance`自定义Axios实例，常用于自定义请求拦截器添加身份标识符。
+
+<d-single-sign-on-demo-axios></d-single-sign-on-demo-axios>
+
+::: details 查看源代码
+
+<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoAxios.vue{6,29-55}
+
+:::
+
+::: tip
+
+本组件已经支持常见的```return Promise.resolve(response.data)```响应拦截器，无需自定义处理响应。
+
+```js{3}
+service.interceptors.response.use(
+  (response) => {
+    return Promise.resolve(response.data ?? response);
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
+```
+
+:::
+
+## 自定义Axios请求配置
+
+内部生成的Axios请求配置可能不能满足需求，
+可以使用`request-axios-config`属性手动设置Axios请求配置。
+
+<d-single-sign-on-demo-config></d-single-sign-on-demo-config>
+
+::: details 查看源代码
+
+<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoConfig.vue{5,25-33}
+
+:::
 
 ::: info
-`request-axios-config`属性生效时，其他请求配置项均不生效。
+`request-axios-config`属性生效时，`request-token`、`request-method`、`request-payload`均不生效。
+:::
+
+::: tip
+手动设置Axios请求配置时，不会检查字符串查询参数，也不会向配置内自动添加。所以通常需要手动开始请求（`manual-start`），以携带含有参数的配置。
 :::
 
 ## API
@@ -100,7 +147,7 @@ singleSignOnRef.value.start().then((response) => {
 | `request-token` | 单点登录请求标识符名称 | string | - | token
 | `request-method` | 单点登录请求类型 | string | - | POST
 | `request-payload` | 单点登录请求负载类型 | string | data / params | data
-| `request-axios-config` | 单点登录Axios请求配置项，此项生效时其他请求配置项均不生效 | AxiosRequestConfig | - | -
+| `request-axios-config` | 单点登录Axios请求配置项，此项生效时`request-token`、`request-method`、`request-payload`均不生效 | AxiosRequestConfig | - | -
 | `response-token` | 单点登录成功后返回标识符名称 | string | - | token
 | `hide-message` | 是否隐藏消息 | boolean | true / false | false
 | `axios-instance` | 外部Axios实例 | AxiosInstance | - | -

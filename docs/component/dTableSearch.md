@@ -2,7 +2,7 @@
  * @Date: 2023-10-18 13:01:07
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-06 17:01:51
+ * @LastEditTime: 2023-11-09 16:46:46
  * @FilePath: \dc-component\docs\component\dTableSearch.md
 -->
 
@@ -17,7 +17,7 @@
 
 
 
-::: details Show Code
+::: details 查看源码
 
 ```vue
 <template>
