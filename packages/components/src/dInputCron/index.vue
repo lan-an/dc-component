@@ -23,10 +23,12 @@
   import { ref, watch,reactive } from 'vue';
   import { ElPopover,ElInput  } from 'element-plus'
   import DCron from './cron.vue'
+  import type {InputCronEmits,IInputCronProps} from '@/dInputCron/dInputCron';
+
   defineOptions({
     name: 'DInputCron',
   });
-  import type {InputCronEmits,IInputCronProps} from './dInputCron';
+
   type InstanceDcron = InstanceType<typeof DCron>;
 
   const emit = defineEmits<InputCronEmits>();

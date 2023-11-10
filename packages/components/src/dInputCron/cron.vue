@@ -328,7 +328,7 @@
   import languageCn from './languageCn'
   import { ElButton,ElTag,ElTabPane,ElRadio,ElRow,ElInputNumber,ElSelect,ElOption,ElTabs } from 'element-plus'
   import { reactive, computed, ref } from "vue";
-  import type { ICronProps,CronEmits } from './dInputCron'
+  import type { ICronProps,CronEmits } from '@/dInputCron/dInputCron'
   const emit = defineEmits<CronEmits>();
   const props = withDefaults(
       defineProps<ICronProps>(),
@@ -342,7 +342,7 @@
       },
   );
   const startYear = Number(props.config.startYear)||(new Date()).getFullYear()
-  
+
   const activeTab = ref<string>('second')
   const state = reactive({
     second: {
@@ -874,35 +874,35 @@
     .el-input-number__increase {
       top: 1px !important
     }
-  
+
     .language {
       position: absolute;
       right: 25px;
       z-index: 1;
     }
-  
+
     .el-tabs {
       box-shadow: none;
     }
-  
+
     .tabBody {
       overflow: auto;
-  
+
       .el-row {
         margin: 20px 0;
-  
+
         .long {
           .el-select {
             width: 350px;
           }
         }
-  
+
         .el-input-number {
           width: 110px;
         }
       }
     }
-  
+
     .myScroller {
       &::-webkit-scrollbar {
         /*滚动条整体样式*/
@@ -910,7 +910,7 @@
         /*高宽分别对应横竖滚动条的尺寸*/
         height: 1px;
       }
-  
+
       &::-webkit-scrollbar-thumb {
         /*滚动条里面小方块*/
         border-radius: 10px;
@@ -924,7 +924,7 @@
             transparent 75%,
             transparent);
       }
-  
+
       &::-webkit-scrollbar-track {
         /*滚动条里面轨道*/
         box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
@@ -932,19 +932,19 @@
         border-radius: 10px;
       }
     }
-  
+
     .bottom {
       width: 100%;
       margin-top: 8px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-  
+
       .value {
         float: left;
         font-size: 14px;
         vertical-align: middle;
-  
+
         span:nth-child(1) {
           color: #3f8cff
         }
@@ -952,4 +952,3 @@
     }
   }
   </style>
-  

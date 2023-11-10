@@ -38,7 +38,7 @@
 <script lang="ts" setup>
 import { ref, watch, toRefs } from 'vue';
 import { ElButton, ElForm, ElDialog } from 'element-plus';
-import type { FormProp } from './dDialogForm';
+import type { FormProp } from '@/dDialogForm/dDialogForm';
 import type { FormInstance } from 'element-plus';
 defineOptions({
   name: 'DDialogForm',
