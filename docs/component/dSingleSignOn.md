@@ -57,12 +57,7 @@
 
 :::
 
-## 自定义Axios实例
-
-内部创建的基础Axios实例可能不能满足需求，
-可以使用`axios-instance`自定义Axios实例。
-
-## 自定义处理响应
+## 自定义开始请求、处理响应
 
 内部对响应进行的解析可能不能满足需求，
 可以使用`manual-start`属性设置不自动动开始请求，`manual-handle`属性设置手动处理返回的响应。
@@ -86,6 +81,38 @@ singleSignOnRef.value.start().then((response) => {
 });
 ```
 
+同时参见[自定义Axios请求配置](#自定义axios请求配置)的源代码。
+
+:::
+
+## 自定义Axios实例
+
+内部创建的基础Axios实例可能不能满足需求，
+可以使用`axios-instance`自定义Axios实例，常用于自定义请求拦截器添加身份标识符。
+
+<d-single-sign-on-demo-axios></d-single-sign-on-demo-axios>
+
+::: details 查看源代码
+
+<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoAxios.vue{6,29-55}
+
+:::
+
+::: tip
+
+本组件已经支持常见的```return Promise.resolve(response.data)```响应拦截器，无需自定义处理响应。
+
+```js{3}
+service.interceptors.response.use(
+  (response) => {
+    return Promise.resolve(response.data ?? response);
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
+```
+
 :::
 
 ## 自定义Axios请求配置
@@ -97,7 +124,7 @@ singleSignOnRef.value.start().then((response) => {
 
 ::: details 查看源代码
 
-<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoConfig.vue{5}
+<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoConfig.vue{5,25-33}
 
 :::
 

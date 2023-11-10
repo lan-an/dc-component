@@ -22,6 +22,7 @@ import { ElButton } from 'element-plus';
 const singleSignOnRef = ref<InstanceType<typeof DSingleSignOn> | null>();
 const token = ref('');
 
+// 自定义Axios请求配置
 const customAxiosRequestConfig: AxiosRequestConfig = {
   url: 'https://yesno.wtf/api',
   method: 'get',
