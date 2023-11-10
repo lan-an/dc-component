@@ -33,7 +33,7 @@ import DCron from './cron.vue';
 defineOptions({
   name: 'DInputCron',
 });
-import type { InputCronEmits, IInputCronProps } from './dInputCron';
+import type { InputCronEmits, IInputCronProps } from '@/dInputCron/dInputCron';
 type InstanceDcron = InstanceType<typeof DCron>;
 
 const emit = defineEmits<InputCronEmits>();

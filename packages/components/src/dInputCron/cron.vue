@@ -730,7 +730,7 @@ import {
   ElTabs,
 } from 'element-plus';
 import { reactive, computed, ref } from 'vue';
-import type { ICronProps, CronEmits } from './dInputCron';
+import type { ICronProps, CronEmits } from '@/dInputCron/dInputCron';
 const emit = defineEmits<CronEmits>();
 const props = withDefaults(defineProps<ICronProps>(), {
   cronValue: '',
