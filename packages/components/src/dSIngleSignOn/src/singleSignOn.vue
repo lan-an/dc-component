@@ -108,7 +108,7 @@ function handleSingleSignOnProcess(query) {
         status.value = 'failed';
         message.value = error;
         emit('response-data-token', undefined);
-      })
+      });
   } else {
     emit('response-promise', request);
     return request;
