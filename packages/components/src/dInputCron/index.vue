@@ -2,7 +2,7 @@
  * @Date: 2023-11-08 18:26:08
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-10 14:49:23
+ * @LastEditTime: 2023-11-10 18:18:39
  * @FilePath: \dc-component\packages\components\src\dInputCron\index.vue
 -->
 <template>
@@ -33,13 +33,8 @@ import DCron from './cron.vue';
 defineOptions({
   name: 'DInputCron',
 });
-
+import type { InputCronEmits, IInputCronProps } from './dInputCron';
 type InstanceDcron = InstanceType<typeof DCron>;
-
-interface InputCronEmits {
-  (event: 'update:value', value: string): void;
-  (event: 'cronChange', value: string): void;
-}
 
 const emit = defineEmits<InputCronEmits>();
 const props = withDefaults(

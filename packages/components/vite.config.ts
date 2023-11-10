@@ -35,7 +35,7 @@ export default defineConfig({
       ],
     },
     lib: {
-      entry: './src/index.ts',
+      entry: './src/index.js',
       formats: ['es', 'cjs'],
     },
   },

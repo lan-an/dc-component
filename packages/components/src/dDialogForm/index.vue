@@ -2,7 +2,7 @@
  * @Date: 2023-11-09 10:26:28
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-10 14:42:27
+ * @LastEditTime: 2023-11-10 18:20:26
  * @FilePath: \dc-component\packages\components\src\dDialogForm\index.vue
 -->
 
@@ -38,6 +38,7 @@
 <script lang="ts" setup>
 import { ref, watch, toRefs } from 'vue';
 import { ElButton, ElForm, ElDialog } from 'element-plus';
+import type { FormProp } from './dDialogForm';
 import type { FormInstance } from 'element-plus';
 defineOptions({
   name: 'DDialogForm',

@@ -730,22 +730,7 @@ import {
   ElTabs,
 } from 'element-plus';
 import { reactive, computed, ref } from 'vue';
-// import type { ICronProps,CronEmits } from './dInputCron'
-interface CronEmits {
-  (event: 'close'): void;
-  (event: 'change', value: string): void;
-}
-interface IcronConfig {
-  maxHeight?: number | string;
-  startYear?: number;
-}
-interface ICronProps {
-  cronValue?: string;
-  maxHeight?: string;
-  disabled?: boolean;
-  config?: IcronConfig;
-}
-
+import type { ICronProps, CronEmits } from './dInputCron';
 const emit = defineEmits<CronEmits>();
 const props = withDefaults(defineProps<ICronProps>(), {
   cronValue: '',

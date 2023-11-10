@@ -96,7 +96,7 @@
 
 <script lang="ts" setup name="DCropper">
 import 'vue-cropper/dist/index.css';
-import type { Options, IStyle } from './dCropper';
+import type { Options, IProps, IStyle } from './dCropper';
 import { ref, watch, reactive, defineAsyncComponent } from 'vue';
 import { ElMessage, ElDialog, ElIcon, ElButton } from 'element-plus';
 import { CirclePlus, Remove, RefreshRight } from '@element-plus/icons-vue';
