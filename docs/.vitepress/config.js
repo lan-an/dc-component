@@ -1,21 +1,38 @@
-/*
- * @Date: 2023-10-17 17:16:50
- * @Auth: 463997479@qq.com
- * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-07 16:51:46
- * @FilePath: \dc-component\docs\.vitepress\config.js
- */
 import { component } from './utils/component';
 export default {
-  //部署自己服务器去掉/
   base: '/dc-component',
+  vite: {
+    server: {
+      port: 5174,
+      host: true,
+      open: false,
+      proxy: {
+        '/yesno-wtf': {
+          target: 'https://yesno.wtf',
+          changeOrigin: true,
+          rewrite: (p) => p.replace(/^\/yesno-wtf/, ''),
+        },
+      },
+    },
+    preview: {
+      port: 4174,
+      host: true,
+      open: false,
+      proxy: {
+        '/yesno-wtf': {
+          target: 'https://yesno.wtf',
+          changeOrigin: true,
+          rewrite: (p) => p.replace(/^\/yesno-wtf/, ''),
+        },
+      },
+    },
+  },
   themeConfig: {
     siteTitle: 'dcqcComponent',
     logo: '/logo.svg',
     search: {
       provider: 'local',
     },
-
     nav: [
       { text: '组件', link: '/component/button' },
       { text: '指南', link: '/guide/method' },
