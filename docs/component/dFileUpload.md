@@ -48,7 +48,7 @@ function submitForm(){
 </script>
 
 <DFileUpload
-      :file-list="fileData"
+      :file-list="fileList"
       :upload-url="uploadUrl"
       :limit-num="3"
       :file-mapping="fileMapping"
