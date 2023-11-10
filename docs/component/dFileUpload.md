@@ -48,7 +48,7 @@ function submitForm(){
 </script>
 
 <DFileUpload
-      :file-list="fileData"
+      :file-list="fileList"
       :upload-url="uploadUrl"
       :limit-num="3"
       :file-mapping="fileMapping"
@@ -228,7 +228,7 @@ function submitForm(){
 | fileList | 文件列表，用于数据回显 | Array | -- |
 | paramsData | 上传时附带的额外参数 | Object | -- |
 | uploadHeaders | 设置上传的请求头部 | Object | -- |
-| fileMapping | 文件名,文件Url地址自定义 | Object | "{name:'name',url:'url'}" |
+| fileMapping | 文件属性名称映射，自定义类名方便回显 | Object | "{name:'name',url:'url'}" |
 | upload-change | 文件状态改变时的钩子，添加文件、上传成功和上传失败时都会被调用 | Function | -- |
 | upload-remove | 文件列表移除文件时的钩子 | Function | -- |
 | upload-error | 文件上传失败时的钩子 | Function | -- |
