@@ -1,19 +1,16 @@
-<!--
- * @Date: 2023-11-09 17:49:42
- * @Auth: 463997479@qq.com
- * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-09 17:50:54
- * @FilePath: \dc-component\packages\components\src\DRichTextEditor\index.vue
--->
 <template>
   <div style="border: 1px solid #ccc">
-    <Toolbar
+    <toolBarComponent
+      v-if="toolBarComponent"
+      :is="toolBarComponent"
       style="border-bottom: 1px solid #ccc"
       :editor="editorRef"
       :defaultConfig="toolbarConfig"
       :mode="mode"
     />
-    <Editor
+    <editorComponent
+      v-if="editorComponent"
+      :is="editorComponent"
       style="height: 500px; overflow-y: hidden"
       v-model="valueHtml"
       :defaultConfig="editorConfig"
@@ -23,23 +20,34 @@
   </div>
 </template>
 
-<script>
+<script setup name="DRichTextEditor">
 import '@wangeditor/editor/dist/css/style.css'; // 引入 css
 
 import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue';
-import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
+const editorComponent = ref(null)
+const toolBarComponent = ref(null)
 
-export default {
-  components: { Editor, Toolbar },
-  setup() {
-    // 编辑器实例，必须用 shallowRef
+defineOptions({
+  name: 'DRichTextEditor',
+});
+
+const props = withDefaults(defineProps(), {
+  mode:'default', // 或 'simple'
+});
+
+// 编辑器实例，必须用 shallowRef
     const editorRef = shallowRef();
 
     // 内容 HTML
     const valueHtml = ref('<p>hello</p>');
-
+    
     // 模拟 ajax 异步获取内容
-    onMounted(() => {
+    onMounted(async() => {
+      const module = await import('@wangeditor/editor-for-vue')
+      editorComponent.value = module.Editor
+      toolBarComponent.value = module.Toolbar
+      console.log('module',module);
+      
       setTimeout(() => {
         valueHtml.value = '<p>模拟 Ajax 异步设置内容</p>';
       }, 1500);
@@ -57,18 +65,21 @@ export default {
 
     const handleCreated = (editor) => {
       editorRef.value = editor; // 记录 editor 实例，重要！
+      // editorRef.value = Object.seal(editor)
     };
 
-    return {
-      editorRef,
-      valueHtml,
-      mode: 'default', // 或 'simple'
-      toolbarConfig,
-      editorConfig,
-      handleCreated,
-    };
-  },
-};
+  //   return {
+  //     editorComponent,
+  //     toolBarComponent,
+  //     editorRef,
+  //     valueHtml,
+  //     mode: 'default', // 或 'simple'
+  //     toolbarConfig,
+  //     editorConfig,
+  //     handleCreated,
+  //   };
+  // },
+// };
 </script>
 
 <style lang="less" scoped></style>
