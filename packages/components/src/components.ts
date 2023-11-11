@@ -18,3 +18,5 @@ export { default as DOrganizationTree } from './dOrganizationTree';
 export type { ColumProps } from './dTableSearch/dTableSearch';
 export { default as DSingleSignOn } from './dSingleSignOn';
 export type * from './dRelationGraph/dRelationGraph';
+
+export { DStepsForm, DStepForm } from './dStepsForm';

@@ -17,6 +17,7 @@ import DCropper from '../view/dCropper/index.vue';
 import dRelationGraph from '../view/dRelationGraph/index.vue';
 import OrganizationTree from '../view/dOrganizationTree/index.vue';
 import DInputCron from '../view/dInputCron/index.vue';
+import DStepsForm from '../view/dStepsForm/index.vue';
 
 export const routes: any = [
   {
@@ -74,6 +75,12 @@ export const routes: any = [
         name: 'DInputCron',
         meta: { title: 'cron', affix: true },
         component: DInputCron,
+      },
+      {
+        path: 'DStepsForm',
+        name: 'DStepsForm',
+        meta: { title: '分步表单' },
+        component: DStepsForm
       },
     ],
   },
