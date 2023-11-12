@@ -28,7 +28,7 @@ import type {
   singleSignOnPropsInterface,
   singleSignOnEmitsType,
   statusType,
-} from '@/dSingleSignOn/src/dSingleSignOn.js';
+} from '@/dSingleSignOn/src/dSingleSignOn';
 
 const props = withDefaults(
   defineProps<singleSignOnPropsInterface>(),

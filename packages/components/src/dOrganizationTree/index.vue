@@ -11,7 +11,7 @@
 			v-if="isSearchable"
       v-model="filterText"
       clearable
-      size="large"
+      size="default"
 			style="margin-bottom: 20px;"
       placeholder="请输入关键字进行搜索"
       @keyup.enter="searchClick"
@@ -238,12 +238,12 @@ watch(filterText, (val) => {
  * @param data 树节点信息
  */
 const filterNode = (value: string, data: Tree) => {
-  if (props.isSearchable||!value||!props.isFiltratable) return true
+  if (!props.isSearchable||!value||!props.isFiltratable) return true
   return data.label.includes(value)
 }
 
 const searchClick = () =>{
-	if(!props.isSearchable)return
+	if(!props.isSearchable&&props.isFiltratable)return
 	emits('handSearch', filterText.value, (data:Tree[])=>{
 		node.value=data
 		})

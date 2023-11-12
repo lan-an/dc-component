@@ -13,11 +13,13 @@
         ref="treeRef"
         :treeData="treeData"
         v-bind="treeOption"
+        :getTree="getTree"
         empty-text="暂无数据"
         @handleNodeClick="handleNodeClick"
         @handleSelected="handleSelected"
+        @handSearch="handSearch"
         @handSaveNodes="handSaveNodes"
-        :isLazy="false"
+        @getLoadTree="getLoadTree"
       >
       </DOrganizationTree>
     </ElCol>
@@ -124,6 +126,20 @@ const getTree=(id:number = 0)=>{
       ]
       resolve(data)
     }, 500)
+  })
+}
+/**
+ * 
+ * @param id 当前节点id
+ * @param callback 回调函数
+ */
+
+const getLoadTree = (
+  id:number=0,
+  callback:(data:Tree[])=>void
+)=>{
+  getTree(id).then((res:Tree[])=>{
+    callback(res)
   })
 }
 
