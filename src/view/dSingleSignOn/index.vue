@@ -21,7 +21,7 @@
   <!-- 使用自定义AxiosInstance -->
   <d-single-sign-on
     api="https://localhost"
-    :axios-instance="service"
+    :-instance="service"
     @response-data-token="handleResponseToken"
   ></d-single-sign-on>
   <hr />
