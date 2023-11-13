@@ -65,14 +65,24 @@ function handleSingleSignOn() {
   } else {
     status.value = 'failed';
     message.value = '缺少请求标识符';
-    emit('response-promise', Promise.reject('query-token-not-found'));
-    return Promise.reject('query-token-not-found');
+    emit(
+      'response-promise',
+      Promise.reject('[SingleSignOn error]: Query not found'),
+    );
+    return Promise.reject('[SingleSignOn error]: Query not found');
   }
 }
 
 function handleSingleSignOnProcess(query: LocationQuery) {
   status.value = 'pending';
 
+  if (!props.requestAxiosConfig && !props.api) {
+    emit(
+      'response-promise',
+      Promise.reject('[SingleSignOn error]: API not found'),
+    );
+    return Promise.reject('[SingleSignOn error]: API not found');
+  }
   const requestConfig: AxiosRequestConfig = props.requestAxiosConfig ?? {
     url: props.api,
     method: props.requestMethod,

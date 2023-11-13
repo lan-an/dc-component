@@ -14,7 +14,7 @@ export interface singleSignOnPropsInterface {
   /** @description 单点登录请求api地址 */
   api?: string;
   /** @description 地址栏字符串参数名称 */
-  query: string;
+  query?: string;
   /** @description 单点登录请求标识符名称 */
   requestToken?: string;
   /** @description 单点登录请求类型 */
