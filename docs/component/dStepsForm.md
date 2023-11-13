@@ -233,10 +233,10 @@ const currentStep = ref(0);
 
 ### StepsForm 事件
 
-| 事件名     | 说明 ｜ 回调参数     |
-| ---------- | -------------------- | ------------------- |
-| stepFinish | 步骤提交成功触发     | currentStep, values |
-| finish     | 最后一步提交成功触发 | values, callback    |
+| 事件名     | 说明                 | 回调参数           |
+| ---------- | -------------------- | ------------------ |
+| stepFinish | 步骤提交成功触发     | currentStep values |
+| finish     | 最后一步提交成功触发 | values callback    |
 
 ### StepsForm 方法
 
