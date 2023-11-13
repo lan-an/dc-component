@@ -17,7 +17,7 @@
 
 ## 基础用法
 
-使用`api`参数指定API地址，读取`request-query`参数指定的地址栏查询字符串参数后进行请求。
+使用`api`参数指定API地址，读取`query`参数指定的地址栏查询字符串参数后进行请求。
 
 使用`response-token`参数指定返回标识符的名称，`response-data-token`事件获取返回的标识符。
 
@@ -33,7 +33,7 @@
 
 可以自定义请求方式，请求与响应的参数名称。
 
-使用`request-query`参数指定查询字符串参数名称，使用`request-token`参数指定请求时的标识符名称。
+使用`query`参数指定查询字符串参数名称，使用`request-token`参数指定请求时的标识符名称。
 
 使用`request-method`和`request-payload`定义请求类型和负载类型，默认为`POST`请求。
 
@@ -42,6 +42,11 @@
 ::: details 查看源代码
 
 <<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoBasic.vue{5-9}
+
+:::
+::: info
+
+未设置`request-token`参数时，请求时的标识符名称与`query`参数相同。
 
 :::
 
