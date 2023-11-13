@@ -152,7 +152,7 @@
 defineOptions({
   name: 'DTableSearch',
 });
-import type { ColumProps } from './dTableSearch';
+import type { ColumProps,TableProp } from '@/dTableSearch/dTableSearch';
 import type { FormInstance } from 'element-plus';
 import DPage from './footer.vue';
 import { onMounted, reactive, ref, unref, nextTick } from 'vue';
@@ -178,17 +178,11 @@ const popoverRef = ref();
 const onClickOutside = () => {
   unref(popoverRef).popperRef?.delayHide?.();
 };
-
 const tableData = ref<any[]>([]);
-
-//查询条件
-let searchForm = reactive<Record<string, any>>({});
+let searchForm = reactive<Record<string, any>>({});//查询条件
 const loading = ref<boolean>(false);
-
 const treeRef = ref<InstanceType<typeof ElTree>>();
-
-//控制显示搜索条件展示
-const showFalg = ref(false);
+const showFalg = ref(false);//控制显示搜索条件展示
 const ruleFormRef = ref<FormInstance>();
 let treeObjColum = reactive<{
   columArr: any[];
