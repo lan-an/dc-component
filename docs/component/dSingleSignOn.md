@@ -73,7 +73,7 @@
 
 ::: details 查看源代码
 
-<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoManual.vue{8-10,29,32}
+<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoManual.vue{9-11,29-41}
 
 :::
 
@@ -99,18 +99,19 @@ singleSignOnRef.value.start().then((response) => {
 
 ::: details 查看源代码
 
-<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoAxios.vue{6,29-55}
+<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoAxios.vue{7,30-56}
 
 :::
 
 ::: tip
 
-本组件已经支持常见的```return Promise.resolve(response.data)```响应拦截器，无需自定义处理响应。
+本组件已经支持常见的```return Promise.resolve(response.data)```响应拦截器，无需使用`response-promise`自定义处理响应。
 
-```js{3}
+```js{4}
+// 自定义的Axios响应拦截器
 service.interceptors.response.use(
   (response) => {
-    return Promise.resolve(response.data ?? response);
+    return Promise.resolve(response.data ?? response); // 无需自定义处理响应
   },
   (error) => {
     return Promise.reject(error);
@@ -147,8 +148,8 @@ service.interceptors.response.use(
 
 | 属性名 | 说明 | 类型 | 可选值 | 默认值 |
 |--------|------|------|--------|--------|
-| `api` | 单点登录请求api地址 | string | - | - |
-| `query` | 地址栏字符串参数名称 | string | - | auth_code
+| `api` | 单点登录请求api地址 | string | - | -
+| `query` | 地址栏字符串参数名称 | string | - | -
 | `request-token` | 单点登录请求标识符名称 | string | - | token
 | `request-method` | 单点登录请求类型 | string | - | POST
 | `request-payload` | 单点登录请求负载类型 | string | data / params | data

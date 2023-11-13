@@ -3,6 +3,7 @@
     <d-single-sign-on
       ref="singleSignOnRef"
       api="/api"
+      query="auth_code"
       :axios-instance="service"
       request-method="get"
       request-payload="params"

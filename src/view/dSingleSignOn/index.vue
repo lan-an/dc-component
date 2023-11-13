@@ -12,8 +12,8 @@
   <!-- 登录成功 -->
   <d-single-sign-on
     api="https://yesno.wtf/api"
+    query="auth_code"
     request-method="get"
-    request-query="auth_code"
     request-token="force"
     request-payload="params"
     response-token="answer"
