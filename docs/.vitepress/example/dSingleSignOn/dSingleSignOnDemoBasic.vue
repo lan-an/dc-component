@@ -2,7 +2,7 @@
   <div style="border: 1px solid black; padding: 5px">
     <d-single-sign-on
       api="https://yesno.wtf/api"
-      request-query="auth_code"
+      query="auth_code"
       request-token="force"
       request-method="get"
       request-payload="params"

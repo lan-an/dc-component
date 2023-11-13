@@ -15,7 +15,7 @@
     "lint-staged": "lint-staged",
     "commitlint": "commitlint --config commitlint.config.cjs -e -V",
     "preinstall": "node ./scripts/preinstall.js",
-    "format": "prettier --write src/"
+    "format": "prettier --write ."
   },
   "keywords": [],
   "author": "",

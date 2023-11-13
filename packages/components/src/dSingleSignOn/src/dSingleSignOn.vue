@@ -18,8 +18,8 @@
 </template>
 
 <script setup lang="ts" name="DSingleSignOn">
-import { onMounted, ref, withDefaults } from 'vue';
-import { useRoute } from 'vue-router';
+import { onMounted, ref } from 'vue';
+import { LocationQuery, useRoute } from 'vue-router';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { singleSignOnPropsDefaults } from './dSingleSignOnPropsDefault.js';
@@ -27,7 +27,7 @@ import { singleSignOnPropsDefaults } from './dSingleSignOnPropsDefault.js';
 import type {
   singleSignOnPropsInterface,
   singleSignOnEmitsType,
-  statusType,
+  statusTypes,
 } from '@/dSingleSignOn/src/dSingleSignOn';
 
 const props = withDefaults(
@@ -42,7 +42,7 @@ const route = useRoute();
 const message = ref('');
 
 /** @description 请求状态 */
-const status = ref<statusType>('not-start');
+const status = ref<(typeof statusTypes)[number]>('not-start');
 
 onMounted(() => {
   status.value = 'not-start';
@@ -65,23 +65,34 @@ function handleSingleSignOn() {
   } else {
     status.value = 'failed';
     message.value = '缺少请求标识符';
-    emit('response-promise', Promise.reject('query-token-not-found'));
-    return Promise.reject('query-token-not-found');
+    emit(
+      'response-promise',
+      Promise.reject('[SingleSignOn error]: Query not found'),
+    );
+    return Promise.reject('[SingleSignOn error]: Query not found');
   }
 }
 
-function handleSingleSignOnProcess(query) {
+function handleSingleSignOnProcess(query: LocationQuery) {
   status.value = 'pending';
 
+  if (!props.requestAxiosConfig && !props.api) {
+    emit(
+      'response-promise',
+      Promise.reject('[SingleSignOn error]: API not found'),
+    );
+    return Promise.reject('[SingleSignOn error]: API not found');
+  }
   const requestConfig: AxiosRequestConfig = props.requestAxiosConfig ?? {
     url: props.api,
     method: props.requestMethod,
   };
 
   if (!props.requestAxiosConfig) {
-    const requestToken: Record<string, string> = {};
-    requestToken[props.requestToken] = String(query[props.query]);
-    requestConfig[props.requestPayload] = requestToken;
+    const requestTokenObject: Record<string, string> = {};
+    const requestToken = props.requestToken ?? props.query;
+    requestTokenObject[requestToken] = String(query[props.query]);
+    requestConfig[props.requestPayload] = requestTokenObject;
   }
 
   const request = props.axiosInstance

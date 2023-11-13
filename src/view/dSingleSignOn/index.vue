@@ -2,8 +2,18 @@
   <!-- 登录成功 -->
   <d-single-sign-on
     api="https://yesno.wtf/api"
+    query="auth_code"
     request-method="get"
-    request-query="auth_code"
+    request-payload="params"
+    response-token="answer"
+    @response-data-token="handleResponseToken"
+  ></d-single-sign-on>
+  <hr />
+  <!-- 登录成功 -->
+  <d-single-sign-on
+    api="https://yesno.wtf/api"
+    query="auth_code"
+    request-method="get"
     request-token="force"
     request-payload="params"
     response-token="answer"
@@ -52,6 +62,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { ElButton } from 'element-plus';
 import { ref } from 'vue';
 import { DSingleSignOn } from 'dc-pro-component';
+
 const token = ref('');
 
 const singleSignOnRef = ref<InstanceType<typeof DSingleSignOn> | null>();
@@ -74,6 +85,7 @@ function handleResponseToken(res: string) {
     token.value = res;
   }
 }
+
 function handleSingleSignOnStart() {
   singleSignOnRef.value.start();
 }
