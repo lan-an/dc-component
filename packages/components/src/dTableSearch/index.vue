@@ -179,11 +179,17 @@ const onClickOutside = () => {
   unref(popoverRef).popperRef?.delayHide?.();
 };
 const tableData = ref<any[]>([]);
+
 let searchForm = reactive<Record<string, any>>({});//查询条件
+
 const loading = ref<boolean>(false);
+
 const treeRef = ref<InstanceType<typeof ElTree>>();
+
 const showFalg = ref(false);//控制显示搜索条件展示
+
 const ruleFormRef = ref<FormInstance>();
+
 let treeObjColum = reactive<{
   columArr: any[];
   defaultChecked: string[];
@@ -216,8 +222,8 @@ const {
       done: (res: {
         data: any[];
         total?: number;
-        pageNum?: number;
-        pageSize?: number;
+        pageNum: number;
+        pageSize: number;
       }) => void,
     ) => void;
     title?: string;
@@ -242,6 +248,7 @@ const {
     more: false,
     pagination: {
       pageSize: 10,
+      pageNum: 1
     },
     isloading: true,
   },
@@ -252,7 +259,7 @@ const page = reactive<{
   pageSize?: number;
   total?: number;
 }>({
-  pageNum: 1,
+  pageNum: pagination.pageNum,
   pageSize: pagination.pageSize,
   total: 100,
 });
@@ -270,9 +277,11 @@ const handleSearch = (): void => {
  */
 const handleReset = (formEl: FormInstance | undefined): void => {
   if (hasPage) {
-    page.pageNum = pagination?.pageNum;
+    page.pageNum = pagination.pageNum;
+    page.pageSize = pagination?.pageSize;
   }
   if (!formEl) return;
+  console.log(page)
   formEl.resetFields();
   handleRequest();
 };
@@ -299,18 +308,29 @@ const handleSizeChange = (val: number): void => {
  * 数据请求
  */
 const handleRequest = (): void => {
-  let params = {
+  let _param = {
     ...searchForm,
   };
+
   if (hasPage) {
-    params = {
+    _param = {
       ...searchForm,
       pageNum: page.pageNum,
       pageSize: page.pageSize,
     };
   }
+
+  let params = {}
+  Object.keys(_param || {}).forEach(key => {
+    if (_param[key] !== undefined && _param[key] !== null) {
+      params[key] = _param[key]
+    }
+  })
+
   loading.value = true;
+
   let loadingEl = null;
+  
   if (isloading) {
     loadingEl = ElLoading.service({
       target: '.d-prop--table',
