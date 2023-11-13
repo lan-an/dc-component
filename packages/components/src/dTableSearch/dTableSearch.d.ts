@@ -56,3 +56,6 @@ export type TableProp = {
   isloading?: boolean;
   cardProp?: CardProp;
 };
+
+
+

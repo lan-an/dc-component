@@ -2,7 +2,7 @@
  * @Date: 2023-10-18 13:01:07
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-10 10:12:59
+ * @LastEditTime: 2023-11-10 11:13:28
  * @FilePath: \dc-component\docs\component\dTableSearch.md
 -->
 
@@ -81,3 +81,8 @@
 | loadingParams | loading | object | {} | {} |
 | isloading | 是否需要加载 | boolean | true| true |
 
+
+## 贡献者
+
+<!-- readme: collaborators,contributors -start -->
+<!-- readme: collaborators,contributors -end -->

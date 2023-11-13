@@ -22,11 +22,13 @@ import { onMounted, ref, withDefaults } from 'vue';
 import { useRoute } from 'vue-router';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import {
+import { singleSignOnPropsDefaults } from './dSingleSignOnPropsDefault.js';
+
+import type {
   singleSignOnPropsInterface,
-  singleSignOnPropsDefaults,
-} from './singleSignOn';
-import type { singleSignOnEmitsType, statusType } from './singleSignOn';
+  singleSignOnEmitsType,
+  statusType,
+} from '@/dSingleSignOn/src/dSingleSignOn';
 
 const props = withDefaults(
   defineProps<singleSignOnPropsInterface>(),

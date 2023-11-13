@@ -97,29 +97,43 @@
 <script lang="ts" setup name="DCropper">
 import 'vue-cropper/dist/index.css';
 import type { Options, IProps, IStyle } from './dCropper';
-import { ref, watch, reactive ,defineAsyncComponent} from 'vue';
+import { ref, watch, reactive, defineAsyncComponent } from 'vue';
 import { ElMessage, ElDialog, ElIcon, ElButton } from 'element-plus';
 import { CirclePlus, Remove, RefreshRight } from '@element-plus/icons-vue';
-const AsyncComp = defineAsyncComponent(() =>
-  import('vue-cropper/lib/vue-cropper.vue')
-)
+const AsyncComp = defineAsyncComponent(
+  () => import('vue-cropper/lib/vue-cropper.vue'),
+);
 defineOptions({
   name: 'DCropper',
 });
 const dialogVisible = ref<boolean>(false); // dialog的显示与隐藏
 const emits = defineEmits(['getCropData']); // 自定义事件
-const props = withDefaults(defineProps<IProps>(), {
-  allowTypeList: () => ['jpg', 'png', 'jpeg', 'gif', 'webp'],
-  limitSize: 10,
-  fixedNumber: () => [1, 1],
-  previewWidth: '200',
-  title: '图片裁剪',
-  type: 'default',
-  rotate: true,
-  amplify: true,
-  reduce: true,
-  canScale: true,
-});
+const props = withDefaults(
+  defineProps<{
+    allowTypeList?: string[]; // 接收允许上传的图片类型
+    limitSize?: number; // 限制大小
+    fixedNumber?: number[]; // 截图框的宽高比例
+    previewWidth?: '100' | '150' | '200' | '250' | '300'; // 预览宽度
+    title?: string; // 裁剪标题
+    type?: string; // 返回的文件类型 Base64  Blob  file对象
+    rotate?: boolean; // 是否显示旋转按钮
+    canScale?: boolean; //图片是否允许滚轮缩放
+    amplify?: boolean; // 是否显示放大按钮
+    reduce?: boolean; // 是否显示缩小按钮
+  }>(),
+  {
+    allowTypeList: () => ['jpg', 'png', 'jpeg', 'gif', 'webp'],
+    limitSize: 10,
+    fixedNumber: () => [1, 1],
+    previewWidth: '200',
+    title: '图片裁剪',
+    type: 'default',
+    rotate: true,
+    amplify: true,
+    reduce: true,
+    canScale: true,
+  },
+);
 
 // 裁剪组件需要使用到的参数
 const options = reactive<Options>({
@@ -247,11 +261,14 @@ const onConfirm = () => {
     });
   } else if (props.type === 'Blob') {
     cropperRef.value.getCropBlob(async (data: string) => {
-      emits('getCropData', URL.createObjectURL(new Blob([data], { type: 'image' })));
+      emits(
+        'getCropData',
+        URL.createObjectURL(new Blob([data], { type: 'image' })),
+      );
     });
   } else {
     cropperRef.value.getCropData(async (data: string) => {
-      const dataFile: File = dataURLtoFile(data,'image');
+      const dataFile: File = dataURLtoFile(data, 'image');
       emits('getCropData', dataFile);
     });
   }
@@ -334,4 +351,3 @@ defineExpose({
   max-width: none;
 }
 </style>
-

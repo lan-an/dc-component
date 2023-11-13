@@ -7,9 +7,14 @@
 =======
  * @Date: 2023-11-06 10:44:37
  * @Author: liu-hongrui
+<<<<<<< HEAD
+ * @LastEditors: 463997479@qq.com
+ * @LastEditTime: 2023-11-10 11:03:01
+=======
  * @LastEditors: liu-hongrui
  * @LastEditTime: 2023-11-10 10:31:42
 >>>>>>> 3ca6e875101a059128790d3eba3b1182b7b55fb1
+>>>>>>> 4a6e20ad62bfd144df156329c775e6cb291ab3c0
  * @FilePath: \dc-component\docs\.vitepress\utils\component.ts
  */
 export const component = [
@@ -58,4 +63,14 @@ export const component = [
     link: '/component/dInputCron',
     activeMatch: '/component/dInputCron',
   },
+  {
+    text: 'button',
+    link: '/component/button',
+    activeMatch: '/component/button',
+  },
+  {
+    text: 'dStepsForm',
+    link: '/component/dStepsForm',
+    activeMatch: '/component/dStepsForm',
+  }
 ];

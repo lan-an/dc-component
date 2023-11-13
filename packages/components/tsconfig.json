@@ -7,7 +7,10 @@
     "forceConsistentCasingInFileNames": false,
     "noUnusedLocals": false,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@constants/*": ["./constants/*"],
     }
   }
 }

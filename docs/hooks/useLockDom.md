@@ -2,7 +2,7 @@
  * @Date: 2023-10-18 13:01:07
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-10 10:04:25
+ * @LastEditTime: 2023-11-10 11:07:31
  * @FilePath: \dc-component\docs\hooks\useLockDom.md
 -->
 
@@ -17,9 +17,8 @@
 :::
 
 
-  <d-button @click="handleClick"  type="primary" block></d-button>
+<d-button @click="handleClick"   type="primary" >{{!flag?'关闭':'打开'}}</d-button>
 
-{{!flag?'关闭':'打开'}}
 <script lang="ts" setup>
   import { useLockDom } from 'dc-hooks';
   import {ref } from 'vue';

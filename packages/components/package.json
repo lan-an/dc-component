@@ -1,6 +1,6 @@
 {
   "name": "dc-pro-component",
-  "version": "1.0.13-beta",
+  "version": "1.0.22-beta",
   "description": "",
   "main": "src/index.ts",
   "files": [
@@ -9,10 +9,7 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "vite build",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "build": "vite build"
   },
   "keywords": [
     "dc-pro-component"

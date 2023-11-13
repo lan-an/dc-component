@@ -2,13 +2,14 @@
  * @Date: 2023-10-17 14:04:27
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-03 11:27:35
+ * @LastEditTime: 2023-11-10 17:12:43
  * @FilePath: \dc-component\packages\components\vite.config.ts
  */
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import VueSetupExtend from 'vite-plugin-vue-setup-extend';
 import dts from 'vite-plugin-dts';
+import path from 'path'
+
 export default defineConfig({
   build: {
     target: 'modules',
@@ -16,6 +17,7 @@ export default defineConfig({
     minify: false,
     rollupOptions: {
       external: ['vue'],
+
       input: ['src/index.ts'],
       output: [
         {
@@ -35,7 +37,7 @@ export default defineConfig({
       ],
     },
     lib: {
-      entry: './src/index.ts',
+      entry: './src/index.js',
       formats: ['es', 'cjs'],
     },
   },
@@ -47,6 +49,20 @@ export default defineConfig({
       //指定使用的tsconfig.json为我们整个项目根目录下,如果不配置,你也可以在components下新建tsconfig.json
       tsConfigFilePath: './tsconfig.json',
     }),
-    VueSetupExtend(),
   ],
+  resolve: {
+    alias: {
+      '@components': path.resolve(__dirname, 'src'),
+      '@hooks': path.resolve(__dirname, 'hooks'),
+      '@constants': path.resolve(__dirname, 'constants'),
+      '@style': path.resolve(__dirname, 'style'),
+    }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@use "@style/base" as *;'
+      }
+    }
+  }
 });

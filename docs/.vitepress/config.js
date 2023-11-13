@@ -1,4 +1,6 @@
 import { component } from './utils/component';
+import path from 'path'
+
 export default {
   base: '/dc-component',
   vite: {
@@ -26,6 +28,21 @@ export default {
         },
       },
     },
+    resolve: {
+      alias: {
+        '@components': path.resolve(__dirname, '../../packages/components/src'),
+        '@hooks': path.resolve(__dirname, '../../packages/components/hooks'),
+        '@constants': path.resolve(__dirname, '../../packages/components/constants'),
+        '@style': path.resolve(__dirname, '../../packages/components/style'),
+      }
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@use "@style/base" as *;'
+        }
+      }
+    }
   },
   themeConfig: {
     siteTitle: 'dcqcComponent',
