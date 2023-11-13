@@ -87,12 +87,12 @@
               </div>
               <div>
                 <el-tree
-                  :data="treeObjColum.treeColum"
+                  :data="tree.treeColum"
                   show-checkbox
                   default-expand-all
                   ref="treeRef"
                   node-key="label"
-                  :default-checked-keys="treeObjColum.defaultChecked"
+                  :default-checked-keys="tree.defaultChecked"
                   :props="{
                     label: 'label',
                   }"
@@ -110,7 +110,7 @@
           style="width: 100%"
           class="d-prop--table"
         >
-          <template v-for="item in treeObjColum.columArr">
+          <template v-for="item in tree.columArr">
             <el-table-column
               v-bind="{ ...item }"
               :key="item.prop"
@@ -190,7 +190,7 @@ const showFalg = ref(false);//控制显示搜索条件展示
 
 const ruleFormRef = ref<FormInstance>();
 
-let treeObjColum = reactive<{
+let tree = reactive<{
   columArr: any[];
   defaultChecked: string[];
   treeColum: ColumProps[];
@@ -330,7 +330,7 @@ const handleRequest = (): void => {
   loading.value = true;
 
   let loadingEl = null;
-  
+
   if (isloading) {
     loadingEl = ElLoading.service({
       target: '.d-prop--table',
@@ -347,7 +347,9 @@ const handleRequest = (): void => {
       } else {
         tableData.value = res.data;
       }
+      
       loading.value = false;
+
       isloading &&
         nextTick(() => {
           loadingEl.close();
@@ -360,18 +362,18 @@ const handleRequest = (): void => {
  * 循环处理colum中数据格式
  */
 const handleResetColum = (): void => {
-  treeObjColum.columArr = [];
-  treeObjColum.treeColum = [];
-  treeObjColum.defaultChecked = [];
+  tree.columArr = [];
+  tree.treeColum = [];
+  tree.defaultChecked = [];
   for (let key of columns) {
     let obj = {};
 
     for (let k in key) {
       obj[k] = key[k];
-      treeObjColum.defaultChecked.push(key[k] as string);
+      tree.defaultChecked.push(key[k] as string);
     }
-    treeObjColum.columArr.push({ ...obj, checked: true } as ColumProps);
-    treeObjColum.treeColum.push(obj as ColumProps);
+    tree.columArr.push({ ...obj, checked: true } as ColumProps);
+    tree.treeColum.push(obj as ColumProps);
   }
 };
 
@@ -390,13 +392,13 @@ const handleCheckChange = (
   check: boolean,
   flag: boolean,
 ): void => {
-  treeObjColum.columArr = treeObjColum.columArr.map((item) =>
+  tree.columArr = tree.columArr.map((item) =>
     item.prop === node.prop ? { ...item, checked: !item.checked } : item,
   );
   const checkedCount: any = treeRef.value!.getCheckedNodes(true).length;
-  checkAll.value = checkedCount === treeObjColum.treeColum.length;
+  checkAll.value = checkedCount === tree.treeColum.length;
   isIndeterminate.value =
-    checkedCount > 0 && checkedCount < treeObjColum.treeColum.length;
+    checkedCount > 0 && checkedCount < tree.treeColum.length;
 };
 const handleCheckAllChange = (val: boolean) => {
   if (val) {
@@ -410,7 +412,7 @@ const handleCheckAllChange = (val: boolean) => {
   } else {
     treeRef.value!.setCheckedKeys([], false);
   }
-  treeObjColum.columArr = treeObjColum.columArr.map((item) => {
+  tree.columArr = tree.columArr.map((item) => {
     return { ...item, checked: !val };
   });
   isIndeterminate.value = false;
