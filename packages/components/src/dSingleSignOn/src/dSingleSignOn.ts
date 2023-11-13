@@ -37,7 +37,7 @@ export interface singleSignOnPropsInterface {
 
 export type singleSignOnEmitsType = {
   /** @description 单点登录返回异步操作Promise */
-  'response-promise': [promise: Promise<any> | AxiosPromise<any>];
+  'response-promise': [promise: Promise<any> | AxiosPromise];
   /** @description 单点登录返回标识符内容 */
   'response-data-token': [token: string];
 };

@@ -18,8 +18,8 @@
 </template>
 
 <script setup lang="ts" name="DSingleSignOn">
-import { onMounted, ref, withDefaults } from 'vue';
-import { useRoute } from 'vue-router';
+import { onMounted, ref } from 'vue';
+import { LocationQuery, useRoute } from 'vue-router';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { singleSignOnPropsDefaults } from './dSingleSignOnPropsDefault.js';
@@ -70,7 +70,7 @@ function handleSingleSignOn() {
   }
 }
 
-function handleSingleSignOnProcess(query) {
+function handleSingleSignOnProcess(query: LocationQuery) {
   status.value = 'pending';
 
   const requestConfig: AxiosRequestConfig = props.requestAxiosConfig ?? {
