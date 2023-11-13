@@ -13,14 +13,11 @@
 ## 基础用法
 
 基础的按钮用法。
-
-<dcqc-space >
   <d-button type="primary" block>Primary</d-button>
   <d-button type="success">成功按钮</d-button>
   <d-button type="info">信息按钮</d-button>
   <d-button type="warning">警告按钮</d-button>
   <d-button type="danger">危险按钮</d-button>
-  </dcqc-space>
 
 ::: details Show Code
 

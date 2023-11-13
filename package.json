@@ -8,14 +8,14 @@
     "dev": "vite dev",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs",
+    "docs:preview": "vitepress preview docs --port 4174",
     "deploy": "bash deploy.sh",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "prepare": "husky install",
     "lint-staged": "lint-staged",
     "commitlint": "commitlint --config commitlint.config.cjs -e -V",
     "preinstall": "node ./scripts/preinstall.js",
-    "format": "prettier --write src/"
+    "format": "prettier --write ."
   },
   "keywords": [],
   "author": "",
@@ -32,6 +32,7 @@
     "lint-staged": "^15.0.2",
     "postcss": "^8.4.31",
     "prettier": "^3.0.3",
+    "sass": "^1.69.5",
     "typescript": "^5.2.2",
     "vite": "^4.4.11",
     "vite-plugin-dts": "1.4.1",
@@ -42,9 +43,10 @@
   "dependencies": {
     "axios": "0.27.2",
     "dc-hooks": "workspace:1.0.0-beat",
-    "dc-pro-component": "workspace:1.0.13-beta",
+    "dc-pro-component": "workspace:1.0.22-beta",
     "dcqc-utils": "workspace:1.0.1-beat",
-    "relation-graph": "^2.1.15"
+    "relation-graph": "^2.1.15",
+    "vue-cropper": "^1.1.1"
   },
   "lint-staged": {
     "*.js": "eslint --fix"

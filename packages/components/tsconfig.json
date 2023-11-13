@@ -4,10 +4,13 @@
     "ignoreDeprecations": "5.0",
     "isolatedModules": true,
     "baseUrl": "./",
-
-    "noUnusedLocals":false,
+    "forceConsistentCasingInFileNames": false,
+    "noUnusedLocals": false,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@constants/*": ["./constants/*"],
     }
   }
 }
