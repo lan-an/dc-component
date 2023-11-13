@@ -79,9 +79,10 @@ function handleSingleSignOnProcess(query: LocationQuery) {
   };
 
   if (!props.requestAxiosConfig) {
-    const requestToken: Record<string, string> = {};
-    requestToken[props.requestToken] = String(query[props.query]);
-    requestConfig[props.requestPayload] = requestToken;
+    const requestTokenObject: Record<string, string> = {};
+    const requestToken = props.requestToken ?? props.query;
+    requestTokenObject[requestToken] = String(query[props.query]);
+    requestConfig[props.requestPayload] = requestTokenObject;
   }
 
   const request = props.axiosInstance
