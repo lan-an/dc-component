@@ -1,3 +1,5 @@
+import { payloadType } from "./dSingleSignOn";
+
 export const singleSignOnPropsDefaults = {
   /** @description 字符串参数名称 */
   query: 'auth_code',
