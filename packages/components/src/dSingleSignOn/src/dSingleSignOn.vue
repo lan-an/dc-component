@@ -27,7 +27,7 @@ import { singleSignOnPropsDefaults } from './dSingleSignOnPropsDefault.js';
 import type {
   singleSignOnPropsInterface,
   singleSignOnEmitsType,
-  statusType,
+  statusTypes,
 } from '@/dSingleSignOn/src/dSingleSignOn';
 
 const props = withDefaults(
@@ -42,7 +42,7 @@ const route = useRoute();
 const message = ref('');
 
 /** @description 请求状态 */
-const status = ref<statusType>('not-start');
+const status = ref<(typeof statusTypes)[number]>('not-start');
 
 onMounted(() => {
   status.value = 'not-start';
