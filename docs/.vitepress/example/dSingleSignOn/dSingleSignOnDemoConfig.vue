@@ -32,6 +32,7 @@ const customAxiosRequestConfig: AxiosRequestConfig = {
   timeout: 30000,
 };
 
+// 使用start的响应进行处理
 function handleSingleSignOnStart() {
   singleSignOnRef.value
     .start()

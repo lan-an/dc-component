@@ -135,7 +135,7 @@ service.interceptors.response.use(
 :::
 
 ::: info
-`request-axios-config`属性生效时，`request-token`、`request-method`、`request-payload`均不生效。
+`request-axios-config`属性生效时，`query`、`request-token`、`request-method`、`request-payload`均不生效。
 :::
 
 ::: tip
@@ -153,7 +153,7 @@ service.interceptors.response.use(
 | `request-token` | 单点登录请求标识符名称 | string | - | token
 | `request-method` | 单点登录请求类型 | string | - | POST
 | `request-payload` | 单点登录请求负载类型 | string | data / params | data
-| `request-axios-config` | 单点登录Axios请求配置项，此项生效时`request-token`、`request-method`、`request-payload`均不生效 | AxiosRequestConfig | - | -
+| `request-axios-config` | 单点登录Axios请求配置项，此项生效时`query`、`request-token`、`request-method`、`request-payload`均不生效 | AxiosRequestConfig | - | -
 | `response-token` | 单点登录成功后返回标识符名称 | string | - | token
 | `hide-message` | 是否隐藏消息 | boolean | true / false | false
 | `axios-instance` | 外部Axios实例 | AxiosInstance | - | -
