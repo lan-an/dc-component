@@ -123,7 +123,7 @@ import type { ColumProps, TableProp } from '@/dTableSearch/dTableSearch';
 import type { FormInstance } from 'element-plus';
 import DPage from './footer.vue';
 import dSearch from './dSearch.vue';
-import { onMounted, reactive, ref, unref, nextTick, computed } from 'vue';
+import { onMounted, reactive, ref, unref, nextTick, computed, watch } from 'vue';
 import { Refresh, ArrowDown, ArrowUp, Grid } from '@element-plus/icons-vue';
 import {
   ElSpace,
@@ -221,7 +221,7 @@ const {
       pageNum: 1,
     },
     isloading: true,
-    initParam: {},
+    initParam: {aa:1},
   },
 );
 
@@ -279,6 +279,7 @@ const handleSizeChange = (val: number): void => {
 const handleRequest = (): void => {
   let _param = {
     ...dSearchFormRef.value.getParam(),
+    ...initParam
   };
 console.log(_param)
   if (hasPage) {
@@ -348,6 +349,7 @@ const handleResetColum = (): void => {
 const _paramColum = computed(() => {
   return columns.filter((item) => item.search)
 });
+
 console.log(_paramColum)
 /**
  * 搜索展开折叠

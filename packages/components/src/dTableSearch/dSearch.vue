@@ -19,13 +19,17 @@
           :label="item.label"
           :label-width="item.labelWidth"
         >
-
         <component
             :is="COMPONENT_ENUM[item.valueType] "
-            v-model.trim="searchForm[item.prop||item.key]"
+            v-model.trim="searchForm[item.prop??item.key]"
             :placeholder="item?.placeholder"
             v-bind="{...item?.fieldProps}"
-          >
+            :options="item?.fieldProps?.options"
+            @change="handleChange($event,item)"
+            >
+            <template v-if="item.valueType==='ElCascader'" #default="{ data }">
+              <span>{{ data[item.fieldProps.label]??'label' }}</span>
+            </template>
           <template v-if="item.valueType==='ElSelect'">
             <component
             :is="ElOption"
@@ -75,19 +79,20 @@ import {
   ElFormItem,
   ElSelect,
   ElOption,
-  ElDatePicker
+  ElDatePicker,
+  ElCascader
 } from 'element-plus';
 import { ref, toRefs, watch } from 'vue';
 import type { FormInstance } from 'element-plus';
 const COMPONENT_ENUM={
   'ElSelect':ElSelect,
   'ElInput':ElInput,
-  'ElDatePicker':ElDatePicker
+  'ElDatePicker':ElDatePicker,
+  'ElCascader':ElCascader
 }
 const showFalg = ref(false);
 
 type SearchType={
-  initParam?:any;
   more?:boolean;
   searchFormProps?:object;
   loading?:boolean;
@@ -98,18 +103,19 @@ type SearchType={
 const ruleFormRef = ref<FormInstance>();
 const emit = defineEmits(['handleSearch', 'handleReset']);
 const prop = defineProps<SearchType>();
-const { loading, more, initParam, searchFormItem } = toRefs(prop);
+const { loading, more,  searchFormItem } = toRefs(prop);
 const _param = {};
 searchFormItem.value.forEach((item: Record<string, any>) => {
   _param[item.prop??item?.key] = item.defaultValue ?? '';
 });
-const getParam = () => {
-  return searchForm.value;
-};
 
-const searchForm = ref(Object.assign(_param, initParam.value));
+const searchForm = ref({..._param});
+// const _searchParam=ref();
+const getParam = () => {
+  return searchForm.value
+};
 watch(
-  () => searchForm,
+  () => searchForm.value,
   (val) => {
     console.log(val);
   },
@@ -123,6 +129,15 @@ const handleReset = (formEl) => {
 const handleSearch = () => {
   emit('handleSearch', searchForm.value);
 };
+const handleChange=(value,event)=>{
+  console.log(value)
+  console.log(event)
+  if(event.search?.transform){
+    const _obj = event?.search.transform(value);
+    searchForm.value=Object.assign({...searchForm.value},_obj);
+    // delete _searchParam.value[event.key??event.prop]
+  }
+}
 defineExpose({
   getParam,
 });
