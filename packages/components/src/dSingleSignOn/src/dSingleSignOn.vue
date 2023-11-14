@@ -19,7 +19,7 @@
 
 <script setup lang="ts" name="DSingleSignOn">
 import { onMounted, ref } from 'vue';
-import { LocationQuery, useRoute } from 'vue-router';
+import { useRoute } from 'vue-router';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { singleSignOnPropsDefaults } from './dSingleSignOnPropsDefault.js';
@@ -34,6 +34,7 @@ const props = withDefaults(
   defineProps<singleSignOnPropsInterface>(),
   singleSignOnPropsDefaults,
 );
+
 const emit = defineEmits<singleSignOnEmitsType>();
 
 const route = useRoute();
@@ -57,43 +58,33 @@ function start() {
 }
 
 function handleSingleSignOn() {
+  return handleSingleSignOnCheckQuery();
+}
+
+function handleSingleSignOnCheckQuery() {
   status.value = 'pending';
 
-  const query = route.query;
-  if (query[props.query] || props.requestAxiosConfig) {
-    return handleSingleSignOnProcess(query);
+  if (props.requestAxiosConfig) {
+    return handleSingleSignOnProcess();
   } else {
-    status.value = 'failed';
-    message.value = '缺少请求标识符';
-    emit(
-      'response-promise',
-      Promise.reject('[SingleSignOn error]: Query not found'),
-    );
-    return Promise.reject('[SingleSignOn error]: Query not found');
+    if (!props.api) {
+      return handleSingleSignOnError('API not found');
+    }
+    if (!route.query[props.query]) {
+      return handleSingleSignOnError('Query not found');
+    }
+    return handleSingleSignOnProcess();
   }
 }
 
-function handleSingleSignOnProcess(query: LocationQuery) {
-  status.value = 'pending';
-
-  if (!props.requestAxiosConfig && !props.api) {
-    emit(
-      'response-promise',
-      Promise.reject('[SingleSignOn error]: API not found'),
-    );
-    return Promise.reject('[SingleSignOn error]: API not found');
-  }
+function handleSingleSignOnProcess() {
   const requestConfig: AxiosRequestConfig = props.requestAxiosConfig ?? {
     url: props.api,
     method: props.requestMethod,
+    [props.requestPayload]: {
+      [props.requestToken ?? props.query]: String(route.query[props.query]),
+    },
   };
-
-  if (!props.requestAxiosConfig) {
-    const requestTokenObject: Record<string, string> = {};
-    const requestToken = props.requestToken ?? props.query;
-    requestTokenObject[requestToken] = String(query[props.query]);
-    requestConfig[props.requestPayload] = requestTokenObject;
-  }
 
   const request = props.axiosInstance
     ? props.axiosInstance.request(requestConfig)
@@ -112,20 +103,26 @@ function handleSingleSignOnProcess(query: LocationQuery) {
           } else if (res?.[props.responseToken]) {
             emit('response-data-token', res[props.responseToken] as string);
           } else {
-            return Promise.reject('未返回标识符');
+            return Promise.reject('Response token not found');
           }
           status.value = 'success';
         },
       )
       .catch((error) => {
-        status.value = 'failed';
-        message.value = error;
         emit('response-data-token', undefined);
+        return handleSingleSignOnError(error);
       });
   } else {
     emit('response-promise', request);
     return request;
   }
+}
+
+function handleSingleSignOnError(error: string) {
+  status.value = 'failed';
+  message.value = error;
+  emit('response-promise', Promise.reject(`[SingleSignOn] ${error}`));
+  return Promise.reject(`[SingleSignOn] ${error}`);
 }
 
 defineExpose({

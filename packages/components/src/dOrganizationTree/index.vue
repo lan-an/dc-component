@@ -2,11 +2,11 @@
  * @Date: 2023-11-06 09:44:16
  * @Auth: 873768511@qq.com
  * @LastEditors: 873768511@qq.com
- * @LastEditTime: 2023-11-13 17:48:01
+ * @LastEditTime: 2023-11-14 10:54:16
  * @FilePath: \dc-component\packages\components\src\dOrganizationTree\index.vue
 -->
 <template>
-	<div :style="treeContainer">
+	<div :style="treeContainer" class="treeContainer">
 		<ElInput
 			v-if="isFiltratable||isAsyncSearch"
       v-model="filterText"
@@ -28,8 +28,10 @@
 			:check-on-click-node="props.checkOnClickNode"
 			:expand-on-click-node="props.expandOnClickNode"
 			:lazy="props.isLazy"
+			:nodeKey="props.nodeKey"
 			:filter-node-method="filterNode"
-			style="height:calc(100% - 60px);"
+			:empty-text="emptyText"
+			:style="[{height:isFiltratable||isAsyncSearch?'calc(100% - 60px)':'100%'},{overflowY:'auto'}]"
 		>
 			<template #default="{ data, node }">
 				<!-- <slot name="nodeIcon"></slot> -->
@@ -60,9 +62,9 @@
  
 <script setup lang="ts">
 import type {Tree} from './OrganizationTree'
-import {ElTree, ElButton, ElTooltip, ElInput, ElDivider} from 'element-plus'
+import {ElTree, ElButton, ElTooltip, ElInput} from 'element-plus'
 import {Search} from '@element-plus/icons-vue'
-import { CSSProperties, watch, nextTick, ref, computed, reactive, toRef, onMounted, useSlots } from 'vue';
+import { CSSProperties, watch, nextTick, ref, computed, reactive, toRef, onMounted } from 'vue';
 import type Node from 'element-plus/es/components/tree/src/model/node';
 
 defineOptions({
@@ -141,18 +143,27 @@ const props = defineProps({
 	// 树容器的样式
 	treeContainer: {
 		type: Object,
-		default: () =>
-			({
-				width: '300px',
-				height: 'calc(100vh - 200px)',
-				'overflow-y': 'auto',
-			} as CSSProperties),
+		default: () =>{}
+			// ({
+			// 	width: '300px',
+			// 	height: 'calc(100vh - 200px)',
+			// 	overflow: 'auto',
+			// } as CSSProperties),
 	},
 	// 节点文本超出长度时显示的字符个数
 	ellipsisLimit: {
 		type: [Number,Boolean],
 		default: () => true,
 	},
+	//
+	nodeKey:{
+		type:String,
+		default:'id'
+	},
+	emptyText:{
+		type:String,
+		default:'暂无数据'
+	}
 });
 
 const node = computed(() => {
@@ -204,6 +215,10 @@ defineExpose({
 });
 </script>
 <style>
+.treeContainer{
+	padding: 20px;
+	box-sizing: border-box;
+}
 .ellipsis-node{
 	width: 100%;
 	display: block;
