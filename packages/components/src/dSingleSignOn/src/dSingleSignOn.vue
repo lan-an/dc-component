@@ -63,13 +63,7 @@ function handleSingleSignOn() {
   if (query[props.query] || props.requestAxiosConfig) {
     return handleSingleSignOnProcess(query);
   } else {
-    status.value = 'failed';
-    message.value = '缺少请求标识符';
-    emit(
-      'response-promise',
-      Promise.reject('[SingleSignOn error]: Query not found'),
-    );
-    return Promise.reject('[SingleSignOn error]: Query not found');
+    return handleSingleSignOnError('Query not found');
   }
 }
 
@@ -77,12 +71,9 @@ function handleSingleSignOnProcess(query: LocationQuery) {
   status.value = 'pending';
 
   if (!props.requestAxiosConfig && !props.api) {
-    emit(
-      'response-promise',
-      Promise.reject('[SingleSignOn error]: API not found'),
-    );
-    return Promise.reject('[SingleSignOn error]: API not found');
+    return handleSingleSignOnError('API not found');
   }
+
   const requestConfig: AxiosRequestConfig = props.requestAxiosConfig ?? {
     url: props.api,
     method: props.requestMethod,
@@ -112,20 +103,26 @@ function handleSingleSignOnProcess(query: LocationQuery) {
           } else if (res?.[props.responseToken]) {
             emit('response-data-token', res[props.responseToken] as string);
           } else {
-            return Promise.reject('未返回标识符');
+            return handleSingleSignOnError('Response token not found');
           }
           status.value = 'success';
         },
       )
       .catch((error) => {
-        status.value = 'failed';
-        message.value = error;
         emit('response-data-token', undefined);
+        return error;
       });
   } else {
     emit('response-promise', request);
     return request;
   }
+}
+
+function handleSingleSignOnError(error: string) {
+  status.value = 'failed';
+  message.value = error;
+  emit('response-promise', Promise.reject(`[SingleSignOn] ${error}`));
+  return Promise.reject(`[SingleSignOn] ${error}`);
 }
 
 defineExpose({
