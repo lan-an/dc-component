@@ -58,7 +58,7 @@ function start() {
 }
 
 function handleSingleSignOn() {
-  handleSingleSignOnCheckQuery();
+  return handleSingleSignOnCheckQuery();
 }
 
 function handleSingleSignOnCheckQuery() {
@@ -103,14 +103,14 @@ function handleSingleSignOnProcess() {
           } else if (res?.[props.responseToken]) {
             emit('response-data-token', res[props.responseToken] as string);
           } else {
-            return handleSingleSignOnError('Response token not found');
+            return Promise.reject('Response token not found');
           }
           status.value = 'success';
         },
       )
       .catch((error) => {
         emit('response-data-token', undefined);
-        return error;
+        return handleSingleSignOnError(error);
       });
   } else {
     emit('response-promise', request);
