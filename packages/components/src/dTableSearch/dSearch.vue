@@ -12,23 +12,35 @@
     :model="searchForm"
   >
     <el-space :style="[showFalg ? { 'margin-bottom': '20.0px' } : '']" wrap>
-      <!-- <slot :search="searchForm" name="searchData"></slot> -->
-      <template :key="item.prop" v-for="item in searchFormItem as any">
+      <template  v-for="item in searchFormItem" :key="item.prop">
+
         <el-form-item
-          :prop="item.model"
+          :prop="item.prop??item.key"
           :label="item.label"
-          :labelWidht="item.labelWidht"
+          :label-width="item.labelWidth"
         >
-          <component
-            :is="ElInput"
-            v-model.trim="searchForm[item.model]"
+
+        <component
+            :is="COMPONENT_ENUM[item.valueType] "
+            v-model.trim="searchForm[item.prop||item.key]"
             :placeholder="item?.placeholder"
+            v-bind="{...item?.fieldProps}"
+          >
+          <template v-if="item.valueType==='ElSelect'">
+            <component
+            :is="ElOption"
+            v-for="col in item.fieldProps.option"
+            :key="col.value"
+            :label="col.label"
+            :value="col.value"
           />
+          </template>
+          <slot v-else></slot>
+        </component>
         </el-form-item>
+      
       </template>
-      <!-- <template v-if="!showFalg">
-        <slot name="fold" :search="searchForm"></slot>
-      </template> -->
+     
       <div
         :class="[
           'card-header-content',
@@ -61,42 +73,36 @@ import {
   ElIcon,
   ElInput,
   ElFormItem,
+  ElSelect,
+  ElOption,
+  ElDatePicker
 } from 'element-plus';
 import { ref, toRefs, watch } from 'vue';
 import type { FormInstance } from 'element-plus';
-
+const COMPONENT_ENUM={
+  'ElSelect':ElSelect,
+  'ElInput':ElInput,
+  'ElDatePicker':ElDatePicker
+}
 const showFalg = ref(false);
 
+type SearchType={
+  initParam?:any;
+  more?:boolean;
+  searchFormProps?:object;
+  loading?:boolean;
+  searchFormItem?:any[]
+
+
+}
 const ruleFormRef = ref<FormInstance>();
 const emit = defineEmits(['handleSearch', 'handleReset']);
-const prop = defineProps({
-  initParam: {
-    type: Object,
-    default: () => {},
-  },
-  more: {
-    type: Boolean,
-    default: () => false,
-  },
-  searchFormItem: {
-    type: Array,
-    default: () => [],
-  },
-  searchFormProps: {
-    type: Object,
-    default: () => {},
-  },
-  loading: {
-    type: Boolean,
-    default: () => false,
-  },
-});
+const prop = defineProps<SearchType>();
 const { loading, more, initParam, searchFormItem } = toRefs(prop);
 const _param = {};
 searchFormItem.value.forEach((item: Record<string, any>) => {
-  _param[item.model] = item.defaultValue ?? '';
+  _param[item.prop??item?.key] = item.defaultValue ?? '';
 });
-
 const getParam = () => {
   return searchForm.value;
 };
@@ -111,8 +117,8 @@ watch(
 const handleMore = () => {};
 const handleReset = (formEl) => {
   if (!formEl) return;
-  console.log(formEl);
   formEl.resetFields();
+  emit('handleReset');
 };
 const handleSearch = () => {
   emit('handleSearch', searchForm.value);

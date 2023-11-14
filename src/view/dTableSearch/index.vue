@@ -32,7 +32,9 @@
       <el-button type="primary" class="button">Operation button</el-button>
       <el-button class="button">...</el-button>
     </template>
-
+   
+    
+    
     <template #name="data">
       <div>{{ data.data.name }}</div>
     </template>
@@ -50,7 +52,7 @@
 
 <script lang="ts" setup>
 import { DTableSearch } from 'dc-pro-component';
-import { ElButton, ElInput, ElSpace, ElFormItem, ElEmpty } from 'element-plus';
+import { ElButton, ElInput, ElSpace, ElFormItem, ElEmpty,ElSelect } from 'element-plus';
 import { onUnmounted, ref } from 'vue';
 import { useLockDom } from 'dc-hooks';
 import { h } from 'vue';
@@ -61,15 +63,24 @@ const filterHandler = (value, row, column) => {
 const columns = [
   {
     prop: 'name',
+    label: 'name',
+    slotName: 'name',
+    search:false,
+  
+  },
+  {
 
     label: 'name',
     slotName: 'name',
-    search: {
-      el: 'ElInput',
-      model: 'name',
+    valueType: 'ElInput',
+    search:true,
+    defaultValue:'',
+    hideInTable: true,
+    key:'_name',
+    fieldProps: {
+     
       placeholder: '请输入用户名',
-      label: 'name',
-      labelWidht: '100.0px',
+
     },
   },
   {
@@ -85,14 +96,32 @@ const columns = [
     sortable: true,
 
     filterMethod: filterHandler,
+    valueType: 'ElDatePicker',
+    search:true,
+    fieldProps: {
+      placeholder: '请输入用户名',
+      // labelWidth: '100.0px',
+      format:"YYYY-MM-DD",
+        valueFormat:"YYYY-MM-DD",
+        type:"date",
+    }
   },
   {
     prop: 'address',
     label: 'address',
-    // render: e => {
-    //   console.log(e);
-    //   return h(ElButton, { type: 'primary' });
-    // },
+    valueType: 'ElSelect',
+    search:true,
+    fieldProps: {
+      placeholder: '请输入用户名',
+        option:[
+        {
+          label:'a',
+          value:'a'
+        }
+        ]
+
+    }
+    
   },
   {
     prop: '操作',

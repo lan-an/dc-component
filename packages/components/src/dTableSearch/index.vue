@@ -20,7 +20,7 @@
             @handleReset="handleReset"
             ref="dSearchFormRef"
           >
-            <template #action> </template>
+            
           </d-search>
         </div>
       </template>
@@ -81,7 +81,7 @@
             <el-table-column
               v-bind="{ ...item }"
               :key="item.prop"
-              v-if="item.checked"
+              v-if="item.checked&&!item.hideInTable"
             >
               <template v-if="item.slotName" #default="scope">
                 <slot
@@ -251,11 +251,7 @@ const handleReset = async (formEl: FormInstance | undefined) => {
     page.pageNum = pagination.pageNum;
     page.pageSize = pagination?.pageSize;
   }
-  if (!formEl) return;
-  console.log(page);
-  console.log(formEl);
-  nextTick();
-  await formEl.resetFields();
+  
   handleRequest();
 };
 /**
@@ -284,7 +280,7 @@ const handleRequest = (): void => {
   let _param = {
     ...dSearchFormRef.value.getParam(),
   };
-
+console.log(_param)
   if (hasPage) {
     _param = {
       ..._param,
@@ -348,10 +344,11 @@ const handleResetColum = (): void => {
     tree.treeColum.push(obj as ColumProps);
   }
 };
-
+//搜索条件
 const _paramColum = computed(() => {
-  return columns.filter((item) => item.search).map((item) => item.search);
+  return columns.filter((item) => item.search)
 });
+console.log(_paramColum)
 /**
  * 搜索展开折叠
  */
