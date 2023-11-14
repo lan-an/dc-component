@@ -38,32 +38,18 @@
 <script lang="ts" setup>
 import { ref, watch, toRefs } from 'vue';
 import { ElButton, ElForm, ElDialog } from 'element-plus';
-import type { FormProp } from './dDialogForm';
+import type { FormProp,DialogFormEmit } from '@/dDialogForm/dDialogForm';
 import type { FormInstance } from 'element-plus';
 defineOptions({
   name: 'DDialogForm',
 });
+
 const formData = ref<object>({});
-const emits = defineEmits([
-  'complete',
-  'update:modelValue',
-  'handleCancel',
-  'handleConfirm',
-]);
+const emits = defineEmits<DialogFormEmit>();
 
 const ruleFormRef = ref<FormInstance>(null);
 const props = withDefaults(
-  defineProps<{
-    form?: object;
-    cancelText?: string;
-    confirmText?: string;
-    modelValue: boolean;
-    formProp?: object;
-    rules?: object;
-    title?: string;
-    ruleFormRef?: any;
-    showFooter?: boolean;
-  }>(),
+  defineProps<FormProp>(),
   {
     cancelText: '取消',
     confirmText: '确认',
@@ -71,20 +57,19 @@ const props = withDefaults(
     rules: null,
     title: '新建表单',
     showFooter: true,
+    form:{}
   },
 );
 
 const { modelValue, form } = toRefs(props);
 watch(
   () => form,
-  (newValue) => {
+  (newValue:any) => {
     if (newValue) {
-      console.log(newValue.value);
       formData.value = newValue.value;
     } else {
       formData.value = {};
     }
-    console.log(newValue);
   },
   { immediate: true, deep: true },
 );
@@ -137,12 +122,8 @@ const handleBeforeClose = (formEl: FormInstance | undefined) => {
  * 表单验证
  */
 const validate = async () => {
-  const state = await ruleFormRef.value.validate((valid, fields) => {
-    if (valid) {
-      return true;
-    } else {
-      return false;
-    }
+  const state = await ruleFormRef.value.validate((valid) => {
+   return valid
   });
   if (state) {
     return formData;

@@ -8,6 +8,7 @@ export const statusTypes = [
   'pending',
   'success',
   'failed',
+  'unknown',
 ] as const;
 
 export interface singleSignOnPropsInterface {

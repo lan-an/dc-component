@@ -20,6 +20,7 @@
       small: 'small',
       pageSizes: [10, 20, 200, 300, 400],
       pageSize: 20,
+      pageNum:1
     }"
     empty-text="暂无数据"
     border
@@ -33,8 +34,8 @@
       <el-form-item prop="name" label="名称">
         <el-input v-model="search.name" />
       </el-form-item>
-      <el-form-item prop="name" label="状态">
-        <el-input v-model="search.name" />
+      <el-form-item prop="state" label="状态">
+        <el-input v-model="search.state" />
       </el-form-item>
     </template>
 
