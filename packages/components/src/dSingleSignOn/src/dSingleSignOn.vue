@@ -19,7 +19,7 @@
 
 <script setup lang="ts" name="DSingleSignOn">
 import { onMounted, ref } from 'vue';
-import { LocationQuery, useRoute } from 'vue-router';
+import { useRoute } from 'vue-router';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { singleSignOnPropsDefaults } from './dSingleSignOnPropsDefault.js';
@@ -58,22 +58,26 @@ function start() {
 }
 
 function handleSingleSignOn() {
+  handleSingleSignOnCheckQuery();
+}
+
+function handleSingleSignOnCheckQuery() {
   status.value = 'pending';
 
-  if (route.query[props.query] || props.requestAxiosConfig) {
+  if (props.requestAxiosConfig) {
     return handleSingleSignOnProcess();
   } else {
-    return handleSingleSignOnError('Query not found');
+    if (!props.api) {
+      return handleSingleSignOnError('API not found');
+    }
+    if (!route.query[props.query]) {
+      return handleSingleSignOnError('Query not found');
+    }
+    return handleSingleSignOnProcess();
   }
 }
 
 function handleSingleSignOnProcess() {
-  status.value = 'pending';
-
-  if (!props.requestAxiosConfig && !props.api) {
-    return handleSingleSignOnError('API not found');
-  }
-
   const requestConfig: AxiosRequestConfig = props.requestAxiosConfig ?? {
     url: props.api,
     method: props.requestMethod,
