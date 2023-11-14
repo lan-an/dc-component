@@ -7,7 +7,6 @@
  */
 module.exports = {
   printWidth: 80,
-  pluginSearchDirs: false,
   tabWidth: 2,
   useTabs: false,
   semi: true,
@@ -23,7 +22,7 @@ module.exports = {
   proseWrap: 'preserve',
   htmlWhitespaceSensitivity: 'css',
   vueIndentScriptAndStyle: false,
-  // endOfLine: 'lf',
+  endOfLine: 'lf',
   embeddedLanguageFormatting: 'auto',
   singleAttributePerLine: false,
   overrides: [

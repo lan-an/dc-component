@@ -8,6 +8,8 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import dts from 'vite-plugin-dts';
+import path from 'path'
+
 export default defineConfig({
   build: {
     target: 'modules',
@@ -48,4 +50,19 @@ export default defineConfig({
       tsConfigFilePath: './tsconfig.json',
     }),
   ],
+  resolve: {
+    alias: {
+      '@components': path.resolve(__dirname, 'src'),
+      '@hooks': path.resolve(__dirname, 'hooks'),
+      '@constants': path.resolve(__dirname, 'constants'),
+      '@style': path.resolve(__dirname, 'style'),
+    }
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@use "@style/base" as *;'
+      }
+    }
+  }
 });

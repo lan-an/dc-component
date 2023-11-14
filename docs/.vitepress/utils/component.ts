@@ -68,4 +68,9 @@ export const component = [
     link: '/component/button',
     activeMatch: '/component/button',
   },
+  {
+    text: 'dStepsForm',
+    link: '/component/dStepsForm',
+    activeMatch: '/component/dStepsForm',
+  }
 ];

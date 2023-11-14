@@ -87,12 +87,12 @@
               </div>
               <div>
                 <el-tree
-                  :data="treeObjColum.treeColum"
+                  :data="tree.treeColum"
                   show-checkbox
                   default-expand-all
                   ref="treeRef"
                   node-key="label"
-                  :default-checked-keys="treeObjColum.defaultChecked"
+                  :default-checked-keys="tree.defaultChecked"
                   :props="{
                     label: 'label',
                   }"
@@ -110,7 +110,7 @@
           style="width: 100%"
           class="d-prop--table"
         >
-          <template v-for="item in treeObjColum.columArr">
+          <template v-for="item in tree.columArr">
             <el-table-column
               v-bind="{ ...item }"
               :key="item.prop"
@@ -152,7 +152,7 @@
 defineOptions({
   name: 'DTableSearch',
 });
-import type { ColumProps } from './dTableSearch';
+import type { ColumProps,TableProp } from '@/dTableSearch/dTableSearch';
 import type { FormInstance } from 'element-plus';
 import DPage from './footer.vue';
 import { onMounted, reactive, ref, unref, nextTick } from 'vue';
@@ -178,19 +178,19 @@ const popoverRef = ref();
 const onClickOutside = () => {
   unref(popoverRef).popperRef?.delayHide?.();
 };
-
 const tableData = ref<any[]>([]);
 
-//查询条件
-let searchForm = reactive<Record<string, any>>({});
+let searchForm = reactive<Record<string, any>>({});//查询条件
+
 const loading = ref<boolean>(false);
 
 const treeRef = ref<InstanceType<typeof ElTree>>();
 
-//控制显示搜索条件展示
-const showFalg = ref(false);
+const showFalg = ref(false);//控制显示搜索条件展示
+
 const ruleFormRef = ref<FormInstance>();
-let treeObjColum = reactive<{
+
+let tree = reactive<{
   columArr: any[];
   defaultChecked: string[];
   treeColum: ColumProps[];
@@ -222,8 +222,8 @@ const {
       done: (res: {
         data: any[];
         total?: number;
-        pageNum?: number;
-        pageSize?: number;
+        pageNum: number;
+        pageSize: number;
       }) => void,
     ) => void;
     title?: string;
@@ -248,6 +248,7 @@ const {
     more: false,
     pagination: {
       pageSize: 10,
+      pageNum: 1
     },
     isloading: true,
   },
@@ -258,7 +259,7 @@ const page = reactive<{
   pageSize?: number;
   total?: number;
 }>({
-  pageNum: 1,
+  pageNum: pagination.pageNum,
   pageSize: pagination.pageSize,
   total: 100,
 });
@@ -276,9 +277,11 @@ const handleSearch = (): void => {
  */
 const handleReset = (formEl: FormInstance | undefined): void => {
   if (hasPage) {
-    page.pageNum = pagination?.pageNum;
+    page.pageNum = pagination.pageNum;
+    page.pageSize = pagination?.pageSize;
   }
   if (!formEl) return;
+  console.log(page)
   formEl.resetFields();
   handleRequest();
 };
@@ -305,18 +308,29 @@ const handleSizeChange = (val: number): void => {
  * 数据请求
  */
 const handleRequest = (): void => {
-  let params = {
+  let _param = {
     ...searchForm,
   };
+
   if (hasPage) {
-    params = {
+    _param = {
       ...searchForm,
       pageNum: page.pageNum,
       pageSize: page.pageSize,
     };
   }
+
+  let params = {}
+  Object.keys(_param || {}).forEach(key => {
+    if (_param[key] !== undefined && _param[key] !== null) {
+      params[key] = _param[key]
+    }
+  })
+
   loading.value = true;
+
   let loadingEl = null;
+
   if (isloading) {
     loadingEl = ElLoading.service({
       target: '.d-prop--table',
@@ -333,7 +347,9 @@ const handleRequest = (): void => {
       } else {
         tableData.value = res.data;
       }
+      
       loading.value = false;
+
       isloading &&
         nextTick(() => {
           loadingEl.close();
@@ -346,18 +362,18 @@ const handleRequest = (): void => {
  * 循环处理colum中数据格式
  */
 const handleResetColum = (): void => {
-  treeObjColum.columArr = [];
-  treeObjColum.treeColum = [];
-  treeObjColum.defaultChecked = [];
+  tree.columArr = [];
+  tree.treeColum = [];
+  tree.defaultChecked = [];
   for (let key of columns) {
     let obj = {};
 
     for (let k in key) {
       obj[k] = key[k];
-      treeObjColum.defaultChecked.push(key[k] as string);
+      tree.defaultChecked.push(key[k] as string);
     }
-    treeObjColum.columArr.push({ ...obj, checked: true } as ColumProps);
-    treeObjColum.treeColum.push(obj as ColumProps);
+    tree.columArr.push({ ...obj, checked: true } as ColumProps);
+    tree.treeColum.push(obj as ColumProps);
   }
 };
 
@@ -376,13 +392,13 @@ const handleCheckChange = (
   check: boolean,
   flag: boolean,
 ): void => {
-  treeObjColum.columArr = treeObjColum.columArr.map((item) =>
+  tree.columArr = tree.columArr.map((item) =>
     item.prop === node.prop ? { ...item, checked: !item.checked } : item,
   );
   const checkedCount: any = treeRef.value!.getCheckedNodes(true).length;
-  checkAll.value = checkedCount === treeObjColum.treeColum.length;
+  checkAll.value = checkedCount === tree.treeColum.length;
   isIndeterminate.value =
-    checkedCount > 0 && checkedCount < treeObjColum.treeColum.length;
+    checkedCount > 0 && checkedCount < tree.treeColum.length;
 };
 const handleCheckAllChange = (val: boolean) => {
   if (val) {
@@ -396,7 +412,7 @@ const handleCheckAllChange = (val: boolean) => {
   } else {
     treeRef.value!.setCheckedKeys([], false);
   }
-  treeObjColum.columArr = treeObjColum.columArr.map((item) => {
+  tree.columArr = tree.columArr.map((item) => {
     return { ...item, checked: !val };
   });
   isIndeterminate.value = false;

@@ -8,5 +8,13 @@
 import dTable from './dTable';
 import dDialogForm from './dDialogForm';
 import dSingleSignOn from './dSingleSignOn';
-import dOrganzationTree from './dOrganzationTree'
-export default [dTable, dDialogForm, dSingleSignOn,dOrganzationTree];
+import dOrganzationTree from './dOrganzationTree';
+import dStepsForm from './dStepsForm';
+
+export default [
+  dTable,
+  dDialogForm,
+  dSingleSignOn,
+  dOrganzationTree,
+  dStepsForm,
+];

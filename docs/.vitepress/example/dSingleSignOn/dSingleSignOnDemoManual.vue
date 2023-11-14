@@ -3,6 +3,7 @@
     <d-single-sign-on
       ref="singleSignOnRef"
       api="https://yesno.wtf/api"
+      query="auth_code"
       request-method="get"
       request-payload="params"
       manual-start

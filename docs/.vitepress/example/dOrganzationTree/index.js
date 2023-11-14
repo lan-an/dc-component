@@ -6,4 +6,5 @@
  * @FilePath: \dc-component\docs\.vitepress\example\dOrganzationTree\index.js
  */
 import dOrganzationTree from './dOrganzationTree.vue';
-export default [dOrganzationTree]
+import dOrganzationTreeAsync from './dOrganzationTreeAsync.vue';
+export default [dOrganzationTree,dOrganzationTreeAsync]
