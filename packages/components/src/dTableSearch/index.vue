@@ -2,7 +2,7 @@
  * @Date: 2023-10-30 10:58:31
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-14 10:09:15
+ * @LastEditTime: 2023-11-14 18:04:45
  * @FilePath: \dc-component\packages\components\src\dTableSearch\index.vue
 -->
 <template>
@@ -11,50 +11,17 @@
       <!-- 搜索 -->
       <template v-if="hasSearch" #header>
         <div class="card-header">
-          <el-form
-            ref="ruleFormRef"
-            v-bind="{ ...searchFormProps }"
-            :model="searchForm"
+          <d-search
+            v-bind="{ ...$attrs }"
+            :searchFormItem="_paramColum"
+            :initParam="initParam"
+            :loading="loading"
+            @handleSearch="handleSearch"
+            @handleReset="handleReset"
+            ref="dSearchFormRef"
           >
-            <el-space
-              :style="[showFalg ? { 'margin-bottom': '20.0px' } : '']"
-              wrap
-            >
-              <slot :search="searchForm" name="searchData"></slot>
-
-              <template v-if="!showFalg">
-                <slot name="fold" :search="searchForm"></slot>
-              </template>
-              <div
-                :class="[
-                  'card-header-content',
-                  showFalg ? 'search-absolute' : 'search-relative',
-                ]"
-              >
-                <el-button
-                  :loading="loading"
-                  type="primary"
-                  @click="handleSearch"
-                  >查询</el-button
-                >
-                <el-button @click="handleReset(ruleFormRef)">重置</el-button>
-                <el-button
-                  color="#468fff"
-                  v-if="more"
-                  @click="handleMore"
-                  plain
-                  text
-                >
-                  {{ showFalg ? '展开' : '收起' }}
-
-                  <el-icon class="el-icon--right">
-                    <ArrowUp v-if="!showFalg" />
-                    <ArrowDown v-else />
-                  </el-icon>
-                </el-button>
-              </div>
-            </el-space>
-          </el-form>
+            <template #action> </template>
+          </d-search>
         </div>
       </template>
       <!--table-->
@@ -152,10 +119,11 @@
 defineOptions({
   name: 'DTableSearch',
 });
-import type { ColumProps,TableProp } from '@/dTableSearch/dTableSearch';
+import type { ColumProps, TableProp } from '@/dTableSearch/dTableSearch';
 import type { FormInstance } from 'element-plus';
 import DPage from './footer.vue';
-import { onMounted, reactive, ref, unref, nextTick } from 'vue';
+import dSearch from './dSearch.vue';
+import { onMounted, reactive, ref, unref, nextTick, computed } from 'vue';
 import { Refresh, ArrowDown, ArrowUp, Grid } from '@element-plus/icons-vue';
 import {
   ElSpace,
@@ -169,6 +137,8 @@ import {
   ElTree,
   ElLoading,
   ElCheckbox,
+  ElFormItem,
+  ElInput,
 } from 'element-plus';
 import { ClickOutside as vClickOutside } from 'element-plus';
 import type { CardProp } from './dTableSearch';
@@ -180,16 +150,13 @@ const onClickOutside = () => {
 };
 const tableData = ref<any[]>([]);
 
-let searchForm = reactive<Record<string, any>>({});//查询条件
-
 const loading = ref<boolean>(false);
 
 const treeRef = ref<InstanceType<typeof ElTree>>();
 
-const showFalg = ref(false);//控制显示搜索条件展示
+const showFalg = ref(false); //控制显示搜索条件展示
 
-const ruleFormRef = ref<FormInstance>();
-
+const dSearchFormRef = ref();
 let tree = reactive<{
   columArr: any[];
   defaultChecked: string[];
@@ -210,10 +177,11 @@ const {
   loadingParams,
   searchFormProps,
   title,
-  more,
   hasSearch,
   isloading,
   cardProp,
+  tableProp,
+  initParam,
 } = withDefaults(
   defineProps<{
     columns?: ColumProps[];
@@ -241,6 +209,8 @@ const {
     };
     isloading?: boolean;
     cardProp?: CardProp;
+    tableProp?: any;
+    initParam?: any;
   }>(),
   {
     hasSearch: true,
@@ -248,9 +218,10 @@ const {
     more: false,
     pagination: {
       pageSize: 10,
-      pageNum: 1
+      pageNum: 1,
     },
     isloading: true,
+    initParam: {},
   },
 );
 
@@ -275,14 +246,16 @@ const handleSearch = (): void => {
  *
  * @param formEl 重置表格参数
  */
-const handleReset = (formEl: FormInstance | undefined): void => {
+const handleReset = async (formEl: FormInstance | undefined) => {
   if (hasPage) {
     page.pageNum = pagination.pageNum;
     page.pageSize = pagination?.pageSize;
   }
   if (!formEl) return;
-  console.log(page)
-  formEl.resetFields();
+  console.log(page);
+  console.log(formEl);
+  nextTick();
+  await formEl.resetFields();
   handleRequest();
 };
 /**
@@ -309,23 +282,23 @@ const handleSizeChange = (val: number): void => {
  */
 const handleRequest = (): void => {
   let _param = {
-    ...searchForm,
+    ...dSearchFormRef.value.getParam(),
   };
 
   if (hasPage) {
     _param = {
-      ...searchForm,
+      ..._param,
       pageNum: page.pageNum,
       pageSize: page.pageSize,
     };
   }
 
-  let params = {}
-  Object.keys(_param || {}).forEach(key => {
+  let params = {};
+  Object.keys(_param || {}).forEach((key) => {
     if (_param[key] !== undefined && _param[key] !== null) {
-      params[key] = _param[key]
+      params[key] = _param[key];
     }
-  })
+  });
 
   loading.value = true;
 
@@ -347,7 +320,7 @@ const handleRequest = (): void => {
       } else {
         tableData.value = res.data;
       }
-      
+
       loading.value = false;
 
       isloading &&
@@ -367,7 +340,6 @@ const handleResetColum = (): void => {
   tree.defaultChecked = [];
   for (let key of columns) {
     let obj = {};
-
     for (let k in key) {
       obj[k] = key[k];
       tree.defaultChecked.push(key[k] as string);
@@ -377,6 +349,9 @@ const handleResetColum = (): void => {
   }
 };
 
+const _paramColum = computed(() => {
+  return columns.filter((item) => item.search).map((item) => item.search);
+});
 /**
  * 搜索展开折叠
  */

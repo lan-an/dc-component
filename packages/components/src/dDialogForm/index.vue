@@ -2,18 +2,18 @@
  * @Date: 2023-11-09 10:26:28
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-14 10:10:08
+ * @LastEditTime: 2023-11-14 13:57:12
  * @FilePath: \dc-component\packages\components\src\dDialogForm\index.vue
 -->
 
 <template>
   <el-dialog
     v-model:modelValue="modelValue"
-    v-bind="{ ...$attrs }"
     :title="title"
     @close="handleBeforeClose(ruleFormRef)"
+    v-bind="{ ...$attrs }"
   >
-    <el-form ref="ruleFormRef" v-bind="{ ...formProp }" :model="formData">
+    <el-form v-bind="{ ...$attrs }" ref="ruleFormRef" :model="formData">
       <template #default>
         <slot :form="formData" name="formData"></slot>
       </template>
@@ -38,7 +38,7 @@
 <script lang="ts" setup>
 import { ref, watch, toRefs } from 'vue';
 import { ElButton, ElForm, ElDialog } from 'element-plus';
-import type { FormProp,DialogFormEmit } from '@/dDialogForm/dDialogForm';
+import type { FormProp, DialogFormEmit } from '@/dDialogForm/dDialogForm';
 import type { FormInstance } from 'element-plus';
 defineOptions({
   name: 'DDialogForm',
@@ -48,23 +48,20 @@ const formData = ref<object>({});
 const emits = defineEmits<DialogFormEmit>();
 
 const ruleFormRef = ref<FormInstance>(null);
-const props = withDefaults(
-  defineProps<FormProp>(),
-  {
-    cancelText: '取消',
-    confirmText: '确认',
-    modelValue: false,
-    rules: null,
-    title: '新建表单',
-    showFooter: true,
-    form:{}
-  },
-);
+const props = withDefaults(defineProps<FormProp>(), {
+  cancelText: '取消',
+  confirmText: '确认',
+  modelValue: false,
+  rules: null,
+  title: '新建表单',
+  showFooter: true,
+  form: {},
+});
 
 const { modelValue, form } = toRefs(props);
 watch(
   () => form,
-  (newValue:any) => {
+  (newValue: any) => {
     if (newValue) {
       formData.value = newValue.value;
     } else {
@@ -123,7 +120,7 @@ const handleBeforeClose = (formEl: FormInstance | undefined) => {
  */
 const validate = async () => {
   const state = await ruleFormRef.value.validate((valid) => {
-   return valid
+    return valid;
   });
   if (state) {
     return formData;

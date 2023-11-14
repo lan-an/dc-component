@@ -2,8 +2,8 @@
  * @Date: 2023-10-30 13:26:08
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-09 16:18:09
- * @FilePath: \dc-component\packages\components\src\dTableSearch\dTableSearch.d.ts
+ * @LastEditTime: 2023-11-14 17:37:54
+ * @FilePath: \dc-component\packages\components\src\dTableSearch\dTableSearch.ts
  */
 export type ColumProps = {
   type?: string;
@@ -20,6 +20,7 @@ export type ColumProps = {
   sortMethod?: (a: number, b: number) => number;
   checked?: boolean;
   slotName?: string;
+  search: any;
 };
 
 export type CardProp = {
@@ -55,7 +56,5 @@ export type TableProp = {
   };
   isloading?: boolean;
   cardProp?: CardProp;
+  tableProp?: any;
 };
-
-
-

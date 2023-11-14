@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 17:35:40
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-07 16:11:33
+ * @LastEditTime: 2023-11-14 17:17:58
  * @FilePath: \dc-component\src\view\dTableSearch\index.vue
 -->
 
@@ -20,33 +20,19 @@
       small: 'small',
       pageSizes: [10, 20, 200, 300, 400],
       pageSize: 20,
-      pageNum:1
+      pageNum: 1,
     }"
+    :tableProp="{}"
     empty-text="暂无数据"
     border
     :cardProp="{ shadow: 'always' }"
+    more
   >
     <template #dTableRight>
       <el-button type="primary" class="button">Operation button</el-button>
       <el-button class="button">...</el-button>
     </template>
-    <template #searchData="{ search }">
-      <el-form-item prop="name" label="名称">
-        <el-input v-model="search.name" />
-      </el-form-item>
-      <el-form-item prop="state" label="状态">
-        <el-input v-model="search.state" />
-      </el-form-item>
-    </template>
 
-    <template #fold="{ search }">
-      <el-form-item prop="name" label="Activity name">
-        <el-input v-model="search.name" />
-      </el-form-item>
-      <el-form-item prop="name" label="Activity name">
-        <el-input v-model="search.name" />
-      </el-form-item>
-    </template>
     <template #name="data">
       <div>{{ data.data.name }}</div>
     </template>
@@ -78,6 +64,13 @@ const columns = [
 
     label: 'name',
     slotName: 'name',
+    search: {
+      el: 'ElInput',
+      model: 'name',
+      placeholder: '请输入用户名',
+      label: 'name',
+      labelWidht: '100.0px',
+    },
   },
   {
     prop: 'date',

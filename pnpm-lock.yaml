@@ -14,9 +14,6 @@ importers:
       dc-hooks:
         specifier: workspace:1.0.0-beat
         version: link:packages/hooks
-      dc-pro-component:
-        specifier: workspace:1.0.22-beta
-        version: link:packages/components
       dcqc-utils:
         specifier: workspace:1.0.1-beat
         version: link:packages/utils
@@ -42,6 +39,9 @@ importers:
       '@vue/eslint-config-typescript':
         specifier: ^12.0.0
         version: 12.0.0(eslint-plugin-vue@9.17.0)(eslint@8.51.0)(typescript@5.2.2)
+      dc-pro-component:
+        specifier: workspace:1.0.26-beta
+        version: link:packages/components
       eslint:
         specifier: ^8.51.0
         version: 8.51.0

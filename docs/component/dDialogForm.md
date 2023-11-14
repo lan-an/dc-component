@@ -2,7 +2,7 @@
  * @Date: 2023-10-18 13:01:07
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-10 10:01:29
+ * @LastEditTime: 2023-11-14 10:51:04
  * @FilePath: \dc-component\docs\component\dDialogForm.md
 -->
 
@@ -81,7 +81,6 @@
 </template>
 
 <script lang="ts" setup>
-import { DDialogForm } from 'dc-pro-component';
 
 import {
   ElButton,
@@ -251,7 +250,6 @@ const rules = reactive({
 </template>
 
 <script lang="ts" setup>
-import { DDialogForm } from 'dc-pro-component';
 
 import {
   ElButton,

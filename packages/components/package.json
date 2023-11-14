@@ -1,6 +1,6 @@
 {
   "name": "dc-pro-component",
-  "version": "1.0.22-beta",
+  "version": "1.0.29-beta",
   "description": "",
   "main": "src/index.ts",
   "files": [
