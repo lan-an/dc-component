@@ -2,7 +2,7 @@
  * @Date: 2023-10-30 10:58:31
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-10 15:09:56
+ * @LastEditTime: 2023-11-14 10:09:15
  * @FilePath: \dc-component\packages\components\src\dTableSearch\index.vue
 -->
 <template>
@@ -401,6 +401,9 @@ const handleCheckAllChange = (val: boolean) => {
   });
   isIndeterminate.value = false;
 };
+defineExpose({
+  handleSearch,
+});
 onMounted(() => {
   handleResetColum();
   handleRequest();

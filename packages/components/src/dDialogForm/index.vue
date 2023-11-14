@@ -2,7 +2,7 @@
  * @Date: 2023-11-09 10:26:28
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-10 18:20:26
+ * @LastEditTime: 2023-11-14 10:10:08
  * @FilePath: \dc-component\packages\components\src\dDialogForm\index.vue
 -->
 
@@ -79,12 +79,10 @@ watch(
   () => form,
   (newValue) => {
     if (newValue) {
-      console.log(newValue.value);
       formData.value = newValue.value;
     } else {
       formData.value = {};
     }
-    console.log(newValue);
   },
   { immediate: true, deep: true },
 );
