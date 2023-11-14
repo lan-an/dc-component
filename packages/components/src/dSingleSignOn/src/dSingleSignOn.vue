@@ -81,14 +81,10 @@ function handleSingleSignOnProcess() {
   const requestConfig: AxiosRequestConfig = props.requestAxiosConfig ?? {
     url: props.api,
     method: props.requestMethod,
+    [props.requestPayload]: {
+      [props.requestToken ?? props.query]: String(route.query[props.query]),
+    },
   };
-
-  if (!props.requestAxiosConfig) {
-    const requestTokenObject: Record<string, string> = {};
-    const requestToken = props.requestToken ?? props.query;
-    requestTokenObject[requestToken] = String(route.query[props.query]);
-    requestConfig[props.requestPayload] = requestTokenObject;
-  }
 
   const request = props.axiosInstance
     ? props.axiosInstance.request(requestConfig)
