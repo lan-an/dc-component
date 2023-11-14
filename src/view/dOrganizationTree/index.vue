@@ -2,7 +2,7 @@
  * @Date: 2023-11-06 10:07:11
  * @Auth: 873768511@qq.com
  * @LastEditors: 873768511@qq.com
- * @LastEditTime: 2023-11-13 18:17:04
+ * @LastEditTime: 2023-11-14 10:19:27
  * @FilePath: \dc-component\src\view\dOrganizationTree\index.vue
 -->
 <template>
@@ -31,12 +31,12 @@
 </template>
 
 <script lang="ts" setup>
+import request from './request'
 import { ref, toRef, watch } from 'vue'
 import {ElRow,vLoading,ElCol,ElIcon} from 'element-plus'
 import { DOrganizationTree } from 'dc-pro-component';
 import {DArrowRight,Edit} from '@element-plus/icons-vue'
 import { reactive } from 'vue';
-import axios from 'axios';
 
 type Tree={
   label:string;
@@ -56,7 +56,7 @@ const defaultProps={
   id:'id',
   label:'label',
 }
-const  treeOption=ref({
+const treeOption=ref({
     isAsyncSearch:true,
     ellipsisLimit: true,
     isLazy:true,
