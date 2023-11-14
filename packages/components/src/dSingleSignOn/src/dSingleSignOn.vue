@@ -34,6 +34,7 @@ const props = withDefaults(
   defineProps<singleSignOnPropsInterface>(),
   singleSignOnPropsDefaults,
 );
+
 const emit = defineEmits<singleSignOnEmitsType>();
 
 const route = useRoute();
@@ -59,15 +60,14 @@ function start() {
 function handleSingleSignOn() {
   status.value = 'pending';
 
-  const query = route.query;
-  if (query[props.query] || props.requestAxiosConfig) {
-    return handleSingleSignOnProcess(query);
+  if (route.query[props.query] || props.requestAxiosConfig) {
+    return handleSingleSignOnProcess();
   } else {
     return handleSingleSignOnError('Query not found');
   }
 }
 
-function handleSingleSignOnProcess(query: LocationQuery) {
+function handleSingleSignOnProcess() {
   status.value = 'pending';
 
   if (!props.requestAxiosConfig && !props.api) {
@@ -82,7 +82,7 @@ function handleSingleSignOnProcess(query: LocationQuery) {
   if (!props.requestAxiosConfig) {
     const requestTokenObject: Record<string, string> = {};
     const requestToken = props.requestToken ?? props.query;
-    requestTokenObject[requestToken] = String(query[props.query]);
+    requestTokenObject[requestToken] = String(route.query[props.query]);
     requestConfig[props.requestPayload] = requestTokenObject;
   }
 
