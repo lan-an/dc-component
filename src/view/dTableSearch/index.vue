@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 17:35:40
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-14 17:17:58
+ * @LastEditTime: 2023-11-15 17:34:24
  * @FilePath: \dc-component\src\view\dTableSearch\index.vue
 -->
 
@@ -26,15 +26,13 @@
     empty-text="暂无数据"
     border
     :cardProp="{ shadow: 'always' }"
-    more
+    :searchCol="{ xs: 1, sm: 2, md: 2, lg: 3, xl: 6 }"
   >
     <template #dTableRight>
       <el-button type="primary" class="button">Operation button</el-button>
       <el-button class="button">...</el-button>
     </template>
-   
-    
-    
+
     <template #name="data">
       <div>{{ data.data.name }}</div>
     </template>
@@ -52,7 +50,14 @@
 
 <script lang="ts" setup>
 import { DTableSearch } from 'dc-pro-component';
-import { ElButton, ElInput, ElSpace, ElFormItem, ElEmpty,ElSelect } from 'element-plus';
+import {
+  ElButton,
+  ElInput,
+  ElSpace,
+  ElFormItem,
+  ElEmpty,
+  ElSelect,
+} from 'element-plus';
 import { onUnmounted, ref } from 'vue';
 import { useLockDom } from 'dc-hooks';
 import { h } from 'vue';
@@ -60,7 +65,7 @@ const filterHandler = (value, row, column) => {
   const property = column['property'];
   return row[property] === value;
 };
-const options= [
+const options = [
   {
     value: 'guide',
     label: 'Guide',
@@ -327,51 +332,45 @@ const options= [
       },
     ],
   },
-]
+];
 const columns = [
   {
     prop: 'name',
     label: 'name',
     slotName: 'name',
-    search:false,
-  
+    search: false,
   },
   {
-
     label: 'name',
     slotName: 'name',
     valueType: 'ElInput',
-    search:true,
-    defaultValue:'',
+    search: true,
+    defaultValue: '',
     hideInTable: true,
-    key:'_name',
+    key: '_name',
     fieldProps: {
-     
       placeholder: '请输入用户名',
-
     },
   },
   {
-    label:'casca',
-    prop:'casca',
+    label: 'casca',
+    prop: 'casca',
     hideInTable: true,
     valueType: 'ElCascader',
-    search:{
-      transform:(val)=>{
-          console.log(val)
-          return {
-            a:val[0],
-            b:val[1],
-            c:val[2]
-          }
-        }
+    search: {
+      transform: (val) => {
+        return {
+          a: val[0],
+          b: val[1],
+          c: val[2],
+        };
+      },
     },
     fieldProps: {
-        placeholder: '请选择',
-        options:options,
-        label: 'label',
-       
-    }
+      placeholder: '请选择',
+      options: options,
+      label: 'label',
+    },
   },
   {
     prop: 'date',
@@ -386,31 +385,61 @@ const columns = [
 
     filterMethod: filterHandler,
     valueType: 'ElDatePicker',
-    search:true,
+    search: true,
     fieldProps: {
       placeholder: '请选择',
-      // labelWidth: '100.0px',
-      format:"YYYY-MM-DD",
-      valueFormat:"YYYY-MM-DD",
-      type:"date",
-    }
+      format: 'YYYY-MM-DD',
+      valueFormat: 'YYYY-MM-DD',
+      type: 'date',
+    },
+  },
+
+  {
+    prop: 'date1',
+    label: 'date1',
+    filters: [
+      { text: '2016-05-01', value: '2016-05-01' },
+      { text: '2016-05-02', value: '2016-05-02' },
+      { text: '2016-05-03', value: '2016-05-03' },
+      { text: '2016-05-04', value: '2016-05-04' },
+    ],
+    sortable: true,
+
+    filterMethod: filterHandler,
+    valueType: 'ElDatePicker',
+    search: {
+      transform: (val) => {
+        return {
+          starTime: val[0],
+          emdTime: val[1],
+        };
+      },
+    },
+    fieldProps: {
+      placeholder: '请选择',
+      format: 'YYYY-MM-DD HH:mm:ss',
+      dateFormat: 'YYYY/MM/DD ddd',
+      timeFormat: 'A hh:mm:ss',
+      valueFormat: 'YYYY-MM-DD HH:mm:ss',
+      type: 'datetimerange',
+      startPlaceholder: 'Start date',
+      endPlaceholder: 'End date',
+    },
   },
   {
     prop: 'address',
     label: 'address',
     valueType: 'ElSelect',
-    search:true,
+    search: true,
     fieldProps: {
       placeholder: '请选择',
-        option:[
+      option: [
         {
-          label:'a',
-          value:'a'
-        }
-        ]
-
-    }
-    
+          label: 'a',
+          value: 'a',
+        },
+      ],
+    },
   },
   {
     prop: '操作',

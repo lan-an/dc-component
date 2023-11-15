@@ -2,7 +2,7 @@
  * @Date: 2023-10-30 13:26:08
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-14 17:37:54
+ * @LastEditTime: 2023-11-15 16:08:11
  * @FilePath: \dc-component\packages\components\src\dTableSearch\dTableSearch.ts
  */
 export type ColumProps = {
@@ -21,6 +21,7 @@ export type ColumProps = {
   checked?: boolean;
   slotName?: string;
   search: any;
+  hideInTable?: boolean;
 };
 
 export type CardProp = {

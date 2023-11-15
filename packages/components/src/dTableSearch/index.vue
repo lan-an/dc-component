@@ -2,116 +2,121 @@
  * @Date: 2023-10-30 10:58:31
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-14 18:04:45
+ * @LastEditTime: 2023-11-15 17:37:08
  * @FilePath: \dc-component\packages\components\src\dTableSearch\index.vue
 -->
 <template>
-  <div class="d-content-table">
-    <el-card v-bind="{ ...(cardProp as any) }" class="box-card">
-      <!-- 搜索 -->
-      <template v-if="hasSearch" #header>
-        <div class="card-header">
-          <d-search
-            v-bind="{ ...$attrs }"
-            :searchFormItem="_paramColum"
-            :initParam="initParam"
-            :loading="loading"
-            @handleSearch="handleSearch"
-            @handleReset="handleReset"
-            ref="dSearchFormRef"
-          >
-            
-          </d-search>
-        </div>
-      </template>
-      <!--table-->
-      <div class="d-content-table-body">
-        <!--顶部ActionBar-->
-        <div class="d-content-table-action">
-          <div class="d-table-left">
-            <span v-if="title">{{ title }}</span>
-          </div>
-          <div class="d-table-right">
-            <slot name="dTableRight"></slot>
-            <el-button @click="handleSearch" :icon="Refresh"></el-button>
-            <el-button circle ref="buttonRef" v-click-outside="onClickOutside">
-              <el-icon><Grid /></el-icon>
-            </el-button>
-            <el-popover
-              ref="popoverRef"
-              :virtual-ref="buttonRef"
-              trigger="click"
-              title="Colum配置"
-              virtual-triggering
+  <el-config-provider :locale="locale">
+    <div class="d-content-table">
+      <el-card v-bind="{ ...(cardProp as any) }" class="box-card">
+        <!-- 搜索 -->
+        <template v-if="hasSearch" #header>
+          <div class="card-header">
+            <d-search
+              :searchFormItem="_paramColum"
+              :initParam="initParam"
+              :loading="loading"
+              :more="more"
+              @handleSearch="handleSearch"
+              @handleReset="handleReset"
+              ref="dSearchFormRef"
             >
-              <div>
-                <el-checkbox
-                  v-model="checkAll"
-                  :indeterminate="isIndeterminate"
-                  @change="handleCheckAllChange"
-                  >全选</el-checkbox
-                >
-              </div>
-              <div>
-                <el-tree
-                  :data="tree.treeColum"
-                  show-checkbox
-                  default-expand-all
-                  ref="treeRef"
-                  node-key="label"
-                  :default-checked-keys="tree.defaultChecked"
-                  :props="{
-                    label: 'label',
-                  }"
-                  @check-change="handleCheckChange"
-                  :check-on-click-node="true"
-                />
-              </div>
-            </el-popover>
+            </d-search>
           </div>
-        </div>
+        </template>
+        <!--table-->
+        <div class="d-content-table-body">
+          <!--顶部ActionBar-->
+          <div class="d-content-table-action">
+            <div class="d-table-left">
+              <slot name="dTableLeft"></slot>
+            </div>
+            <div class="d-table-right">
+              <slot name="dTableRight"></slot>
+              <el-button @click="handleSearch" :icon="Refresh"></el-button>
+              <el-button
+                circle
+                ref="buttonRef"
+                v-click-outside="onClickOutside"
+              >
+                <el-icon><Grid /></el-icon>
+              </el-button>
+              <el-popover
+                ref="popoverRef"
+                :virtual-ref="buttonRef"
+                trigger="click"
+                title="Colum配置"
+                virtual-triggering
+              >
+                <div>
+                  <el-checkbox
+                    v-model="checkAll"
+                    :indeterminate="isIndeterminate"
+                    @change="handleCheckAllChange"
+                    >全选</el-checkbox
+                  >
+                </div>
+                <div>
+                  <el-tree
+                    :data="tree.treeColum"
+                    show-checkbox
+                    default-expand-all
+                    ref="treeRef"
+                    node-key="label"
+                    :default-checked-keys="tree.defaultChecked"
+                    :props="{
+                      label: 'label',
+                    }"
+                    @check-change="handleCheckChange"
+                    :check-on-click-node="true"
+                  />
+                </div>
+              </el-popover>
+            </div>
+          </div>
 
-        <el-table
-          v-bind="{ ...$attrs }"
-          :data="tableData"
-          style="width: 100%"
-          class="d-prop--table"
-        >
-          <template v-for="item in tree.columArr">
-            <el-table-column
-              v-bind="{ ...item }"
-              :key="item.prop"
-              v-if="item.checked&&!item.hideInTable"
-            >
-              <template v-if="item.slotName" #default="scope">
-                <slot
-                  :name="item.slotName"
-                  :data="{ ...scope.row, index: scope.$index }"
-                ></slot>
-              </template>
-            </el-table-column>
-          </template>
-          <template #empty>
-            <slot name="empty"></slot>
-          </template>
-          <template #append>
-            <slot name="append"></slot>
-          </template>
-        </el-table>
-        <!-- 分页 -->
-        <div class="d-table-footer">
-          <d-page
-            @handleCurrentChange="handleCurrentChange"
-            @handleSizeChange="handleSizeChange"
-            :pagination="{
-              ...pagination,
-              total: page.total,
-            }"
-          ></d-page>
+          <el-table
+            v-bind="{ ...$attrs, ...tableProp }"
+            :data="tableData"
+            style="width: 100%"
+            class="d-prop--table"
+          >
+            <template v-for="item in tree.columArr">
+              <el-table-column
+                v-bind="{ ...item }"
+                :key="item.prop"
+                v-if="item.checked && !item.hideInTable"
+              >
+                <template v-if="item.slotName" #default="scope">
+                  <slot
+                    :name="item.slotName"
+                    :data="{ ...scope.row, index: scope.$index }"
+                  ></slot>
+                </template>
+              </el-table-column>
+            </template>
+            <template #empty>
+              <slot name="empty"></slot>
+            </template>
+            <template #append>
+              <slot name="append"></slot>
+            </template>
+          </el-table>
+          <!-- 分页 -->
+          <div class="d-table-footer">
+            <d-page
+              @handleCurrentChange="handleCurrentChange"
+              @handleSizeChange="handleSizeChange"
+              :pagination="{
+                ...pagination,
+                total: page.total,
+              }"
+            ></d-page>
+          </div>
         </div>
-      </div>
-    </el-card>
-  </div>
+      </el-card>
+    </div>
+  </el-config-provider>
 </template>
 
 <script lang="ts" name="DTableSearch" setup>
@@ -123,22 +128,21 @@ import type { ColumProps, TableProp } from '@/dTableSearch/dTableSearch';
 import type { FormInstance } from 'element-plus';
 import DPage from './footer.vue';
 import dSearch from './dSearch.vue';
-import { onMounted, reactive, ref, unref, nextTick, computed, watch } from 'vue';
-import { Refresh, ArrowDown, ArrowUp, Grid } from '@element-plus/icons-vue';
+import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
+
+import { onMounted, reactive, ref, unref, nextTick, computed } from 'vue';
+import { Refresh, Grid } from '@element-plus/icons-vue';
 import {
-  ElSpace,
   ElButton,
   ElCard,
   ElTable,
   ElTableColumn,
-  ElForm,
   ElIcon,
   ElPopover,
   ElTree,
   ElLoading,
   ElCheckbox,
-  ElFormItem,
-  ElInput,
+  ElConfigProvider,
 } from 'element-plus';
 import { ClickOutside as vClickOutside } from 'element-plus';
 import type { CardProp } from './dTableSearch';
@@ -152,20 +156,12 @@ const tableData = ref<any[]>([]);
 
 const loading = ref<boolean>(false);
 
+const locale = ref(zhCn);
+
 const treeRef = ref<InstanceType<typeof ElTree>>();
 
-const showFalg = ref(false); //控制显示搜索条件展示
-
 const dSearchFormRef = ref();
-let tree = reactive<{
-  columArr: any[];
-  defaultChecked: string[];
-  treeColum: ColumProps[];
-}>({
-  defaultChecked: [],
-  treeColum: [],
-  columArr: [],
-});
+
 const checkAll = ref(true);
 const isIndeterminate = ref(false);
 //外部数据参数
@@ -175,8 +171,6 @@ const {
   columns,
   pagination,
   loadingParams,
-  searchFormProps,
-  title,
   hasSearch,
   isloading,
   cardProp,
@@ -194,13 +188,11 @@ const {
         pageSize: number;
       }) => void,
     ) => void;
-    title?: string;
 
     pagination?: any; //分页所有参数
     hasSearch?: boolean; //是否需要搜索
     hasPage?: boolean;
     more?: boolean;
-    searchFormProps?: any;
     loadingParams?: {
       body?: boolean;
       fullscreen?: boolean;
@@ -221,10 +213,18 @@ const {
       pageNum: 1,
     },
     isloading: true,
-    initParam: {aa:1},
+    initParam: {},
   },
 );
-
+let tree = reactive<{
+  columArr: any[];
+  defaultChecked: string[];
+  treeColum: ColumProps[];
+}>({
+  defaultChecked: [],
+  treeColum: [],
+  columArr: [],
+});
 const page = reactive<{
   pageNum?: number;
   pageSize?: number;
@@ -251,7 +251,7 @@ const handleReset = async (formEl: FormInstance | undefined) => {
     page.pageNum = pagination.pageNum;
     page.pageSize = pagination?.pageSize;
   }
-  
+
   handleRequest();
 };
 /**
@@ -279,9 +279,9 @@ const handleSizeChange = (val: number): void => {
 const handleRequest = (): void => {
   let _param = {
     ...dSearchFormRef.value.getParam(),
-    ...initParam
+    ...initParam,
   };
-console.log(_param)
+  console.log(_param);
   if (hasPage) {
     _param = {
       ..._param,
@@ -332,40 +332,24 @@ console.log(_param)
  * 循环处理colum中数据格式
  */
 const handleResetColum = (): void => {
-  tree.columArr = [];
-  tree.treeColum = [];
   tree.defaultChecked = [];
-  for (let key of columns) {
-    let obj = {};
-    for (let k in key) {
-      obj[k] = key[k];
-      tree.defaultChecked.push(key[k] as string);
-    }
-    tree.columArr.push({ ...obj, checked: true } as ColumProps);
-    tree.treeColum.push(obj as ColumProps);
-  }
+  tree.treeColum = columns.filter((_) => !_.hideInTable);
+  tree.columArr = columns.map((_) => {
+    return { ..._, checked: true };
+  });
+  columns.forEach((_) => {
+    tree.defaultChecked.push(!_.hideInTable && (_?.prop as string));
+  });
 };
 //搜索条件
 const _paramColum = computed(() => {
-  return columns.filter((item) => item.search)
+  return columns.filter((item) => item.search);
 });
-
-console.log(_paramColum)
-/**
- * 搜索展开折叠
- */
-const handleMore = (): void => {
-  showFalg.value = !showFalg.value;
-};
 
 /**
  * 点击节点切换colum显示
  */
-const handleCheckChange = (
-  node: ColumProps,
-  check: boolean,
-  flag: boolean,
-): void => {
+const handleCheckChange = (node: ColumProps): void => {
   tree.columArr = tree.columArr.map((item) =>
     item.prop === node.prop ? { ...item, checked: !item.checked } : item,
   );
@@ -377,18 +361,20 @@ const handleCheckChange = (
 const handleCheckAllChange = (val: boolean) => {
   if (val) {
     const arr: any[] = [];
-    for (let key of columns) {
-      for (let k in key) {
-        arr.push(key[k] as string);
-      }
-    }
+    columns.forEach((_) => {
+      arr.push(_?.prop);
+    });
     treeRef.value!.setCheckedKeys(arr, false);
   } else {
     treeRef.value!.setCheckedKeys([], false);
   }
-  tree.columArr = tree.columArr.map((item) => {
-    return { ...item, checked: !val };
+  tree.columArr = tree.columArr.filter((_) => {
+    return {
+      ..._,
+      checked: !val,
+    };
   });
+
   isIndeterminate.value = false;
 };
 defineExpose({
@@ -399,7 +385,7 @@ onMounted(() => {
   handleRequest();
 });
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .d-content-table {
   width: 100%;
   height: 100%;
