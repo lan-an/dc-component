@@ -2,18 +2,18 @@
  * @Date: 2023-11-15 14:44:37
  * @Author: liu-hongrui
  * @LastEditors: liu-hongrui
- * @LastEditTime: 2023-11-15 15:41:08
+ * @LastEditTime: 2023-11-15 16:53:02
  * @FilePath: \dc-component\src\view\dCheckFilter\index.vue
 -->
 <template>
   <div v-for="item in list">
     <d-check-filter :checkList="item.children" :title="item.title" @sendCheck="sendCheck" />
   </div>
-  
+  <DTags :tagsList="tagsList" tageTitle="选中" closable/>
 </template>
 
 <script setup lang="ts">
-import { DCheckFilter } from 'dc-pro-component';
+import { DCheckFilter,DTags } from 'dc-pro-component';
 import { ref } from "vue";
 const list = ref([
   {
@@ -34,10 +34,11 @@ const list = ref([
     ],
   },
 ]);
-const value = ref()
-const sendCheck = (val) => {
-	console.log(val),'sendCheck';
-  value.value = val
+const tagsList = ref([])
+const sendCheck = (currentList:any,checkTags:any[]) => {
+  console.log(currentList,'当前标题选中的数据');
+  console.log(checkTags,'所有选中的数据');
+  tagsList.value = checkTags
 }
 </script>
 
