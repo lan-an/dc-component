@@ -75,7 +75,7 @@ function singleSignOnCheckQuery() {
     if (!props.api) {
       throw new Error('API not found');
     }
-    if (!route.query[props.query]) {
+    if (typeof props.query === 'string' && !route.query[props.query]) {
       throw new Error('Query not found');
     }
   }
@@ -85,11 +85,30 @@ function singleSignOnGenerateConfig() {
   if (props.requestAxiosConfig) {
     return props.requestAxiosConfig;
   } else {
+    const requestQuery =
+      typeof props.query === 'string' ? [props.query] : props.query;
+    const requestTokenTemp = props.requestToken ?? requestQuery;
+    const requestToken =
+      typeof requestTokenTemp === 'string'
+        ? [requestTokenTemp]
+        : requestTokenTemp;
+    if (requestQuery.length !== requestToken.length) {
+      throw new Error('Request query and token length not match');
+    }
+
+    const requestPayloadObject = {};
+    requestQuery.forEach((each, index) => {
+      if (!route.query[each]) {
+        throw new Error(`Query "${each}" not found`);
+      }
+      requestPayloadObject[requestToken[index]] = route.query[each];
+    });
+
     return {
       url: props.api,
       method: props.requestMethod,
       [props.requestPayload]: {
-        [props.requestToken ?? props.query]: String(route.query[props.query]),
+        requestPayloadObject,
       },
     };
   }
@@ -140,7 +159,7 @@ function handleSingleSignOnError(error: Error) {
   message.value = String(error);
   emit('response-promise', Promise.reject(error));
   emit('response-data-token', undefined);
-  return error;
+  return Promise.reject(error);
 }
 
 defineExpose({
