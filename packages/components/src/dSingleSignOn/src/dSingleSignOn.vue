@@ -140,7 +140,7 @@ function handleSingleSignOnError(error: Error) {
   message.value = String(error);
   emit('response-promise', Promise.reject(error));
   emit('response-data-token', undefined);
-  return error;
+  return Promise.reject(error);
 }
 
 defineExpose({
