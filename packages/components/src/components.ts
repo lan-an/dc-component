@@ -20,3 +20,4 @@ export { default as DSingleSignOn } from './dSingleSignOn';
 export type * from './dRelationGraph/dRelationGraph';
 
 export { DStepsForm, DStepForm } from './dStepsForm';
+export { default as DCheckFilter } from './dCheckFilter';
