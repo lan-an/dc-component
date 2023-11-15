@@ -13,6 +13,7 @@
   >
     <Grid
       ref="gridRef"
+
       class="content-wrapper"
       :collapsed="!showFalg"
       :gap="[20, 0]"
@@ -63,9 +64,8 @@
             >查询</el-button
           >
           <el-button @click="handleReset(ruleFormRef)">重置</el-button>
-          <el-button color="#468fff" v-if="more" @click="handleMore" plain text>
+          <el-button color="#468fff" v-if="showCollapse" @click="handleMore" plain text>
             {{ !showFalg ? '展开' : '收起' }}
-
             <el-icon class="el-icon--right">
               <component :is="!showFalg ? ArrowUp : ArrowDown" />
             </el-icon>
@@ -88,7 +88,7 @@ import {
   ElDatePicker,
   ElCascader,
 } from 'element-plus';
-import { ref, toRefs, watch } from 'vue';
+import { computed, ref, toRefs, watch } from 'vue';
 import type { FormInstance } from 'element-plus';
 import Grid from '../Grid/index.vue';
 import GridItem from '../Grid/components/GridItem.vue';
@@ -102,19 +102,17 @@ const COMPONENT_ENUM = {
 const showFalg = ref(false);
 
 type SearchType = {
-  more?: boolean;
   searchFormProps?: object;
   loading?: boolean;
   searchFormItem?: any[];
+  searchCol:any
 };
 const ruleFormRef = ref<FormInstance>();
 
 const emit = defineEmits(['handleSearch', 'handleReset']);
 
 const prop = defineProps<SearchType>();
-console.log(prop);
-const { loading, more, searchFormItem } = toRefs(prop);
-const searchCol = ref({ xs: 1, sm: 2, md: 2, lg: 3, xl: 4 });
+const {searchCol, loading, searchFormItem } = toRefs(prop);
 const _param = {};
 
 const hasSearchTransform = ref([]);
@@ -137,7 +135,26 @@ const getParam = () => {
   }
   return _searchParam;
 };
+// 获取响应式断点
+const gridRef = ref();
+const breakPoint = computed(() => gridRef.value?.breakPoint);
 
+// 判断是否显示 展开/合并 按钮
+const showCollapse = computed(() => {
+  let show = false;
+  searchFormItem.value.reduce((prev, current) => {
+    prev +=
+      (current.search![breakPoint.value]?.span ?? current.search?.span ?? 1) +
+      (current.search![breakPoint.value]?.offset ?? current.search?.offset ?? 0);
+    if (typeof searchCol.value !== "number") {
+      if (prev >= searchCol.value[breakPoint.value]) show = true;
+    } else {
+      if (prev >= searchCol.value) show = true;
+    }
+    return prev;
+  }, 0);
+  return show;
+});
 const getResponsive = (item: any) => {
   return {
     span: item.search?.span,

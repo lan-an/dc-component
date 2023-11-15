@@ -26,7 +26,7 @@
     empty-text="暂无数据"
     border
     :cardProp="{ shadow: 'always' }"
-    :searchCol="{ xs: 1, sm: 2, md: 2, lg: 3, xl: 6 }"
+    :searchCol="{ xs: 1, sm: 2, md: 2, lg: 3, xl: 4 }"
   >
     <template #dTableRight>
       <el-button type="primary" class="button">Operation button</el-button>
@@ -385,7 +385,7 @@ const columns = [
 
     filterMethod: filterHandler,
     valueType: 'ElDatePicker',
-    search: true,
+    search: false,
     fieldProps: {
       placeholder: '请选择',
       format: 'YYYY-MM-DD',

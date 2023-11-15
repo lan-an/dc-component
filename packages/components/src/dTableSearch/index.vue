@@ -13,13 +13,15 @@
         <template v-if="hasSearch" #header>
           <div class="card-header">
             <d-search
+              :searchCol="searchCol"
+
               :searchFormItem="_paramColum"
               :initParam="initParam"
               :loading="loading"
-              :more="more"
               @handleSearch="handleSearch"
               @handleReset="handleReset"
               ref="dSearchFormRef"
+
             >
             </d-search>
           </div>
@@ -176,6 +178,7 @@ const {
   cardProp,
   tableProp,
   initParam,
+  searchCol
 } = withDefaults(
   defineProps<{
     columns?: ColumProps[];
@@ -203,6 +206,7 @@ const {
     cardProp?: CardProp;
     tableProp?: any;
     initParam?: any;
+    searchCol?:any;
   }>(),
   {
     hasSearch: true,
@@ -214,6 +218,8 @@ const {
     },
     isloading: true,
     initParam: {},
+    searchCol: { xs: 1, sm: 2, md: 2, lg: 3, xl: 4 }
+
   },
 );
 let tree = reactive<{
