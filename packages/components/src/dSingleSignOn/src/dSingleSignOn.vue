@@ -107,9 +107,7 @@ function singleSignOnGenerateConfig() {
     return {
       url: props.api,
       method: props.requestMethod,
-      [props.requestPayload]: {
-        requestPayloadObject,
-      },
+      [props.requestPayload]: requestPayloadObject,
     };
   }
 }
