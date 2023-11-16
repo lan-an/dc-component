@@ -139,7 +139,21 @@ service.interceptors.response.use(
 :::
 
 ::: tip
-手动设置Axios请求配置时，不会检查字符串查询参数，也不会向配置内自动添加。所以通常需要手动开始请求（`manual-start`），以携带含有参数的配置。
+手动设置Axios请求配置时，组件不会检查字符串查询参数，也不会向配置内自动添加。所以通常需要手动开始请求（`manual-start`），以携带含有参数的配置。
+:::
+
+## 多个请求参数
+
+支持使用多个地址栏参数进行请求。
+
+[点击此处在地址栏上添加字符串参数，刷新后查看效果。](dSingleSignOn.html?auth_code=123456&query_second=maybe#多个请求参数)
+
+<d-single-sign-on-demo-multiple-queries></d-single-sign-on-demo-multiple-queries>
+
+::: details 查看源代码
+
+<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoMultipleQueries.vue{5-6}
+
 :::
 
 ## API
@@ -149,8 +163,8 @@ service.interceptors.response.use(
 | 属性名 | 说明 | 类型 | 可选值 | 默认值 |
 |--------|------|------|--------|--------|
 | `api` | 单点登录请求api地址 | string | - | -
-| `query` | 地址栏字符串参数名称 | string | - | -
-| `request-token` | 单点登录请求标识符名称 | string | - | token
+| `query` | 地址栏字符串参数名称 | string / string[] | - | -
+| `request-token` | 单点登录请求标识符名称 | string / string[] | - | token
 | `request-method` | 单点登录请求类型 | string | - | POST
 | `request-payload` | 单点登录请求负载类型 | string | data / params | data
 | `request-axios-config` | 单点登录Axios请求配置项，此项生效时`query`、`request-token`、`request-method`、`request-payload`均不生效 | AxiosRequestConfig | - | -
