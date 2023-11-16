@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 17:35:40
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-15 09:15:35
+ * @LastEditTime: 2023-11-16 14:39:57
  * @FilePath: \dc-component\docs\.vitepress\example\dTable\dTable.vue
 -->
 
@@ -26,7 +26,7 @@
     empty-text="暂无数据"
     border
     :cardProp="{ shadow: 'always' }"
-    more
+    :searchCol="{ xs: 1, sm: 2, md: 2, lg: 3, xl: 3 }"
   >
     <template #dTableRight>
       <el-button type="primary" class="button">Operation button</el-button>
@@ -59,6 +59,7 @@ import {
   ElSelect,
 } from 'element-plus';
 import { onUnmounted, ref } from 'vue';
+import { useLockDom } from 'dc-hooks';
 import { h } from 'vue';
 const filterHandler = (value, row, column) => {
   const property = column['property'];
@@ -355,19 +356,10 @@ const columns = [
     label: 'casca',
     prop: 'casca',
     hideInTable: true,
-    valueType: 'ElCascader',
-    search: {
-      transform: (val) => {
-        console.log(val);
-        return {
-          a: val[0],
-          b: val[1],
-          c: val[2],
-        };
-      },
-    },
+    valueType: 'ElInput',
+    search: true,
     fieldProps: {
-      placeholder: '请选择',
+      placeholder: '请输入',
       options: options,
       label: 'label',
     },
@@ -384,21 +376,42 @@ const columns = [
     sortable: true,
 
     filterMethod: filterHandler,
-    valueType: 'ElDatePicker',
-    search: true,
     fieldProps: {
       placeholder: '请选择',
-      // labelWidth: '100.0px',
       format: 'YYYY-MM-DD',
       valueFormat: 'YYYY-MM-DD',
       type: 'date',
+    },
+  },
+
+  {
+    prop: 'date1',
+    label: 'date1',
+    filters: [
+      { text: '2016-05-01', value: '2016-05-01' },
+      { text: '2016-05-02', value: '2016-05-02' },
+      { text: '2016-05-03', value: '2016-05-03' },
+      { text: '2016-05-04', value: '2016-05-04' },
+    ],
+    sortable: true,
+
+    filterMethod: filterHandler,
+
+    fieldProps: {
+      placeholder: '请选择',
+      format: 'YYYY-MM-DD HH:mm:ss',
+      dateFormat: 'YYYY/MM/DD ddd',
+      timeFormat: 'A hh:mm:ss',
+      valueFormat: 'YYYY-MM-DD HH:mm:ss',
+      type: 'datetimerange',
+      startPlaceholder: 'Start date',
+      endPlaceholder: 'End date',
     },
   },
   {
     prop: 'address',
     label: 'address',
     valueType: 'ElSelect',
-    search: true,
     fieldProps: {
       placeholder: '请选择',
       option: [
@@ -413,7 +426,7 @@ const columns = [
     prop: '操作',
     label: '操作',
     slotName: 'action',
-    width: 300,
+    width: 262,
   },
 ];
 const tableData = [
@@ -451,6 +464,7 @@ const handleRequest = (params, done) => {
 const flag = ref<boolean>(false);
 const handleClickDom = () => {
   flag.value = !flag.value;
+  useLockDom(flag.value);
 };
 onUnmounted(() => {
   clearTimeout(timer);

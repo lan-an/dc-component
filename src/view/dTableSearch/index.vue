@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 17:35:40
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-15 17:34:24
+ * @LastEditTime: 2023-11-16 18:18:38
  * @FilePath: \dc-component\src\view\dTableSearch\index.vue
 -->
 
@@ -26,7 +26,9 @@
     empty-text="暂无数据"
     border
     :cardProp="{ shadow: 'always' }"
-    :searchCol="{ xs: 1, sm: 2, md: 2, lg: 3, xl: 4 }"
+    :searchProp="{
+      searchCol: { xs: 1, sm: 2, md: 2, lg: 3, xl: 5 },
+    }"
   >
     <template #dTableRight>
       <el-button type="primary" class="button">Operation button</el-button>
@@ -35,6 +37,9 @@
 
     <template #name="data">
       <div>{{ data.data.name }}</div>
+    </template>
+    <template #namee>
+      <el-input size="small" placeholder="Type to search" />
     </template>
     <template #empty>
       <el-empty :image-size="100" />
@@ -333,25 +338,63 @@ const options = [
     ],
   },
 ];
-const columns = [
+
+const cacheData = ref([]);
+cacheData.value = [{ value: 5, label: 'lazy load node5' }];
+
+let id = 0;
+
+const load = (node, resolve) => {
+  if (node.isLeaf) return resolve([]);
+
+  setTimeout(() => {
+    resolve([
+      {
+        value: ++id,
+        label: `lazy load node${id}`,
+      },
+      {
+        value: ++id,
+        label: `lazy load node${id}`,
+        isLeaf: true,
+      },
+    ]);
+  }, 400);
+};
+
+const request = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([{ value: 5, label: 'lazy load node5' }]);
+    }, 10000);
+  });
+};
+
+const columns = ref([
+  {
+    type: 'selection',
+  },
   {
     prop: 'name',
     label: 'name',
     slotName: 'name',
     search: false,
+
+    headerSlot: 'namee',
   },
   {
     label: 'name',
+    prop: 'name',
     slotName: 'name',
     valueType: 'ElInput',
     search: true,
     defaultValue: '',
     hideInTable: true,
-    key: '_name',
     fieldProps: {
       placeholder: '请输入用户名',
     },
   },
+
   {
     label: 'casca',
     prop: 'casca',
@@ -430,6 +473,7 @@ const columns = [
     prop: 'address',
     label: 'address',
     valueType: 'ElSelect',
+    defaultValue: [],
     search: true,
     fieldProps: {
       placeholder: '请选择',
@@ -442,12 +486,59 @@ const columns = [
     },
   },
   {
+    slotName: 'nameee',
+    valueType: 'ElRadio',
+    search: true,
+    key: 'a',
+    defaultValue: '',
+    hideInTable: true,
+    fieldProps: {
+      placeholder: '请输入用户名',
+      option: [
+        {
+          label: 'name1',
+          value: 'name1',
+        },
+        {
+          label: 'name2',
+          value: 'name2',
+          disabled: true,
+        },
+        {
+          label: 'name5',
+          value: 'name5',
+        },
+      ],
+    },
+  },
+
+  {
+    label: 'tree',
+    valueType: 'ElTreeSelect',
+    search: true,
+    defaultValue: [],
+    key: 'tree',
+    hideInTable: true,
+    fieldProps: {
+      placeholder: '请输入用户名',
+      load: load,
+      props: {
+        label: 'label',
+        children: 'children',
+        isLeaf: 'isLeaf',
+      },
+      // lazy: true,
+      data: cacheData.value,
+    },
+  },
+  {
     prop: '操作',
     label: '操作',
     slotName: 'action',
     width: 300,
   },
-];
+]);
+
 const tableData = [
   {
     date: '2016-05-03',
@@ -475,11 +566,12 @@ let timer = null;
 const handleRequest = (params, done) => {
   //请求返回数据
   console.log(params);
+
+  // columns.value[2].defaultValue = 'name';
   timer = setTimeout(() => {
     done({ data: tableData, total: 1000 });
   }, 2000);
 };
-
 const flag = ref<boolean>(false);
 const handleClickDom = () => {
   flag.value = !flag.value;
