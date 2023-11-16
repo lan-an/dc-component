@@ -136,7 +136,6 @@ async function singleSignOnProcess(request: Promise<any>) {
         }
       })
       .catch((error) => {
-        emit('response-data-token', undefined);
         if (error instanceof Error) {
           throw error;
         } else {
