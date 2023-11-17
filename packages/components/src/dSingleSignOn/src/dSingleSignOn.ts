@@ -25,7 +25,7 @@ export interface singleSignOnPropsInterface {
   /** @description 单点登录Axios请求配置项，此项生效时其他请求配置项均不生效 */
   requestAxiosConfig?: AxiosRequestConfig;
   /** @description 单点登录成功后返回标识符名称 */
-  responseToken?: string;
+  responseToken?: string | string[];
   /** @description 是否隐藏消息（手动处理请求时强制隐藏） */
   hideMessage?: boolean;
   /** @description 外部Axios实例 */
@@ -40,5 +40,5 @@ export type singleSignOnEmitsType = {
   /** @description 单点登录返回异步操作Promise */
   'response-promise': [promise: Promise<any> | AxiosPromise];
   /** @description 单点登录返回标识符内容 */
-  'response-data-token': [token: string];
+  'response-data-token': [token: string | Record<string, string>];
 };

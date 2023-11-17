@@ -142,9 +142,9 @@ service.interceptors.response.use(
 手动设置Axios请求配置时，组件不会检查字符串查询参数，也不会向配置内自动添加。所以通常需要手动开始请求（`manual-start`），以携带含有参数的配置。
 :::
 
-## 多个请求参数
+## 多个请求参数，多个返回参数
 
-支持使用多个地址栏参数进行请求。
+支持同时使用多个地址栏参数进行请求。支持以对象方式同时返回多个标识符。
 
 [点击此处在地址栏上添加字符串参数，刷新后查看效果。](dSingleSignOn.html?auth_code=123456&query_second=maybe#多个请求参数)
 
@@ -152,7 +152,13 @@ service.interceptors.response.use(
 
 ::: details 查看源代码
 
-<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoMultipleQueries.vue{5-6}
+<<< @/.vitepress/example/dSingleSignOn/dSingleSignOnDemoMultipleQueries.vue{5-6,9}
+
+:::
+
+::: info
+
+设置返回的多个标识符如果有不存在的，对应项目将返回`null`。
 
 :::
 
@@ -187,7 +193,7 @@ service.interceptors.response.use(
 
 | 事件名 | 说明 | 回调参数 |
 |--------|-------|----------|
-| `response-data-token` | 单点登录返回标识符内容 | string
+| `response-data-token` | 单点登录返回标识符内容 | `string \| Record<string, string>`
 | `response-promise` | 单点登录返回异步操作Promise | `Promise<any> \| AxiosPromise<any>`
 
 ## 外部方法

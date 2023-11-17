@@ -6,7 +6,7 @@
       :request-token="['token', 'force']"
       request-method="get"
       request-payload="params"
-      response-token="answer"
+      :response-token="['answer', 'forced', 'token']"
       @response-data-token="handleResponseToken"
     ></d-single-sign-on>
     <span v-if="token">获取的标识符是：{{ token }}</span>

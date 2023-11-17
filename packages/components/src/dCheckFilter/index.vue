@@ -37,11 +37,7 @@
 </template>
 
 <script setup lang="ts" name="DCheckFilter">
-import {
-  ref,
-  defineProps,
-  defineEmits,
-} from 'vue';
+import { ref } from 'vue';
 import { ElButton, ElCheckboxGroup, ElCheckbox } from 'element-plus';
 sessionStorage.setItem('tagsList', JSON.stringify([]));
 defineOptions({
@@ -147,7 +143,6 @@ const sessionData = (obj: CheckObj) => {
   sessionStorage.setItem('tagsList', JSON.stringify(tagsList));
   return tagsList;
 };
-
 </script>
 
 <style scoped lang="scss">
@@ -176,4 +171,4 @@ const sessionData = (obj: CheckObj) => {
     height: 36px;
   }
 }
-</style>>
+</style>
