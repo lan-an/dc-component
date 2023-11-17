@@ -2,7 +2,7 @@
  * @Date: 2023-10-30 10:58:31
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-15 17:37:08
+ * @LastEditTime: 2023-11-16 16:24:28
  * @FilePath: \dc-component\packages\components\src\dTableSearch\index.vue
 -->
 <template>
@@ -13,15 +13,13 @@
         <template v-if="hasSearch" #header>
           <div class="card-header">
             <d-search
-              :searchCol="searchCol"
-
               :searchFormItem="_paramColum"
               :initParam="initParam"
               :loading="loading"
+              :searchProp="searchProp"
               @handleSearch="handleSearch"
               @handleReset="handleReset"
               ref="dSearchFormRef"
-
             >
             </d-search>
           </div>
@@ -93,7 +91,11 @@
                   <slot
                     :name="item.slotName"
                     :data="{ ...scope.row, index: scope.$index }"
-                  ></slot>
+                  >
+                  </slot>
+                </template>
+                <template v-if="item.headerSlot" #header>
+                  <slot :name="item.headerSlot"></slot>
                 </template>
               </el-table-column>
             </template>
@@ -129,10 +131,18 @@ defineOptions({
 import type { ColumProps, TableProp } from '@/dTableSearch/dTableSearch';
 import type { FormInstance } from 'element-plus';
 import DPage from './footer.vue';
-import dSearch from './dSearch.vue';
+import DSearch from './dSearch.vue';
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 
-import { onMounted, reactive, ref, unref, nextTick, computed } from 'vue';
+import {
+  onMounted,
+  reactive,
+  ref,
+  unref,
+  nextTick,
+  computed,
+  watch,
+} from 'vue';
 import { Refresh, Grid } from '@element-plus/icons-vue';
 import {
   ElButton,
@@ -145,9 +155,8 @@ import {
   ElLoading,
   ElCheckbox,
   ElConfigProvider,
+  ClickOutside as vClickOutside,
 } from 'element-plus';
-import { ClickOutside as vClickOutside } from 'element-plus';
-import type { CardProp } from './dTableSearch';
 
 const buttonRef = ref<HTMLDivElement>();
 const popoverRef = ref();
@@ -162,10 +171,10 @@ const locale = ref(zhCn);
 
 const treeRef = ref<InstanceType<typeof ElTree>>();
 
-const dSearchFormRef = ref();
+const dSearchFormRef = ref<InstanceType<typeof DSearch>>();
 
-const checkAll = ref(true);
-const isIndeterminate = ref(false);
+const checkAll = ref<boolean>(true);
+const isIndeterminate = ref<boolean>(false);
 //外部数据参数
 const {
   request,
@@ -178,50 +187,22 @@ const {
   cardProp,
   tableProp,
   initParam,
-  searchCol
-} = withDefaults(
-  defineProps<{
-    columns?: ColumProps[];
-    request: (
-      params: any,
-      done: (res: {
-        data: any[];
-        total?: number;
-        pageNum: number;
-        pageSize: number;
-      }) => void,
-    ) => void;
-
-    pagination?: any; //分页所有参数
-    hasSearch?: boolean; //是否需要搜索
-    hasPage?: boolean;
-    more?: boolean;
-    loadingParams?: {
-      body?: boolean;
-      fullscreen?: boolean;
-      text?: string;
-      background?: string;
-    };
-    isloading?: boolean;
-    cardProp?: CardProp;
-    tableProp?: any;
-    initParam?: any;
-    searchCol?:any;
-  }>(),
-  {
-    hasSearch: true,
-    hasPage: true,
-    more: false,
-    pagination: {
-      pageSize: 10,
-      pageNum: 1,
-    },
-    isloading: true,
-    initParam: {},
-    searchCol: { xs: 1, sm: 2, md: 2, lg: 3, xl: 4 }
-
+  searchProp,
+} = withDefaults(defineProps<TableProp>(), {
+  hasSearch: true,
+  hasPage: true,
+  more: false,
+  pagination: {
+    pageSize: 10,
+    pageNum: 1,
   },
-);
+  isloading: true,
+  initParam: {},
+  searchProp: {
+    searchCol: { xs: 1, sm: 2, md: 2, lg: 3, xl: 4 },
+    suffix: false,
+  },
+});
 let tree = reactive<{
   columArr: any[];
   defaultChecked: string[];
@@ -240,6 +221,13 @@ const page = reactive<{
   pageSize: pagination.pageSize,
   total: 100,
 });
+watch(
+  () => columns,
+  (value) => {
+    console.log(value);
+  },
+  { immediate: true, deep: true },
+);
 
 /**
  *
@@ -278,16 +266,19 @@ const handleSizeChange = (val: number): void => {
   handleRequest();
 };
 
+const getParam = () => {
+  if (!dSearchFormRef.value) return;
+  return dSearchFormRef.value.getParam();
+};
 /**
  *
  * 数据请求
  */
 const handleRequest = (): void => {
   let _param = {
-    ...dSearchFormRef.value.getParam(),
+    ...getParam(),
     ...initParam,
   };
-  console.log(_param);
   if (hasPage) {
     _param = {
       ..._param,
@@ -337,9 +328,13 @@ const handleRequest = (): void => {
 /**
  * 循环处理colum中数据格式
  */
+const TYPE_COLUM = ['selection', 'index'];
+
 const handleResetColum = (): void => {
   tree.defaultChecked = [];
-  tree.treeColum = columns.filter((_) => !_.hideInTable);
+  tree.treeColum = columns.filter(
+    (_) => TYPE_COLUM.indexOf(_.type) < 0 && !_.hideInTable,
+  );
   tree.columArr = columns.map((_) => {
     return { ..._, checked: true };
   });
@@ -359,7 +354,7 @@ const handleCheckChange = (node: ColumProps): void => {
   tree.columArr = tree.columArr.map((item) =>
     item.prop === node.prop ? { ...item, checked: !item.checked } : item,
   );
-  const checkedCount: any = treeRef.value!.getCheckedNodes(true).length;
+  const checkedCount: number = treeRef.value!.getCheckedNodes(true).length;
   checkAll.value = checkedCount === tree.treeColum.length;
   isIndeterminate.value =
     checkedCount > 0 && checkedCount < tree.treeColum.length;
@@ -383,12 +378,15 @@ const handleCheckAllChange = (val: boolean) => {
 
   isIndeterminate.value = false;
 };
-defineExpose({
-  handleSearch,
-});
+
 onMounted(() => {
   handleResetColum();
   handleRequest();
+});
+
+defineExpose({
+  handleSearch,
+  getParam,
 });
 </script>
 <style lang="scss" scoped>
