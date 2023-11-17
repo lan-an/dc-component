@@ -2,7 +2,7 @@
  * @Date: 2023-11-14 16:19:52
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-16 18:20:13
+ * @LastEditTime: 2023-11-17 11:43:09
  * @FilePath: \dc-component\packages\components\src\dTableSearch\dSearch.vue
 -->
 <template>
@@ -34,7 +34,7 @@
             v-model.trim="searchForm[item.key ?? item.prop]"
             :placeholder="item?.placeholder"
             v-bind="{ ...item?.fieldProps }"
-            :options="item?.fieldProps?.options"
+            :options="item?.fieldProps?.option"
             :data="item?.fieldProps?.data"
             @change="handleChange($event, item)"
           >
@@ -95,7 +95,7 @@
           >
             {{ !showFalg ? '展开' : '收起' }}
             <el-icon class="el-icon--right">
-              <component :is="!showFalg ? ArrowUp : ArrowDown" />
+              <component :is="showFalg ? ArrowUp : ArrowDown" />
             </el-icon>
           </el-button>
         </div>

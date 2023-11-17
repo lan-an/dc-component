@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 17:35:40
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-16 18:18:38
+ * @LastEditTime: 2023-11-17 09:22:54
  * @FilePath: \dc-component\src\view\dTableSearch\index.vue
 -->
 
@@ -340,7 +340,7 @@ const options = [
 ];
 
 const cacheData = ref([]);
-cacheData.value = [{ value: 5, label: 'lazy load node5' }];
+// cacheData.value = [{ value: 5, label: 'lazy load node5' }];
 
 let id = 0;
 
@@ -365,7 +365,7 @@ const load = (node, resolve) => {
 const request = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve([{ value: 5, label: 'lazy load node5' }]);
+      resolve({ data: [{ value: 5, label: 'lazy load node5' }] });
     }, 10000);
   });
 };
@@ -527,8 +527,9 @@ const columns = ref([
         children: 'children',
         isLeaf: 'isLeaf',
       },
+      request: request,
       // lazy: true,
-      data: cacheData.value,
+      // data: cacheData.value,
     },
   },
   {

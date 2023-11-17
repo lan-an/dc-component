@@ -2,7 +2,7 @@
  * @Date: 2023-10-30 10:58:31
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-16 16:24:28
+ * @LastEditTime: 2023-11-17 09:36:41
  * @FilePath: \dc-component\packages\components\src\dTableSearch\index.vue
 -->
 <template>
@@ -13,7 +13,7 @@
         <template v-if="hasSearch" #header>
           <div class="card-header">
             <d-search
-              :searchFormItem="_paramColum"
+              :searchFormItem="paramColum"
               :initParam="initParam"
               :loading="loading"
               :searchProp="searchProp"
@@ -221,13 +221,6 @@ const page = reactive<{
   pageSize: pagination.pageSize,
   total: 100,
 });
-watch(
-  () => columns,
-  (value) => {
-    console.log(value);
-  },
-  { immediate: true, deep: true },
-);
 
 /**
  *
@@ -342,8 +335,18 @@ const handleResetColum = (): void => {
     tree.defaultChecked.push(!_.hideInTable && (_?.prop as string));
   });
 };
-//搜索条件
-const _paramColum = computed(() => {
+//搜索条件异步数据处理
+const paramColum = computed(() => {
+  columns.forEach(async (_) => {
+    if (!_.search) {
+      return;
+    }
+    if (typeof _.fieldProps.request === 'function') {
+      const { data } = await _.fieldProps.request();
+      _.fieldProps.option = data;
+      _.fieldProps.data = data;
+    }
+  });
   return columns.filter((item) => item.search);
 });
 
