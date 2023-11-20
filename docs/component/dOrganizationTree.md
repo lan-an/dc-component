@@ -12,7 +12,7 @@
 
 ## 基础用法
 
-通过 isFiltratable 属性可用来过滤树节点
+通过 isFilterable 属性可用来过滤树节点
 
   <dOrganizationTree></dOrganizationTree>
 
@@ -157,7 +157,7 @@ const getLoadTree = (
 | ---- | ---- | ------ | ------------------- |
 | treeData | 展示数据 | string | {} |
 | treeContainer | 容器样式 | object | {} |
-| isFiltratable | 是否可筛选 | boolean | true |
+| isFilterable | 是否可筛选 | boolean | true |
 | isAsyncSearch | 是否需要异步搜索 | boolean | true |
 | isLazy | 是否懒加载 | Boolean | true |
 | checkStrictly | 是否父子不关联 | Boolean | true |
