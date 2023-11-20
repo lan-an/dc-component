@@ -3,10 +3,10 @@
  * @Auth: 873768511@qq.com
  * @LastEditors: 873768511@qq.com
  * @LastEditTime: 2023-11-14 10:21:10
- * @FilePath: \dc-component\docs\component\dOrganzationTree.md
+ * @FilePath: \dc-component\docs\component\dOrganizationTree.md
 -->
 
-# dOrganzationTree 组织树
+# dOrganizationTree 组织树
 
 组件便捷式开发
 
@@ -14,7 +14,7 @@
 
 通过 isFiltratable 属性可用来过滤树节点
 
-  <dOrganzationTree></dOrganzationTree>
+  <dOrganizationTree></dOrganizationTree>
 
 
 ::: details Show Code
@@ -76,7 +76,7 @@ const treeData= ref<Tree[]>([{
 
 
 
-<dOrganzationTreeAsync/>
+<dOrganizationTreeAsync/>
 
 ::: details Show Code
 

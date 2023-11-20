@@ -54,9 +54,9 @@ export const component = [
     activeMatch: '/component/dSingleSignOn',
   },
   {
-    text: 'dOrganzationTree',
-    link: '/component/dOrganzationTree',
-    activeMatch: '/component/dOrganzationTree',
+    text: 'dOrganizationTree',
+    link: '/component/dOrganizationTree',
+    activeMatch: '/component/dOrganizationTree',
   },
   {
     text: 'dInputCron',

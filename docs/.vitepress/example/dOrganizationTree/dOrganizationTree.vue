@@ -3,7 +3,7 @@
  * @Auth: 873768511@qq.com
  * @LastEditors: 873768511@qq.com
  * @LastEditTime: 2023-11-14 10:37:16
- * @FilePath: \dc-component\docs\.vitepress\example\dOrganzationTree\dOrganzationTree.vue
+ * @FilePath: \dc-component\docs\.vitepress\example\dOrganizationTree\dOrganizationTree.vue
 -->
 <template>
   <DOrganizationTree
