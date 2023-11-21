@@ -1,5 +1,6 @@
 import { component } from './utils/component';
-import path from 'path'
+import path from 'path';
+import { mdPlugin } from './config/plugins';
 
 export default {
   base: '/dc-component',
@@ -32,17 +33,20 @@ export default {
       alias: {
         '@components': path.resolve(__dirname, '../../packages/components/src'),
         '@hooks': path.resolve(__dirname, '../../packages/components/hooks'),
-        '@constants': path.resolve(__dirname, '../../packages/components/constants'),
+        '@constants': path.resolve(
+          __dirname,
+          '../../packages/components/constants',
+        ),
         '@style': path.resolve(__dirname, '../../packages/components/style'),
-      }
+      },
     },
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@use "@style/base" as *;'
-        }
-      }
-    }
+          additionalData: '@use "@style/base" as *;',
+        },
+      },
+    },
   },
   themeConfig: {
     siteTitle: 'dcqcComponent',
@@ -91,5 +95,6 @@ export default {
   },
   markdown: {
     lineNumbers: true,
+    config: (md) => mdPlugin(md),
   },
 };

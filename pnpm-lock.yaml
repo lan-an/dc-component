@@ -57,6 +57,9 @@ importers:
       mitt:
         specifier: ^3.0.1
         version: registry.npmjs.org/mitt@3.0.1
+      markdown-it-container:
+        specifier: ^3.0.0
+        version: 3.0.0
       postcss:
         specifier: ^8.4.31
         version: 8.4.31
@@ -2492,6 +2495,10 @@ packages:
 
   /mark.js@8.11.1:
     resolution: {integrity: sha512-1I+1qpDt4idfgLQG+BNWmrqku+7/2bi5nLf4YwF8y8zXvmfiTBY3PV3ZibfrjBueCByROpuBjLLFCajqkgYoLQ==}
+    dev: true
+
+  /markdown-it-container@3.0.0:
+    resolution: {integrity: sha512-y6oKTq4BB9OQuY/KLfk/O3ysFhB3IMYoIWhGJEidXt1NQFocFK2sA2t0NYZAMyMShAGL6x5OPIbrmXPIqaN9rw==}
     dev: true
 
   /memoize-one@6.0.0:
