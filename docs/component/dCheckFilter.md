@@ -2,7 +2,7 @@
  * @Date: 2023-10-18 13:01:07
  * @Auth: 463997479@qq.com
  * @LastEditors: liu-hongrui
- * @LastEditTime: 2023-11-21 11:40:31
+ * @LastEditTime: 2023-11-21 11:47:50
  * @FilePath: \dc-component\docs\component\dCheckFilter.md
 -->
 
@@ -69,6 +69,11 @@ const sendCheck = (currentList:any,checkTags:any[]) => {
 | title | 数据标题 | string |  | "" |
 | labelWidht | label宽度 | number |  | 80 |
 | border | 是否带边框 | boolean |  | false |
+| tagsList | tags数据 | Array |  | [] |
+| tageTitle | tags标题 | string |  | "标签" |
+
+
+
 
 
 ## 事件
