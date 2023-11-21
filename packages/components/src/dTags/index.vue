@@ -1,6 +1,13 @@
+<!--
+ * @Date: 2023-11-15 15:45:38
+ * @Author: liu-hongrui
+ * @LastEditors: liu-hongrui
+ * @LastEditTime: 2023-11-21 11:39:11
+ * @FilePath: \dc-component\packages\components\src\dTags\index.vue
+-->
 <template>
   <div class="d-tag-container">
-    <label class="d-tag-label">{{ tageTitle }}</label>
+    <label class="d-tag-label">{{ tageTitle }} :</label>
     <template v-for="tag in tagsList">
       <el-tag
         class="d-tag-body"
@@ -34,16 +41,17 @@ const props = withDefaults(
   height: 36px;
   align-items: center;
   .d-tag-label {
+    min-width: 80px;
     display: block;
     font-size: 14px;
-    color: #409eff;
-    margin: 2px 20px 2px 2px;
+    font-weight: 700;
+    color: #333;
     &:hover {
       color: #a0cfff;
     }
   }
 }
 .d-tag-body{
-  margin: 0 8px;
+  margin-right: 8px;
 }
 </style>

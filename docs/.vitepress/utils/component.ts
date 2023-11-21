@@ -2,8 +2,8 @@
 <<<<<<< HEAD
  * @Date: 2023-11-07 18:21:34
  * @Auth: 873768511@qq.com
- * @LastEditors: 873768511@qq.com
- * @LastEditTime: 2023-11-10 09:30:49
+ * @LastEditors: liu-hongrui
+ * @LastEditTime: 2023-11-21 11:25:57
 =======
  * @Date: 2023-11-06 10:44:37
  * @Author: liu-hongrui
@@ -72,5 +72,10 @@ export const component = [
     text: 'dStepsForm',
     link: '/component/dStepsForm',
     activeMatch: '/component/dStepsForm',
+  },
+  {
+    text: 'dCheckFilter',
+    link: '/component/dCheckFilter',
+    activeMatch: '/component/dCheckFilter',
   }
 ];
