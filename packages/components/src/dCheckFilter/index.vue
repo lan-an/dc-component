@@ -128,23 +128,6 @@ const checkAll = () => {
   }
 };
 
-const sessionData = (obj: CheckObj) => {
-  const tagsList: any[] = JSON.parse(sessionStorage.getItem('tagsList'));
-  const result = tagsList.find((item) => item.title == obj.title);
-  if (!result) {
-    tagsList.push(obj);
-  } else {
-    const index = tagsList.findIndex((item) => item.title == obj.title);
-    if (obj.labels.length == 0 || obj.values.length == 0) {
-      tagsList.splice(index, 1);
-    } else {
-      tagsList.splice(index, 1, obj);
-    }
-  }
-  sessionStorage.setItem('tagsList', JSON.stringify(tagsList));
-  return tagsList;
-};
-
 const changeUpdata = (title) => {
   if(title === props.title){
     let labels = [];
@@ -163,6 +146,25 @@ const changeUpdata = (title) => {
     );
   }
 }
+
+const sessionData = (obj: CheckObj) => {
+  const tagsList: any[] = JSON.parse(sessionStorage.getItem('tagsList'));
+  const result = tagsList.find((item) => item.title == obj.title);
+  if (!result) {
+    tagsList.push(obj);
+  } else {
+    const index = tagsList.findIndex((item) => item.title == obj.title);
+    if (obj.labels.length == 0 || obj.values.length == 0) {
+      tagsList.splice(index, 1);
+    } else {
+      tagsList.splice(index, 1, obj);
+    }
+  }
+  sessionStorage.setItem('tagsList', JSON.stringify(tagsList));
+  return tagsList;
+};
+
+
 onMounted(() => {
   $bus.on('closeTags',(tag) => {
     const {title} = tag
