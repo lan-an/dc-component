@@ -77,5 +77,10 @@ export const component = [
     text: 'dCheckFilter',
     link: '/component/dCheckFilter',
     activeMatch: '/component/dCheckFilter',
+  },
+  {
+    text: 'Playground',
+    link: '/component/Playground',
+    activeMatch: '/component/Playground',
   }
 ];
