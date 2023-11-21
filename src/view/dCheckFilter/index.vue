@@ -9,7 +9,7 @@
   <div v-for="item in list">
     <d-check-filter :checkList="item.children" :title="item.title" @sendCheck="sendCheck" />
   </div>
-  <DTags :tagsList="tagsList" tageTitle="选中" closable/>
+  <DTags :tagsList="tagsList" tageTitle="选中" />
 </template>
 
 <script setup lang="ts">

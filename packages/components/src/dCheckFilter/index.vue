@@ -2,7 +2,7 @@
  * @Date: 2023-11-15 14:35:14
  * @Author: liu-hongrui
  * @LastEditors: liu-hongrui
- * @LastEditTime: 2023-11-15 17:14:22
+ * @LastEditTime: 2023-11-21 15:46:39
  * @FilePath: \dc-component\packages\components\src\dCheckFilter\index.vue
 -->
 <template>
@@ -37,7 +37,8 @@
 </template>
 
 <script setup lang="ts" name="DCheckFilter">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import $bus from '../../../utils/eventBus'
 import { ElButton, ElCheckboxGroup, ElCheckbox } from 'element-plus';
 sessionStorage.setItem('tagsList', JSON.stringify([]));
 defineOptions({
@@ -47,7 +48,7 @@ type Check = {
   label: string;
   value: string | number;
 };
-type CheckObj = {
+export type CheckObj = {
   labels: any[];
   values: any[];
   title: string;
@@ -143,6 +144,31 @@ const sessionData = (obj: CheckObj) => {
   sessionStorage.setItem('tagsList', JSON.stringify(tagsList));
   return tagsList;
 };
+
+const changeUpdata = (title) => {
+  if(title === props.title){
+    let labels = [];
+    let values = [];
+    checkListData.value = [];
+    const tagsList = sessionData({
+      labels: [],
+      values: [],
+      title: props.title,
+      content: labels.join('/'),
+    });
+    emits(
+      'sendCheck',
+      { labels: [], values: [], title: props.title, content: labels.join('/') },
+      tagsList,
+    );
+  }
+}
+onMounted(() => {
+  $bus.on('closeTags',(tag) => {
+    const {title} = tag
+    changeUpdata(title)
+  })
+})
 </script>
 
 <style scoped lang="scss">

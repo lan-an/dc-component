@@ -2,7 +2,7 @@
  * @Date: 2023-11-15 15:45:38
  * @Author: liu-hongrui
  * @LastEditors: liu-hongrui
- * @LastEditTime: 2023-11-21 11:39:11
+ * @LastEditTime: 2023-11-21 15:58:18
  * @FilePath: \dc-component\packages\components\src\dTags\index.vue
 -->
 <template>
@@ -12,12 +12,17 @@
       <el-tag
         class="d-tag-body"
         v-if="tag.content"
+        :closable="closable"
+        @close="handleClose(tag)"
         >{{ tag.title + ' : ' + tag.content }}</el-tag>
     </template>
   </div>
 </template>
 
 <script setup lang="ts" name="DTags">
+import { ref } from 'vue'
+import $bus from '../../../utils/eventBus'
+import type {CheckObj} from '../dCheckFilter/index.vue'
 import { ElTag } from 'element-plus';
 defineOptions({
   name: 'DTags',
@@ -26,12 +31,17 @@ const props = withDefaults(
   defineProps<{
     tagsList: any[];
     tageTitle?: string;
+    closable?: boolean;
   }>(),
   {
     tageTitle: '标签',
+    closable: false,
   },
 );
 
+const handleClose = (tag) => {
+  $bus.emit('closeTags',tag)
+}
 </script>
 
 <style scoped lang="scss">
@@ -44,13 +54,11 @@ const props = withDefaults(
     display: block;
     font-size: 14px;
     font-weight: 700;
-    color: #333;
-    &:hover {
-      color: #a0cfff;
-    }
+    color: #3c3c43;
   }
 }
 .d-tag-body{
   margin-right: 8px;
+  cursor: pointer;
 }
 </style>
