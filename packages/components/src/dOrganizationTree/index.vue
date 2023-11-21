@@ -8,7 +8,7 @@
 <template>
 	<div :style="treeContainer" class="treeContainer">
 		<ElInput
-			v-if="isFiltratable||isAsyncSearch"
+			v-if="isFilterable||isAsyncSearch"
       v-model="filterText"
       clearable
       size="default"
@@ -31,7 +31,7 @@
 			:nodeKey="props.nodeKey"
 			:filter-node-method="filterNode"
 			:empty-text="emptyText"
-			:style="[{height:isFiltratable||isAsyncSearch?'calc(100% - 60px)':'100%'},{overflowY:'auto'}]"
+			:style="[{height:isFilterable||isAsyncSearch?'calc(100% - 60px)':'100%'},{overflowY:'auto'}]"
 		>
 			<template #default="{ data, node }">
 				<!-- <slot name="nodeIcon"></slot> -->
@@ -59,7 +59,7 @@
 		</ElTree>
 	</div>
 </template>
- 
+
 <script setup lang="ts">
 import type {Tree} from './OrganizationTree'
 import {ElTree, ElButton, ElTooltip, ElInput} from 'element-plus'
@@ -80,7 +80,7 @@ const treeRef = ref(); // 树实例
 // 	isLeaf:'isLeaf'
 // };
 /**
- * 
+ *
  * @param value 树节点展示信息
  * @param limit 限制展示条件
  */
@@ -90,7 +90,7 @@ const ellipsis = (value: string, limit: number|boolean) => {
 	}
 	return value
 };
- 
+
 // 子组件事件发送
 const emits = defineEmits<{
 	handSearch:[string,
@@ -108,7 +108,7 @@ const props = defineProps({
 	// 是否父子不想关联
 	checkStrictly:{
 		type:Boolean,
-		defalut: () => true
+		default: () => true
 	},
 	// 点击是否展开子节点
 	expandOnClickNode:{
@@ -123,7 +123,7 @@ const props = defineProps({
 	// 是否显示复选框
 	isShowCheckbox:{
 		type:Boolean,
-		defalut: () => false
+		default: () => false
 	},
 	// 是否异步加载子节点
 	isLazy:{
@@ -131,7 +131,7 @@ const props = defineProps({
 		default:true
 	},
 	// 是否可筛选
-	isFiltratable:{
+	isFilterable:{
 		type:Boolean,
 		default:true
 	},
@@ -172,7 +172,7 @@ const node = computed(() => {
 
 
 /**
- * 
+ *
  * @param value 筛选值
  * @param data 节点信息
  * @param node 节点信息
@@ -200,7 +200,7 @@ const searchClick = () =>{
 }
 
 // /**
-//  * 
+//  *
 //  * @param node 当前选择树节点
 //  * @param resolve 懒加载子节点回调
 //  */

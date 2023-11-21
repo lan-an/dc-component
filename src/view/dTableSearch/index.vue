@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 17:35:40
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-14 17:17:58
+ * @LastEditTime: 2023-11-16 18:18:38
  * @FilePath: \dc-component\src\view\dTableSearch\index.vue
 -->
 
@@ -26,17 +26,20 @@
     empty-text="暂无数据"
     border
     :cardProp="{ shadow: 'always' }"
-    more
+    :searchProp="{
+      searchCol: { xs: 1, sm: 2, md: 2, lg: 3, xl: 5 },
+    }"
   >
     <template #dTableRight>
       <el-button type="primary" class="button">Operation button</el-button>
       <el-button class="button">...</el-button>
     </template>
-   
-    
-    
+
     <template #name="data">
       <div>{{ data.data.name }}</div>
+    </template>
+    <template #namee>
+      <el-input size="small" placeholder="Type to search" />
     </template>
     <template #empty>
       <el-empty :image-size="100" />
@@ -52,7 +55,14 @@
 
 <script lang="ts" setup>
 import { DTableSearch } from 'dc-pro-component';
-import { ElButton, ElInput, ElSpace, ElFormItem, ElEmpty,ElSelect } from 'element-plus';
+import {
+  ElButton,
+  ElInput,
+  ElSpace,
+  ElFormItem,
+  ElEmpty,
+  ElSelect,
+} from 'element-plus';
 import { onUnmounted, ref } from 'vue';
 import { useLockDom } from 'dc-hooks';
 import { h } from 'vue';
@@ -60,7 +70,7 @@ const filterHandler = (value, row, column) => {
   const property = column['property'];
   return row[property] === value;
 };
-const options= [
+const options = [
   {
     value: 'guide',
     label: 'Guide',
@@ -327,51 +337,83 @@ const options= [
       },
     ],
   },
-]
-const columns = [
+];
+
+const cacheData = ref([]);
+cacheData.value = [{ value: 5, label: 'lazy load node5' }];
+
+let id = 0;
+
+const load = (node, resolve) => {
+  if (node.isLeaf) return resolve([]);
+
+  setTimeout(() => {
+    resolve([
+      {
+        value: ++id,
+        label: `lazy load node${id}`,
+      },
+      {
+        value: ++id,
+        label: `lazy load node${id}`,
+        isLeaf: true,
+      },
+    ]);
+  }, 400);
+};
+
+const request = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([{ value: 5, label: 'lazy load node5' }]);
+    }, 10000);
+  });
+};
+
+const columns = ref([
+  {
+    type: 'selection',
+  },
   {
     prop: 'name',
     label: 'name',
     slotName: 'name',
-    search:false,
-  
+    search: false,
+
+    headerSlot: 'namee',
   },
   {
-
     label: 'name',
+    prop: 'name',
     slotName: 'name',
     valueType: 'ElInput',
-    search:true,
-    defaultValue:'',
+    search: true,
+    defaultValue: '',
     hideInTable: true,
-    key:'_name',
     fieldProps: {
-     
       placeholder: '请输入用户名',
-
     },
   },
+
   {
-    label:'casca',
-    prop:'casca',
+    label: 'casca',
+    prop: 'casca',
     hideInTable: true,
     valueType: 'ElCascader',
-    search:{
-      transform:(val)=>{
-          console.log(val)
-          return {
-            a:val[0],
-            b:val[1],
-            c:val[2]
-          }
-        }
+    search: {
+      transform: (val) => {
+        return {
+          a: val[0],
+          b: val[1],
+          c: val[2],
+        };
+      },
     },
     fieldProps: {
-        placeholder: '请选择',
-        options:options,
-        label: 'label',
-       
-    }
+      placeholder: '请选择',
+      options: options,
+      label: 'label',
+    },
   },
   {
     prop: 'date',
@@ -386,31 +428,108 @@ const columns = [
 
     filterMethod: filterHandler,
     valueType: 'ElDatePicker',
-    search:true,
+    search: false,
     fieldProps: {
       placeholder: '请选择',
-      // labelWidth: '100.0px',
-      format:"YYYY-MM-DD",
-      valueFormat:"YYYY-MM-DD",
-      type:"date",
-    }
+      format: 'YYYY-MM-DD',
+      valueFormat: 'YYYY-MM-DD',
+      type: 'date',
+    },
+  },
+
+  {
+    prop: 'date1',
+    label: 'date1',
+    filters: [
+      { text: '2016-05-01', value: '2016-05-01' },
+      { text: '2016-05-02', value: '2016-05-02' },
+      { text: '2016-05-03', value: '2016-05-03' },
+      { text: '2016-05-04', value: '2016-05-04' },
+    ],
+    sortable: true,
+
+    filterMethod: filterHandler,
+    valueType: 'ElDatePicker',
+    search: {
+      transform: (val) => {
+        return {
+          starTime: val[0],
+          emdTime: val[1],
+        };
+      },
+    },
+    fieldProps: {
+      placeholder: '请选择',
+      format: 'YYYY-MM-DD HH:mm:ss',
+      dateFormat: 'YYYY/MM/DD ddd',
+      timeFormat: 'A hh:mm:ss',
+      valueFormat: 'YYYY-MM-DD HH:mm:ss',
+      type: 'datetimerange',
+      startPlaceholder: 'Start date',
+      endPlaceholder: 'End date',
+    },
   },
   {
     prop: 'address',
     label: 'address',
     valueType: 'ElSelect',
-    search:true,
+    defaultValue: [],
+    search: true,
     fieldProps: {
       placeholder: '请选择',
-        option:[
+      option: [
         {
-          label:'a',
-          value:'a'
-        }
-        ]
+          label: 'a',
+          value: 'a',
+        },
+      ],
+    },
+  },
+  {
+    slotName: 'nameee',
+    valueType: 'ElRadio',
+    search: true,
+    key: 'a',
+    defaultValue: '',
+    hideInTable: true,
+    fieldProps: {
+      placeholder: '请输入用户名',
+      option: [
+        {
+          label: 'name1',
+          value: 'name1',
+        },
+        {
+          label: 'name2',
+          value: 'name2',
+          disabled: true,
+        },
+        {
+          label: 'name5',
+          value: 'name5',
+        },
+      ],
+    },
+  },
 
-    }
-    
+  {
+    label: 'tree',
+    valueType: 'ElTreeSelect',
+    search: true,
+    defaultValue: [],
+    key: 'tree',
+    hideInTable: true,
+    fieldProps: {
+      placeholder: '请输入用户名',
+      load: load,
+      props: {
+        label: 'label',
+        children: 'children',
+        isLeaf: 'isLeaf',
+      },
+      // lazy: true,
+      data: cacheData.value,
+    },
   },
   {
     prop: '操作',
@@ -418,7 +537,8 @@ const columns = [
     slotName: 'action',
     width: 300,
   },
-];
+]);
+
 const tableData = [
   {
     date: '2016-05-03',
@@ -446,11 +566,12 @@ let timer = null;
 const handleRequest = (params, done) => {
   //请求返回数据
   console.log(params);
+
+  // columns.value[2].defaultValue = 'name';
   timer = setTimeout(() => {
     done({ data: tableData, total: 1000 });
   }, 2000);
 };
-
 const flag = ref<boolean>(false);
 const handleClickDom = () => {
   flag.value = !flag.value;

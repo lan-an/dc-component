@@ -1,29 +1,24 @@
 <template>
-    <el-pagination 
+  <el-pagination
     @size-change="handleSizeChange"
-    @current-change="handleCurrentChange"  
-    v-bind="{ ...pagination }" 
-    />
+    @current-change="handleCurrentChange"
+    v-bind="{ ...pagination }"
+  />
 </template>
 <script lang="ts" setup>
-import {
-  ElPagination,
-} from 'element-plus';
+import { ElPagination, ElConfigProvider } from 'element-plus';
 defineOptions({
-  name:'DPage'
-})
+  name: 'DPage',
+});
 defineProps<{
-  pagination:any,
-  pageArr?:number[]
-}>()
-const emit =defineEmits(['handleCurrentChange','handleSizeChange'])
+  pagination: any;
+  pageArr?: number[];
+}>();
+const emit = defineEmits(['handleCurrentChange', 'handleSizeChange']);
 const handleSizeChange = (val: number) => {
-  
-emit('handleSizeChange',val)
-}
+  emit('handleSizeChange', val);
+};
 const handleCurrentChange = (val: number) => {
-  emit('handleCurrentChange',val)
-}
-
-
+  emit('handleCurrentChange', val);
+};
 </script>

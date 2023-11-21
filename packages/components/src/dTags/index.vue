@@ -18,7 +18,6 @@
 </template>
 
 <script setup lang="ts" name="DTags">
-import { defineProps } from 'vue';
 import { ElTag } from 'element-plus';
 defineOptions({
   name: 'DTags',

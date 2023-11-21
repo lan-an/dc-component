@@ -107,9 +107,7 @@ function singleSignOnGenerateConfig() {
     return {
       url: props.api,
       method: props.requestMethod,
-      [props.requestPayload]: {
-        requestPayloadObject,
-      },
+      [props.requestPayload]: requestPayloadObject,
     };
   }
 }
@@ -125,20 +123,35 @@ async function singleSignOnProcess(request: Promise<any>) {
   if (!props.manualHandle) {
     return request
       .then((res) => {
-        if (res?.data?.[props.responseToken]) {
-          status.value = 'success';
-          emit('response-data-token', res.data[props.responseToken]);
-          return res.data[props.responseToken];
-        } else if (res?.[props.responseToken]) {
-          status.value = 'success';
-          emit('response-data-token', res[props.responseToken] as string);
-          return res[props.responseToken];
+        if (typeof props.responseToken === 'string') {
+          if (res?.data?.[props.responseToken]) {
+            status.value = 'success';
+            emit('response-data-token', res.data[props.responseToken]);
+            return res.data[props.responseToken];
+          } else if (res?.[props.responseToken]) {
+            status.value = 'success';
+            emit('response-data-token', res[props.responseToken] as string);
+            return res[props.responseToken];
+          } else {
+            return Promise.reject('Response token not found');
+          }
         } else {
-          return Promise.reject('Response token not found');
+          const responseObject: Record<string, string> = {};
+          props.responseToken.forEach((each) => {
+            if (res?.data?.[each]) {
+              responseObject[each] = res?.data?.[each];
+            } else if (res?.[each]) {
+              responseObject[each] = res?.[each];
+            } else {
+              responseObject[each] = null;
+            }
+          });
+          status.value = 'success';
+          emit('response-data-token', responseObject);
+          return responseObject;
         }
       })
       .catch((error) => {
-        emit('response-data-token', undefined);
         if (error instanceof Error) {
           throw error;
         } else {
