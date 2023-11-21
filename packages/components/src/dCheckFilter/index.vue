@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts" name="DCheckFilter">
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import $bus from '../../../utils/eventBus'
 import { ElButton, ElCheckboxGroup, ElCheckbox } from 'element-plus';
 sessionStorage.setItem('tagsList', JSON.stringify([]));
@@ -168,6 +168,9 @@ onMounted(() => {
     const {title} = tag
     changeUpdata(title)
   })
+})
+onUnmounted(() => {
+  $bus.off('closeTags')
 })
 </script>
 
