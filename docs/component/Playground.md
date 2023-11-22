@@ -1,5 +1,7 @@
 # vitepress测试
 
-:::test abc
-abcd
+:::demo Title: dSingleSignOnDemoBasic
+
+example/dSingleSignOn/dSingleSignOnDemoBasic.vue
+
 :::
