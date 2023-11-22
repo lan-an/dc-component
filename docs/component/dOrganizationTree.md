@@ -3,18 +3,18 @@
  * @Auth: 873768511@qq.com
  * @LastEditors: 873768511@qq.com
  * @LastEditTime: 2023-11-14 10:21:10
- * @FilePath: \dc-component\docs\component\dOrganzationTree.md
+ * @FilePath: \dc-component\docs\component\dOrganizationTree.md
 -->
 
-# dOrganzationTree 组织树
+# dOrganizationTree 组织树
 
 组件便捷式开发
 
 ## 基础用法
 
-通过 isFiltratable 属性可用来过滤树节点
+通过 isFilterable 属性可用来过滤树节点
 
-  <dOrganzationTree></dOrganzationTree>
+  <dOrganizationTree></dOrganizationTree>
 
 
 ::: details Show Code
@@ -76,7 +76,7 @@ const treeData= ref<Tree[]>([{
 
 
 
-<dOrganzationTreeAsync/>
+<dOrganizationTreeAsync/>
 
 ::: details Show Code
 
@@ -157,7 +157,7 @@ const getLoadTree = (
 | ---- | ---- | ------ | ------------------- |
 | treeData | 展示数据 | string | {} |
 | treeContainer | 容器样式 | object | {} |
-| isFiltratable | 是否可筛选 | boolean | true |
+| isFilterable | 是否可筛选 | boolean | true |
 | isAsyncSearch | 是否需要异步搜索 | boolean | true |
 | isLazy | 是否懒加载 | Boolean | true |
 | checkStrictly | 是否父子不关联 | Boolean | true |
