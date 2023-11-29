@@ -82,5 +82,10 @@ export const component = [
     text: 'Playground',
     link: '/component/Playground',
     activeMatch: '/component/Playground',
+  },
+  {
+    text: 'dDrawerForm',
+    link: '/component/dDrawerForm',
+    activeMatch: '/component/dDrawerForm',
   }
 ];

@@ -19,6 +19,7 @@ import OrganizationTree from '../view/dOrganizationTree/index.vue';
 import DInputCron from '../view/dInputCron/index.vue';
 import DStepsForm from '../view/dStepsForm/index.vue';
 import DCheckFilter from '../view/dCheckFilter/index.vue';
+import DDrawerForm from '../view/dDrawerForm/index.vue';
 
 export const routes: any = [
   {
@@ -88,6 +89,12 @@ export const routes: any = [
         name: 'DCheckFilter',
         meta: { title: '首页' },
         component: DCheckFilter
+      },
+      {
+        path: 'dDrawerForm',
+        name: 'dDrawerForm',
+        meta: { title: '抽屉表单' },
+        component: DDrawerForm
       },
     ],
   },
