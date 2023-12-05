@@ -64,7 +64,7 @@ import {
     ElRadioGroup,
     ElRadio
 } from 'element-plus';
-import { ref } from 'vue';
+import { nextTick, ref } from 'vue';
 const title = ref("")
 const direction = ref('rtl')
 const show = ref<boolean>(false);
@@ -91,7 +91,9 @@ const handleNewform = () => {
 const handleEchoform = () => {
     title.value = '表单回显'
     show.value = true;
-    form.value = { name: 'name', region: 'shanghai', count: '1' };
+    nextTick(() => {
+        form.value = { name: 'name', region: 'shanghai', count: '1' };
+    })
 };
 const handleConfirm = (data, callBack) => {
     callBack();

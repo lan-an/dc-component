@@ -98,11 +98,18 @@ const resetFields = () => {
   ruleFormRef.value.resetFields();
 };
 /**
+ * 清除校验
+ */
+ const clearValidate = () => {
+  ruleFormRef.value.clearValidate();
+}
+/**
  *
  * @param formEl 抽屉关闭回调
  */
 const handleClose = (formEl: FormInstance | undefined) => {
   emits('update:modelValue', false);
+  formEl.clearValidate()
 };
 /**
  * 表单验证
@@ -120,5 +127,6 @@ const validate = async () => {
 defineExpose({
   resetFields,
   validate,
+  clearValidate,
 });
 </script>
