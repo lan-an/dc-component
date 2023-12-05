@@ -1,15 +1,13 @@
 import type { FormInstance } from 'element-plus';
 
 export type FormProp = {
+  title?:string;
   form: any;
   cancelText?: string;
   confirmText?: string;
   modelValue: boolean;
   formProp?: object;
   rules?: object;
-  title?: string;
-  size?:string | number;
-  direction?:string;
   ruleFormRef?: any;
   showFooter?: boolean;
 };

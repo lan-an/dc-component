@@ -1,10 +1,10 @@
 <template>
-  <el-drawer v-model:modelValue="modelValue" v-bind="{ ...$attrs }" :title="title" :direction="direction" :size="size"
+  <el-drawer v-bind="{ ...formProp }" :title="title" v-model:modelValue="modelValue"
     @close="handleClose(ruleFormRef)" class="demo-drawer">
     <template #header>
       <slot name="header"> </slot>
     </template>
-    <el-form v-bind="{ ...$attrs }" ref="ruleFormRef" :model="formData" :rules="rules">
+    <el-form v-bind="{ ...formProp }" ref="ruleFormRef" :model="formData" :rules="rules">
       <template #default>
         <slot :form="formData" name="formData"></slot>
       </template>
@@ -37,19 +37,18 @@ const ruleFormRef = ref<FormInstance>(null);
 const props = withDefaults(
   defineProps<FormProp>(),
   {
+    title:'',
+    formProp:null,
     cancelText: '取消',
     confirmText: '确认',
     modelValue: false,
     rules: null,
-    title: '新建表单',
-    size: '30%',
-    direction: 'rtl',
     showFooter: true,
     form: {},
   },
 );
 
-const { modelValue, form,rules } = toRefs(props);
+const { modelValue, form, rules } = toRefs(props);
 watch(
   () => form,
   (newValue: any) => {

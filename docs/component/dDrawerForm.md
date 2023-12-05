@@ -15,9 +15,10 @@
 <template>
     <div>
         <d-drawer-form :formProp="{
+            direction: direction,
             labelWidth: '120.0px',
-            model: 'formLabelAlign',
-        }" :direction='direction' ref="ruleFormRef" :form="form" :rules="rules" v-model:modelValue="show"
+            labelPosition: 'right',
+        }" :title="title" ref="ruleFormRef" :form="form" :rules="rules" v-model:modelValue="show"
             @complete="handleConfirm" @handleCancel="handleCancel">
             <template #formData="{ form }">
                 <el-form-item prop="name" label="名称">
@@ -64,6 +65,7 @@ import {
     ElRadio
 } from 'element-plus';
 import { ref } from 'vue';
+const title = ref("")
 const direction = ref('rtl')
 const show = ref<boolean>(false);
 let form = ref<any>({});
@@ -82,10 +84,12 @@ const rules = ref({
     ],
 });
 const handleNewform = () => {
+    title.value = '新建表单'
     show.value = true;
     form.value = {};
 };
 const handleEchoform = () => {
+    title.value = '表单回显'
     show.value = true;
     form.value = { name: 'name', region: 'shanghai', count: '1' };
 };
@@ -110,8 +114,7 @@ const handleCancel = (Ele) => {
 | ------------ | ---------------------------------------- | ------ | ----------------------- | ---------- |
 | title        | 标题                                    | string        |                        | -          |
 | modelValue   | 显示状态                                 | boolean       | true false             | false      |
-| direction    | Drawer 打开的方向                        | enum          | 'ltr' rtl' 'ttb' 'btt'  | ltr        |
-| size         | Drawer 窗体的大小                        | number string |                         | 30%        |
+| formProp     | Drawer和From 一些属性                    | object        |                         | -          |
 | showFooter   | 是否展示底部                             | boolean        |  true false            | true       |
 | form         | 表单数据对象                             | object         |                         | -          |
 | rules        | 表单验证规则                             | object         |                         | -          |
