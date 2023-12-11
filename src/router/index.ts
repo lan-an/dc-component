@@ -20,6 +20,7 @@ import DInputCron from '../view/dInputCron/index.vue';
 import DStepsForm from '../view/dStepsForm/index.vue';
 import DCheckFilter from '../view/dCheckFilter/index.vue';
 import DDrawerForm from '../view/dDrawerForm/index.vue';
+import DIntervalButton from '../view/dIntervalButton/index.vue';
 
 export const routes: any = [
   {
@@ -95,6 +96,12 @@ export const routes: any = [
         name: 'dDrawerForm',
         meta: { title: '抽屉表单' },
         component: DDrawerForm
+      },
+      {
+        path: 'dIntervalButton',
+        name: 'dIntervalButton',
+        meta: { title: '倒计时按钮' },
+        component: DIntervalButton
       },
     ],
   },

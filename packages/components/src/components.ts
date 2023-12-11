@@ -23,3 +23,4 @@ export { DStepsForm, DStepForm } from './dStepsForm';
 export { default as DCheckFilter } from './dCheckFilter';
 export { default as DTags } from './dTags';
 export { default as DDrawerForm } from './dDrawerForm';
+export { default as DIntervalButton } from './DIntervalButton';

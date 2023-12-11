@@ -87,5 +87,10 @@ export const component = [
     text: 'dDrawerForm',
     link: '/component/dDrawerForm',
     activeMatch: '/component/dDrawerForm',
+  },
+  {
+    text: 'dIntervalButton',
+    link: '/component/dIntervalButton',
+    activeMatch: '/component/dIntervalButton',
   }
 ];
