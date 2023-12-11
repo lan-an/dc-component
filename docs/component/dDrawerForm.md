@@ -4,7 +4,6 @@
 
 ## 基础用法
 抽屉可以从多个方向呼出，你可以通过传入对应的 direction 和 size 属性来修改这一默认行为。
-新建表单定义表单的绑定form={}如果表单需要回显form={key:value}
 
 <d-drawer-form></d-drawer-form>
 
