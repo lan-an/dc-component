@@ -1,8 +1,8 @@
 /*
  * @Date: 2023-10-18 13:01:39
  * @Auth: 463997479@qq.com
- * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-10 17:15:31
+ * @LastEditors: liu-hongrui 1638545312@qq.com
+ * @LastEditTime: 2023-12-15 14:39:42
  * @FilePath: \dc-component\packages\components\src\components.ts
  */
 
@@ -24,3 +24,4 @@ export { default as DCheckFilter } from './dCheckFilter';
 export { default as DTags } from './dTags';
 export { default as DDrawerForm } from './dDrawerForm';
 export { default as DIntervalButton } from './DIntervalButton';
+export {default as DCheckCard} from './dCheckCard';

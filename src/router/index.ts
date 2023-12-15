@@ -21,6 +21,7 @@ import DStepsForm from '../view/dStepsForm/index.vue';
 import DCheckFilter from '../view/dCheckFilter/index.vue';
 import DDrawerForm from '../view/dDrawerForm/index.vue';
 import DIntervalButton from '../view/dIntervalButton/index.vue';
+import DCheckCard from '../view/dCheckCard/index.vue';
 
 export const routes: any = [
   {
@@ -102,6 +103,12 @@ export const routes: any = [
         name: 'dIntervalButton',
         meta: { title: '倒计时按钮' },
         component: DIntervalButton
+      },
+      {
+        path: 'dCheckCard',
+        name: 'dCheckCard',
+        meta: { title: '多选卡片' },
+        component: DCheckCard
       },
     ],
   },
