@@ -25,7 +25,7 @@ const sendCode = () => {
 import { DIntervalButton } from 'dc-pro-component';
 import { ref } from 'vue'
 const timerbtn = ref(null)
-const second = ref(30)
+const second = ref(5)
 const sendCode = () => {
 }
 </script>
