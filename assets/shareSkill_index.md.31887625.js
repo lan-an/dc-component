@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as a}from"./chunks/framework.eeb9fe5e.js";const _=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"shareSkill/index.md","filePath":"shareSkill/index.md"}'),r={name:"shareSkill/index.md"};function n(s,i,o,c,d,l){return t(),a("div")}const m=e(r,[["render",n]]);export{_ as __pageData,m as default};
