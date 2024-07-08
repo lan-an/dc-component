@@ -199,7 +199,7 @@ const {
   isloading: true,
   initParam: {},
   searchProp: {
-    searchCol: { xs: 1, sm: 2, md: 2, lg: 3, xl: 4 },
+    searchCol: { xs: 1, sm: 2, md: 2, lg: 3, xl: 4 } ,
     suffix: false,
   },
 });
