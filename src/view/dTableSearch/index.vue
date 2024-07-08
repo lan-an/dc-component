@@ -2,7 +2,7 @@
  * @Date: 2023-10-17 17:35:40
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-17 09:22:54
+ * @LastEditTime: 2023-11-22 15:49:22
  * @FilePath: \dc-component\src\view\dTableSearch\index.vue
 -->
 
@@ -411,7 +411,7 @@ const columns = ref([
     },
     fieldProps: {
       placeholder: '请选择',
-      options: options,
+      option: options,
       label: 'label',
     },
   },

@@ -2,12 +2,13 @@
  * @Date: 2023-10-18 13:01:39
  * @Auth: 463997479@qq.com
  * @LastEditors: 463997479@qq.com
- * @LastEditTime: 2023-11-10 17:15:31
+ * @LastEditTime: 2024-07-08 10:55:22
  * @FilePath: \dc-component\packages\components\src\components.ts
  */
 
 export { default as Button } from './button';
 export { default as DTableSearch } from './dTableSearch';
+export { default as DSearchTable } from './dSearchTable';
 export { default as DDialogForm } from './dDialogForm';
 export { default as DRelationGraph } from './dRelationGraph';
 export { default as DCropper } from './dCropper';

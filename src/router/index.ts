@@ -1,8 +1,8 @@
 /*
  * @Date: 2023-10-31 16:46:45
  * @Auth: 463997479@qq.com
- * @LastEditors: liu-hongrui
- * @LastEditTime: 2023-11-15 15:01:30
+ * @LastEditors: 463997479@qq.com
+ * @LastEditTime: 2023-11-20 10:37:07
  * @FilePath: \dc-component\src\router\index.ts
  */
 import { createRouter, createWebHistory } from 'vue-router';
@@ -66,12 +66,12 @@ export const routes: any = [
         component: FileUpload,
       },
       {
-        path:'OrganizationTree',
-        name:'OrganizationTree',
-        meta:{title:'组织树'},
-        component:OrganizationTree
-      }
-      ,{
+        path: 'OrganizationTree',
+        name: 'OrganizationTree',
+        meta: { title: '组织树' },
+        component: OrganizationTree,
+      },
+      {
         path: 'DInputCron',
         name: 'DInputCron',
         meta: { title: 'cron', affix: true },
@@ -81,13 +81,13 @@ export const routes: any = [
         path: 'DStepsForm',
         name: 'DStepsForm',
         meta: { title: '分步表单' },
-        component: DStepsForm
+        component: DStepsForm,
       },
       {
         path: 'DCheckFilter',
         name: 'DCheckFilter',
         meta: { title: '首页' },
-        component: DCheckFilter
+        component: DCheckFilter,
       },
     ],
   },
