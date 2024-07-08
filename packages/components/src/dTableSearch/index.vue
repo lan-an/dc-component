@@ -354,6 +354,7 @@ const paramColum = computed(() => {
  * 点击节点切换colum显示
  */
 const handleCheckChange = (node: ColumProps): void => {
+
   tree.columArr = tree.columArr.map((item) =>
     item.prop === node.prop ? { ...item, checked: !item.checked } : item,
   );
