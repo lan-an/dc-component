@@ -10,6 +10,7 @@ import dDialogForm from './dDialogForm';
 import dSingleSignOn from './dSingleSignOn';
 import dOrganizationTree from './dOrganizationTree';
 import dStepsForm from './dStepsForm';
+import dDrawerForm from './dDrawerForm';
 
 export default [
   dTable,
@@ -17,4 +18,5 @@ export default [
   dSingleSignOn,
   dOrganizationTree,
   dStepsForm,
+  dDrawerForm,
 ];

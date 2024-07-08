@@ -2,8 +2,8 @@
 <<<<<<< HEAD
  * @Date: 2023-11-07 18:21:34
  * @Auth: 873768511@qq.com
- * @LastEditors: liu-hongrui
- * @LastEditTime: 2023-11-21 11:25:57
+ * @LastEditors: liu-hongrui 1638545312@qq.com
+ * @LastEditTime: 2023-12-15 17:08:54
 =======
  * @Date: 2023-11-06 10:44:37
  * @Author: liu-hongrui
@@ -82,5 +82,20 @@ export const component = [
     text: 'Playground',
     link: '/component/Playground',
     activeMatch: '/component/Playground',
+  },
+  {
+    text: 'dDrawerForm',
+    link: '/component/dDrawerForm',
+    activeMatch: '/component/dDrawerForm',
+  },
+  {
+    text: 'dIntervalButton',
+    link: '/component/dIntervalButton',
+    activeMatch: '/component/dIntervalButton',
+  },
+  {
+    text: 'dCheckCard',
+    link: '/component/dCheckCard',
+    activeMatch: '/component/dCheckCard',
   }
 ];
