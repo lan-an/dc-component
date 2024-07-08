@@ -1,0 +1,16 @@
+{
+  "include": ["./env.d.ts", "./src/**/*", "./src/**/*.vue"],
+  "compilerOptions": {
+    "ignoreDeprecations": "5.0",
+    "isolatedModules": true,
+    "baseUrl": "./",
+    "forceConsistentCasingInFileNames": false,
+    "noUnusedLocals": false,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@constants/*": ["./constants/*"],
+    }
+  }
+}

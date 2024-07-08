@@ -19,8 +19,8 @@
 
 <script setup lang="ts" name="DSingleSignOn">
 import { onMounted, ref } from 'vue';
-import { LocationQuery, useRoute } from 'vue-router';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { useRoute } from 'vue-router';
+import axios, { AxiosRequestConfig } from 'axios';
 
 import { singleSignOnPropsDefaults } from './dSingleSignOnPropsDefault.js';
 
@@ -34,6 +34,7 @@ const props = withDefaults(
   defineProps<singleSignOnPropsInterface>(),
   singleSignOnPropsDefaults,
 );
+
 const emit = defineEmits<singleSignOnEmitsType>();
 
 const route = useRoute();
@@ -56,76 +57,122 @@ function start() {
   return handleSingleSignOn();
 }
 
-function handleSingleSignOn() {
-  status.value = 'pending';
-
-  const query = route.query;
-  if (query[props.query] || props.requestAxiosConfig) {
-    return handleSingleSignOnProcess(query);
-  } else {
-    status.value = 'failed';
-    message.value = '缺少请求标识符';
-    emit(
-      'response-promise',
-      Promise.reject('[SingleSignOn error]: Query not found'),
-    );
-    return Promise.reject('[SingleSignOn error]: Query not found');
+async function handleSingleSignOn() {
+  try {
+    status.value = 'pending';
+    singleSignOnCheckQuery();
+    const axiosConfig = singleSignOnGenerateConfig();
+    const axiosRequestInstance = singleSignOnGenerateRequest(axiosConfig);
+    const axiosResponse = await singleSignOnProcess(axiosRequestInstance);
+    return axiosResponse;
+  } catch (error) {
+    return handleSingleSignOnError(error);
   }
 }
 
-function handleSingleSignOnProcess(query: LocationQuery) {
-  status.value = 'pending';
-
-  if (!props.requestAxiosConfig && !props.api) {
-    emit(
-      'response-promise',
-      Promise.reject('[SingleSignOn error]: API not found'),
-    );
-    return Promise.reject('[SingleSignOn error]: API not found');
-  }
-  const requestConfig: AxiosRequestConfig = props.requestAxiosConfig ?? {
-    url: props.api,
-    method: props.requestMethod,
-  };
-
+function singleSignOnCheckQuery() {
   if (!props.requestAxiosConfig) {
-    const requestTokenObject: Record<string, string> = {};
-    const requestToken = props.requestToken ?? props.query;
-    requestTokenObject[requestToken] = String(query[props.query]);
-    requestConfig[props.requestPayload] = requestTokenObject;
+    if (!props.api) {
+      throw new Error('API not found');
+    }
+    if (typeof props.query === 'string' && !route.query[props.query]) {
+      throw new Error('Query not found');
+    }
   }
+}
 
+function singleSignOnGenerateConfig() {
+  if (props.requestAxiosConfig) {
+    return props.requestAxiosConfig;
+  } else {
+    const requestQuery =
+      typeof props.query === 'string' ? [props.query] : props.query;
+    const requestTokenTemp = props.requestToken ?? requestQuery;
+    const requestToken =
+      typeof requestTokenTemp === 'string'
+        ? [requestTokenTemp]
+        : requestTokenTemp;
+    if (requestQuery.length !== requestToken.length) {
+      throw new Error('Request query and token length not match');
+    }
+
+    const requestPayloadObject = {};
+    requestQuery.forEach((each, index) => {
+      if (!route.query[each]) {
+        throw new Error(`Query "${each}" not found`);
+      }
+      requestPayloadObject[requestToken[index]] = route.query[each];
+    });
+
+    return {
+      url: props.api,
+      method: props.requestMethod,
+      [props.requestPayload]: requestPayloadObject,
+    };
+  }
+}
+
+function singleSignOnGenerateRequest(requestConfig: AxiosRequestConfig) {
   const request = props.axiosInstance
     ? props.axiosInstance.request(requestConfig)
     : axios.request({ ...{ timeout: 10000 }, ...requestConfig });
+  return request;
+}
 
+async function singleSignOnProcess(request: Promise<any>) {
   if (!props.manualHandle) {
     return request
-      .then(
-        (
-          res:
-            | AxiosResponse<Record<string, string>, Record<string, string>>
-            | Record<string, string>,
-        ) => {
+      .then((res) => {
+        if (typeof props.responseToken === 'string') {
           if (res?.data?.[props.responseToken]) {
+            status.value = 'success';
             emit('response-data-token', res.data[props.responseToken]);
+            return res.data[props.responseToken];
           } else if (res?.[props.responseToken]) {
+            status.value = 'success';
             emit('response-data-token', res[props.responseToken] as string);
+            return res[props.responseToken];
           } else {
-            return Promise.reject('未返回标识符');
+            return Promise.reject('Response token not found');
           }
+        } else {
+          const responseObject: Record<string, string> = {};
+          props.responseToken.forEach((each) => {
+            if (res?.data?.[each]) {
+              responseObject[each] = res?.data?.[each];
+            } else if (res?.[each]) {
+              responseObject[each] = res?.[each];
+            } else {
+              responseObject[each] = null;
+            }
+          });
           status.value = 'success';
-        },
-      )
+          emit('response-data-token', responseObject);
+          return responseObject;
+        }
+      })
       .catch((error) => {
-        status.value = 'failed';
-        message.value = error;
-        emit('response-data-token', undefined);
+        if (error instanceof Error) {
+          throw error;
+        } else {
+          throw new Error(error);
+        }
       });
   } else {
     emit('response-promise', request);
     return request;
   }
+}
+
+function handleSingleSignOnError(error: Error) {
+  if (error.name === 'Error') {
+    error.name = '[SingleSignOn Error]';
+  }
+  status.value = 'failed';
+  message.value = String(error);
+  emit('response-promise', Promise.reject(error));
+  emit('response-data-token', undefined);
+  return Promise.reject(error);
 }
 
 defineExpose({

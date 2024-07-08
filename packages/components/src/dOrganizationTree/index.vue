@@ -2,13 +2,13 @@
  * @Date: 2023-11-06 09:44:16
  * @Auth: 873768511@qq.com
  * @LastEditors: 873768511@qq.com
- * @LastEditTime: 2023-11-13 17:48:01
+ * @LastEditTime: 2023-11-14 10:54:16
  * @FilePath: \dc-component\packages\components\src\dOrganizationTree\index.vue
 -->
 <template>
-	<div :style="treeContainer">
+	<div :style="treeContainer" class="treeContainer">
 		<ElInput
-			v-if="isFiltratable||isAsyncSearch"
+			v-if="isFilterable||isAsyncSearch"
       v-model="filterText"
       clearable
       size="default"
@@ -28,8 +28,10 @@
 			:check-on-click-node="props.checkOnClickNode"
 			:expand-on-click-node="props.expandOnClickNode"
 			:lazy="props.isLazy"
+			:nodeKey="props.nodeKey"
 			:filter-node-method="filterNode"
-			style="height:calc(100% - 60px);"
+			:empty-text="emptyText"
+			:style="[{height:isFilterable||isAsyncSearch?'calc(100% - 60px)':'100%'},{overflowY:'auto'}]"
 		>
 			<template #default="{ data, node }">
 				<!-- <slot name="nodeIcon"></slot> -->
@@ -57,12 +59,12 @@
 		</ElTree>
 	</div>
 </template>
- 
+
 <script setup lang="ts">
 import type {Tree} from './OrganizationTree'
-import {ElTree, ElButton, ElTooltip, ElInput, ElDivider} from 'element-plus'
+import {ElTree, ElButton, ElTooltip, ElInput} from 'element-plus'
 import {Search} from '@element-plus/icons-vue'
-import { CSSProperties, watch, nextTick, ref, computed, reactive, toRef, onMounted, useSlots } from 'vue';
+import { CSSProperties, watch, nextTick, ref, computed, reactive, toRef, onMounted } from 'vue';
 import type Node from 'element-plus/es/components/tree/src/model/node';
 
 defineOptions({
@@ -78,7 +80,7 @@ const treeRef = ref(); // 树实例
 // 	isLeaf:'isLeaf'
 // };
 /**
- * 
+ *
  * @param value 树节点展示信息
  * @param limit 限制展示条件
  */
@@ -88,7 +90,7 @@ const ellipsis = (value: string, limit: number|boolean) => {
 	}
 	return value
 };
- 
+
 // 子组件事件发送
 const emits = defineEmits<{
 	handSearch:[string,
@@ -106,7 +108,7 @@ const props = defineProps({
 	// 是否父子不想关联
 	checkStrictly:{
 		type:Boolean,
-		defalut: () => true
+		default: () => true
 	},
 	// 点击是否展开子节点
 	expandOnClickNode:{
@@ -121,7 +123,7 @@ const props = defineProps({
 	// 是否显示复选框
 	isShowCheckbox:{
 		type:Boolean,
-		defalut: () => false
+		default: () => false
 	},
 	// 是否异步加载子节点
 	isLazy:{
@@ -129,7 +131,7 @@ const props = defineProps({
 		default:true
 	},
 	// 是否可筛选
-	isFiltratable:{
+	isFilterable:{
 		type:Boolean,
 		default:true
 	},
@@ -141,18 +143,27 @@ const props = defineProps({
 	// 树容器的样式
 	treeContainer: {
 		type: Object,
-		default: () =>
-			({
-				width: '300px',
-				height: 'calc(100vh - 200px)',
-				'overflow-y': 'auto',
-			} as CSSProperties),
+		default: () =>{}
+			// ({
+			// 	width: '300px',
+			// 	height: 'calc(100vh - 200px)',
+			// 	overflow: 'auto',
+			// } as CSSProperties),
 	},
 	// 节点文本超出长度时显示的字符个数
 	ellipsisLimit: {
 		type: [Number,Boolean],
 		default: () => true,
 	},
+	//
+	nodeKey:{
+		type:String,
+		default:'id'
+	},
+	emptyText:{
+		type:String,
+		default:'暂无数据'
+	}
 });
 
 const node = computed(() => {
@@ -161,7 +172,7 @@ const node = computed(() => {
 
 
 /**
- * 
+ *
  * @param value 筛选值
  * @param data 节点信息
  * @param node 节点信息
@@ -189,7 +200,7 @@ const searchClick = () =>{
 }
 
 // /**
-//  * 
+//  *
 //  * @param node 当前选择树节点
 //  * @param resolve 懒加载子节点回调
 //  */
@@ -204,6 +215,10 @@ defineExpose({
 });
 </script>
 <style>
+.treeContainer{
+	padding: 20px;
+	box-sizing: border-box;
+}
 .ellipsis-node{
 	width: 100%;
 	display: block;

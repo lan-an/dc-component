@@ -2,8 +2,8 @@
 <<<<<<< HEAD
  * @Date: 2023-11-07 18:21:34
  * @Auth: 873768511@qq.com
- * @LastEditors: 873768511@qq.com
- * @LastEditTime: 2023-11-10 09:30:49
+ * @LastEditors: liu-hongrui 1638545312@qq.com
+ * @LastEditTime: 2023-12-15 17:08:54
 =======
  * @Date: 2023-11-06 10:44:37
  * @Author: liu-hongrui
@@ -54,9 +54,9 @@ export const component = [
     activeMatch: '/component/dSingleSignOn',
   },
   {
-    text: 'dOrganzationTree',
-    link: '/component/dOrganzationTree',
-    activeMatch: '/component/dOrganzationTree',
+    text: 'dOrganizationTree',
+    link: '/component/dOrganizationTree',
+    activeMatch: '/component/dOrganizationTree',
   },
   {
     text: 'dInputCron',
@@ -72,5 +72,30 @@ export const component = [
     text: 'dStepsForm',
     link: '/component/dStepsForm',
     activeMatch: '/component/dStepsForm',
+  },
+  {
+    text: 'dCheckFilter',
+    link: '/component/dCheckFilter',
+    activeMatch: '/component/dCheckFilter',
+  },
+  {
+    text: 'Playground',
+    link: '/component/Playground',
+    activeMatch: '/component/Playground',
+  },
+  {
+    text: 'dDrawerForm',
+    link: '/component/dDrawerForm',
+    activeMatch: '/component/dDrawerForm',
+  },
+  {
+    text: 'dIntervalButton',
+    link: '/component/dIntervalButton',
+    activeMatch: '/component/dIntervalButton',
+  },
+  {
+    text: 'dCheckCard',
+    link: '/component/dCheckCard',
+    activeMatch: '/component/dCheckCard',
   }
 ];

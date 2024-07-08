@@ -1,8 +1,8 @@
 /*
  * @Date: 2023-10-31 16:46:45
  * @Auth: 463997479@qq.com
- * @LastEditors: 873768511@qq.com
- * @LastEditTime: 2023-11-09 09:12:39
+ * @LastEditors: 463997479@qq.com
+ * @LastEditTime: 2023-11-20 10:37:07
  * @FilePath: \dc-component\src\router\index.ts
  */
 import { createRouter, createWebHistory } from 'vue-router';
@@ -18,6 +18,10 @@ import dRelationGraph from '../view/dRelationGraph/index.vue';
 import OrganizationTree from '../view/dOrganizationTree/index.vue';
 import DInputCron from '../view/dInputCron/index.vue';
 import DStepsForm from '../view/dStepsForm/index.vue';
+import DCheckFilter from '../view/dCheckFilter/index.vue';
+import DDrawerForm from '../view/dDrawerForm/index.vue';
+import DIntervalButton from '../view/dIntervalButton/index.vue';
+import DCheckCard from '../view/dCheckCard/index.vue';
 
 export const routes: any = [
   {
@@ -65,12 +69,12 @@ export const routes: any = [
         component: FileUpload,
       },
       {
-        path:'OrganizationTree',
-        name:'OrganizationTree',
-        meta:{title:'组织树'},
-        component:OrganizationTree
-      }
-      ,{
+        path: 'OrganizationTree',
+        name: 'OrganizationTree',
+        meta: { title: '组织树' },
+        component: OrganizationTree,
+      },
+      {
         path: 'DInputCron',
         name: 'DInputCron',
         meta: { title: 'cron', affix: true },
@@ -80,7 +84,31 @@ export const routes: any = [
         path: 'DStepsForm',
         name: 'DStepsForm',
         meta: { title: '分步表单' },
-        component: DStepsForm
+        component: DStepsForm,
+      },
+      {
+        path: 'DCheckFilter',
+        name: 'DCheckFilter',
+        meta: { title: '首页' },
+        component: DCheckFilter,
+      },
+      {
+        path: 'dDrawerForm',
+        name: 'dDrawerForm',
+        meta: { title: '抽屉表单' },
+        component: DDrawerForm
+      },
+      {
+        path: 'dIntervalButton',
+        name: 'dIntervalButton',
+        meta: { title: '倒计时按钮' },
+        component: DIntervalButton
+      },
+      {
+        path: 'dCheckCard',
+        name: 'dCheckCard',
+        meta: { title: '多选卡片' },
+        component: DCheckCard
       },
     ],
   },

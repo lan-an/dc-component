@@ -24,6 +24,7 @@
   <!-- 登录失败 -->
   <d-single-sign-on
     api="https://yesno.wtf/api"
+    query="auth_code"
     request-method="post"
     @response-data-token="handleResponseToken"
   ></d-single-sign-on>
@@ -31,13 +32,15 @@
   <!-- 使用自定义AxiosInstance -->
   <d-single-sign-on
     api="https://localhost"
-    :-instance="service"
+    query="auth_code"
+    :axios-instance="service"
     @response-data-token="handleResponseToken"
   ></d-single-sign-on>
   <hr />
   <!-- 手动开始和手动处理请求 -->
   <d-single-sign-on
     ref="singleSignOnRef"
+    query="auth_code"
     api="https://yesno.wtf/api"
     request-method="get"
     request-payload="params"
@@ -53,6 +56,25 @@
   <d-single-sign-on
     :request-axios-config="customAxiosRequestConfig"
     response-token="answer"
+  ></d-single-sign-on>
+  <hr />
+  <!-- 多个参数 -->
+  <d-single-sign-on
+    api="https://yesno.wtf/api"
+    :query="['auth_code', 'force']"
+    request-method="get"
+    request-payload="params"
+    response-token="answer"
+    @response-data-token="handleResponseToken"
+  ></d-single-sign-on>
+  <d-single-sign-on
+    api="https://yesno.wtf/api"
+    :query="['auth_code', 'force']"
+    :request-token="['abc', 'force']"
+    request-method="get"
+    request-payload="params"
+    response-token="answer"
+    @response-data-token="handleResponseToken"
   ></d-single-sign-on>
   <hr />
 </template>

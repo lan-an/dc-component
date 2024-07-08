@@ -1,8 +1,9 @@
 {
   "name": "dc-pro-component",
-  "version": "1.0.22-beta",
+  "version": "1.2.29-beta",
   "description": "",
-  "main": "src/index.ts",
+  "main": "lib/index.js",
+  "module": "es/index.js",
   "files": [
     "es",
     "lib"

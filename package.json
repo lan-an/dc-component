@@ -26,10 +26,13 @@
     "@rushstack/eslint-patch": "^1.5.1",
     "@vitejs/plugin-vue": "^4.4.0",
     "@vue/eslint-config-typescript": "^12.0.0",
+    "dc-pro-component": "workspace:1.0.32-beta",
     "eslint": "^8.51.0",
     "eslint-plugin-vue": "^9.17.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.0.2",
+    "mitt": "^3.0.1",
+    "markdown-it-container": "^3.0.0",
     "postcss": "^8.4.31",
     "prettier": "^3.0.3",
     "sass": "^1.69.5",
@@ -43,7 +46,6 @@
   "dependencies": {
     "axios": "0.27.2",
     "dc-hooks": "workspace:1.0.0-beat",
-    "dc-pro-component": "workspace:1.0.22-beta",
     "dcqc-utils": "workspace:1.0.1-beat",
     "relation-graph": "^2.1.15",
     "vue-cropper": "^1.1.1"
